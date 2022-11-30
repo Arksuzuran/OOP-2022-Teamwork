@@ -8,4 +8,6 @@ module com.example.teamproject {
 
     opens com.example.teamproject to javafx.fxml;
     exports com.example.teamproject;
+    exports com.example.teamproject.Controller;
+    opens com.example.teamproject.Controller to javafx.fxml;
 }

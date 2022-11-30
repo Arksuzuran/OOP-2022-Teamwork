@@ -1,16 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.teamproject.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+<VBox alignment="TOP_CENTER" prefHeight="580.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.Controller.MainUIController">
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+    </padding>
+   <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="562.0">
+      <ButtonBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="23.0" prefWidth="420.0">
+        <buttons>
+            <Button fx:id="NewCanvasButton" alignment="CENTER" contentDisplay="CENTER" minWidth="25.0" onAction="#OnNewCanvasButtonClick" prefHeight="23.0" prefWidth="75.0" text="文件" />
+            <Button alignment="CENTER" contentDisplay="CENTER" minWidth="25.0" onAction="#onHelloButtonClick" prefWidth="75.0" text="编辑" />
+            <Button alignment="CENTER" contentDisplay="CENTER" minWidth="25.0" onAction="#onHelloButtonClick" prefWidth="75.0" text="撤销" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="100.0" text="抖动修正" />
+            <Slider prefHeight="14.0" prefWidth="83.0" />
+            <Label minWidth="16.0" prefHeight="15.0" text="5" />
+      
+            <Label fx:id="welcomeText" alignment="TOP_LEFT" prefHeight="15.0" prefWidth="335.0" text="这里是顶栏" />
+        </buttons>
+      </ButtonBar>
+      <ButtonBar prefHeight="23.0" prefWidth="273.0">
+        <buttons>
+            <Button alignment="CENTER" onAction="#onHelloButtonClick" prefWidth="125.0" text="返回主页" />
+        </buttons>
+      </ButtonBar>
+   </HBox>
+   <HBox prefHeight="527.0" prefWidth="790.0">
+      <VBox.margin>
+         <Insets left="10.0" right="10.0" />
+      </VBox.margin>
+      <VBox alignment="TOP_CENTER" prefHeight="482.0" prefWidth="54.0">
+         <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" text="铅笔">
+            <VBox.margin>
+               <Insets bottom="15.0" />
+            </VBox.margin>
+         </Button>
+         <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" text="钢笔">
+            <VBox.margin>
+               <Insets bottom="15.0" />
+            </VBox.margin>
+         </Button>
+         <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" text="喷枪">
+            <VBox.margin>
+               <Insets bottom="15.0" />
+            </VBox.margin>
+         </Button>
+         <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" text="选区">
+            <VBox.margin>
+               <Insets bottom="15.0" />
+            </VBox.margin>
+         </Button>
+         <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" text="油漆">
+            <VBox.margin>
+               <Insets bottom="15.0" />
+            </VBox.margin>
+         </Button>
+         <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" text="图形">
+            <VBox.margin>
+               <Insets bottom="15.0" />
+            </VBox.margin>
+         </Button>
+         <Button alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="90.0" prefWidth="47.0" text="图像处理" textOverrun="CLIP">
+            <effect>
+               <ColorAdjust brightness="0.06" contrast="0.08" />
+            </effect>
+         </Button>
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="这里是工具栏，纵向布局" wrappingWidth="21.333343505859375" />
+         <HBox.margin>
+            <Insets right="10.0" />
+         </HBox.margin>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="482.0" prefWidth="123.0">
+         <ColorPicker>
+            <VBox.margin>
+               <Insets bottom="30.0" />
+            </VBox.margin>
+         </ColorPicker>
+         <HBox alignment="TOP_CENTER" prefHeight="23.0" prefWidth="117.0">
+            <children>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="画笔粗细" wrappingWidth="85.33334350585938" />
+               <Label fx:id="welcomeText1" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="335.0" text="5" />
+            </children>
+         </HBox>
+         <Slider prefHeight="14.0" prefWidth="83.0">
+            <VBox.margin>
+               <Insets bottom="30.0" />
+            </VBox.margin>
+         </Slider>
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="这里是调色板、笔刷、工具等进一步选取" wrappingWidth="21.333343505859375" />
+      </VBox>
+      <VBox fx:id="canvasBox" prefHeight="500.0" prefWidth="600.0" />
+   </HBox>
+   <HBox alignment="CENTER" prefHeight="71.0" prefWidth="790.0">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="这里是底部信息栏，会显示程序的提示信息，当前鼠标坐标等" wrappingWidth="444.0" />
+   </HBox>
 </VBox>
