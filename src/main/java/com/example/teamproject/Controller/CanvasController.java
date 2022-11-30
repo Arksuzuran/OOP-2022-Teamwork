@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
  **/
 public class CanvasController {
 
+    //UI中的各个控件 加入@FXML标签即可直接获取该控件 例如下面的MainCanvas就是UI中名为MainCanvas的Canvas组件
     @FXML
     public AnchorPane AnchorPane;
     MainDrawingController mdc = MainDrawingController.getMDC();
@@ -28,14 +29,17 @@ public class CanvasController {
      *
      */
     @FXML
+    //鼠标按下 将信息传递到MainUIController
     private void OnCanvasMousePressed(MouseEvent mouseEvent){
         mdc.lineBegin(mouseEvent.getX(), mouseEvent.getY());
     }
     @FXML
+    //鼠标拖拽 将信息传递到MainUIController
     private void OnCanvasMouseDragged(MouseEvent mouseEvent){
         mdc.lineGoto(mouseEvent.getX(), mouseEvent.getY());
     }
     @FXML
+    //鼠标松开 将信息传递到MainUIController
     private void OnCanvasMouseReleased(){
         mdc.stopDrawing();
     }
