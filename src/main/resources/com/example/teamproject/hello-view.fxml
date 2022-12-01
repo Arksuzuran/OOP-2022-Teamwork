@@ -79,24 +79,34 @@
             <Insets right="10.0" />
          </HBox.margin>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="482.0" prefWidth="123.0">
-         <ColorPicker>
-            <VBox.margin>
-               <Insets bottom="30.0" />
-            </VBox.margin>
-         </ColorPicker>
-         <HBox alignment="TOP_CENTER" prefHeight="23.0" prefWidth="117.0">
+      <VBox alignment="TOP_CENTER" prefHeight="482.0" prefWidth="123.0">
+         <VBox prefHeight="186.0" prefWidth="117.0">
             <children>
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="画笔粗细" wrappingWidth="85.33334350585938" />
-               <Label fx:id="welcomeText1" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="335.0" text="5" />
+               <ColorPicker>
+                  <VBox.margin>
+                     <Insets bottom="30.0" />
+                  </VBox.margin>
+               </ColorPicker>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="这里是笔刷设置区，根据当前选择的笔刷动态变化" wrappingWidth="95.33334350585938" />
+               <HBox alignment="TOP_CENTER" prefHeight="23.0" prefWidth="117.0">
+                  <children>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="画笔粗细" wrappingWidth="85.33334350585938" />
+                     <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="335.0" text="5" />
+                  </children>
+               </HBox>
+               <Slider prefHeight="14.0" prefWidth="83.0">
+                  <VBox.margin>
+                     <Insets bottom="30.0" />
+                  </VBox.margin>
+               </Slider>
             </children>
-         </HBox>
-         <Slider prefHeight="14.0" prefWidth="83.0">
-            <VBox.margin>
-               <Insets bottom="30.0" />
-            </VBox.margin>
-         </Slider>
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="这里是调色板、笔刷、工具等进一步选取" wrappingWidth="21.333343505859375" />
+         </VBox>
+         <VBox prefHeight="204.0" prefWidth="117.0">
+            <children>
+               <Button fx:id="NewLayerButton" mnemonicParsing="false" onAction="#onNewLayerButtonClick" text="新建图层" />
+               <VBox fx:id="LayerBox" prefHeight="200.0" prefWidth="100.0" />
+            </children>
+         </VBox>
       </VBox>
       <VBox fx:id="canvasBox" prefHeight="500.0" prefWidth="600.0" />
    </HBox>

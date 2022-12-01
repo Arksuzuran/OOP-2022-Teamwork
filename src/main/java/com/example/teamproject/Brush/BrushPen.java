@@ -18,12 +18,14 @@ public class BrushPen extends Brush{
 
     Boolean isActive;
 
-    public BrushPen(Canvas canvas, GraphicsContext gc){
+    //获取画布
+    public void setCanvas(Canvas canvas){
         this.canvas = canvas;
-        this.gc = gc;
-        isActive = false;
+        this.gc = canvas.getGraphicsContext2D();
     }
+    //画笔移动到指定位置
+    @Override
+    public void moveTo(double x, double y) {
 
-
-
+    }
 }

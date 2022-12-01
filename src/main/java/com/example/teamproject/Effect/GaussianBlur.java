@@ -6,4 +6,5 @@ package com.example.teamproject.Effect;
  * @Date
  **/
 public class GaussianBlur extends Effect{
+
 }
