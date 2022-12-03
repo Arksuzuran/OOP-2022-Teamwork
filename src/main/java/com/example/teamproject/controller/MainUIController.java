@@ -1,13 +1,13 @@
-package com.example.teamproject.Controller;
+package com.example.teamproject.controller;
 
 import com.example.teamproject.HelloApplication;
-import com.example.teamproject.Layers.Layer;
+import com.example.teamproject.brush.PenBrush;
+import com.example.teamproject.layers.Layer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -35,27 +35,37 @@ public class MainUIController {
 
     //绘图主控的引用
     protected MainDrawingController mdc = MainDrawingController.getMDC();
+
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
+    @FXML
+    //选中铅笔
+    protected void onPenBrushButtonClick(){
+        mdc.setActiveBrush(new PenBrush());
+    }
+
     //生成新画布
-    protected Canvas createNewCanvas(){
+    public Canvas createNewCanvas(){
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("canvas-view.fxml"));
+
         AnchorPane tmp;
         CanvasController canvasController;
-        Canvas canvas = null;
+        Canvas canvas;
+
         try {
             //加载场景
             tmp= loader.load();
+
             canvasBox.getChildren().add(tmp);
 
             //获取画布框的控制类(注意！该方法必须在load之后使用！)
             canvasController = loader.getController();
-            //主控类通过该控制类获取其中的画布
+            //获取画布的引用
             canvas = canvasController.getMainCanvas();
-            mdc.setNewCanvas(canvas);
+            //mdc.setNewCanvas(canvas);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -63,9 +73,7 @@ public class MainUIController {
         return canvas;
     }
     //生成新图层
-    @FXML
-    protected void onNewLayerButtonClick() {
-
+    public void createNewLayer(){
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("layer-view.fxml"));
         AnchorPane tmp;
         LayerController layerController;
@@ -74,19 +82,30 @@ public class MainUIController {
             tmp= loader.load();
             LayerBox.getChildren().add(tmp);
 
-            //生成一个canvas
+            //生成一个canvas 及其对应的效果canvas
             Canvas canvas = createNewCanvas();
+            Canvas effectCanvas = createNewCanvas();
+
             //生成Layer类
-            Layer layer = new Layer(canvas);
+            Layer layer = new Layer(canvas, effectCanvas);
+
             //获取画布框的控制类 并将该控制类内绑定layer
             layerController = loader.getController();
             layerController.setLayer(layer);
+
             //主控类获取该layer
             mdc.addNewLayer(layer);
+            //主控类选中该layer
+            mdc.setActiveLayer(layer);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    //生成新图层
+    @FXML
+    protected void onNewLayerButtonClick() {
+        createNewLayer();
     }
     /**
      * @Description 按下“新文件”按钮时，生成新画布.

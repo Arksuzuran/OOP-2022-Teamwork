@@ -1,4 +1,4 @@
-package com.example.teamproject.Effect;
+package com.example.teamproject.effect;
 
 /**
  * @Description 所有effect的父类 待定

@@ -1,8 +1,8 @@
-package com.example.teamproject.Controller;
+package com.example.teamproject.controller;
 
-import com.example.teamproject.Brush.Brush;
-import com.example.teamproject.Brush.BrushPen;
-import com.example.teamproject.Layers.Layer;
+import com.example.teamproject.brush.Brush;
+import com.example.teamproject.brush.PenBrush;
+import com.example.teamproject.layers.Layer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -18,23 +18,19 @@ import java.util.ArrayList;
 public class MainDrawingController {
 
     //图层列表
-    ArrayList<Layer> layerList = new ArrayList<>();
+    private ArrayList<Layer> layerList = new ArrayList<>();
 
     //当前选中的图层
-    Layer activeLayer = null;
+    private Layer activeLayer = null;
 
-    Canvas activeCanvas = null;
-    GraphicsContext activeGc = null;
-
-    Brush activeBrush = new BrushPen();
+    //当前选中的笔刷
+    private Brush activeBrush;
 
     //当前该类是否在工作
-    boolean isActive = false;
-    boolean isDrawing = false;
+    private boolean isActive = false;
 
     //单例模式
     private static final MainDrawingController MainDrawingController = new MainDrawingController();
-
     public static MainDrawingController getMDC() {
         return MainDrawingController;
     }
@@ -46,51 +42,46 @@ public class MainDrawingController {
 
     //设置当前图层
     public void setActiveLayer(Layer layer){
+        isActive = true;
         this.activeLayer = layer;
-        setNewCanvas(layer.getCanvas());
+        if(activeBrush!=null)
+            activeBrush.setActiveLayer(layer);
     }
+
     //删除图层
     public void delLayer(Layer layer){
         if(activeLayer == layer){
             activeLayer = null;
         }
         layerList.remove(layer);
-    }
-
-    //设置新的画布
-    public void setNewCanvas(Canvas canvas){
-        this.activeCanvas = canvas;
-        this.activeGc = canvas.getGraphicsContext2D();
-
-        isActive = true;
+        if(activeBrush!=null){
+            activeBrush.setActiveLayer(null);
+        }
     }
 
     //设置新的笔刷
     public void setActiveBrush(Brush brush){
-        this.activeBrush = activeBrush;
+        this.activeBrush = brush;
+        brush.setActiveLayer(activeLayer);
     }
 
-    //开始划线
+    //开始画线
     public void lineBegin(double x, double y){
-        if(isActive){
-            isDrawing = true;
-            activeGc.beginPath();
-            activeGc.moveTo(x, y);
-            activeGc.stroke();
+        if(isActive && activeBrush!=null){
+            activeBrush.drawBegin(x,y);
         }
     }
 
     //在开始画线的前提下 使画笔移动到指定位置
     public void lineGoto(double x, double y){
-        if(isActive && isDrawing){
-            activeGc.lineTo(x, y);
-            activeGc.stroke();
+        if(isActive && activeBrush!=null){
+            activeBrush.drawTo(x,y);
         }
     }
     //停止划线
     public void stopDrawing(){
-        if(isActive){
-            isDrawing = false;
+        if(isActive && activeBrush!=null){
+            activeBrush.drawEnd();
         }
     }
 

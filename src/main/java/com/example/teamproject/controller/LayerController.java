@@ -1,9 +1,10 @@
-package com.example.teamproject.Controller;
+package com.example.teamproject.controller;
 
-import com.example.teamproject.Layers.Layer;
+import com.example.teamproject.layers.Layer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
 
 /**
  * @Description TODO
@@ -11,6 +12,7 @@ import javafx.scene.control.Label;
  * @Date
  **/
 public class LayerController {
+
     @FXML
     private Label LayerNameLabel;
     @FXML

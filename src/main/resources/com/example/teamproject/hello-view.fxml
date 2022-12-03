@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" prefHeight="580.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.Controller.MainUIController">
+<VBox alignment="TOP_CENTER" prefHeight="580.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.MainUIController">
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
     </padding>
    <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="562.0">
       <ButtonBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="23.0" prefWidth="420.0">
         <buttons>
-            <Button fx:id="NewCanvasButton" alignment="CENTER" contentDisplay="CENTER" minWidth="25.0" onAction="#OnNewCanvasButtonClick" prefHeight="23.0" prefWidth="75.0" text="文件" />
+            <Button fx:id="NewCanvasButton" alignment="CENTER" contentDisplay="CENTER" minWidth="25.0" onAction="#onNewLayerButtonClick" prefHeight="23.0" prefWidth="75.0" text="文件" />
             <Button alignment="CENTER" contentDisplay="CENTER" minWidth="25.0" onAction="#onHelloButtonClick" prefWidth="75.0" text="编辑" />
             <Button alignment="CENTER" contentDisplay="CENTER" minWidth="25.0" onAction="#onHelloButtonClick" prefWidth="75.0" text="撤销" />
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="100.0" text="抖动修正" />
@@ -39,32 +39,37 @@
          <Insets left="10.0" right="10.0" />
       </VBox.margin>
       <VBox alignment="TOP_CENTER" prefHeight="482.0" prefWidth="54.0">
-         <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" text="铅笔">
+         <Button mnemonicParsing="false" onAction="#onPenBrushButtonClick" prefHeight="32.0" prefWidth="40.0" text="铅笔">
             <VBox.margin>
                <Insets bottom="15.0" />
             </VBox.margin>
          </Button>
-         <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" text="钢笔">
+         <Button mnemonicParsing="false" onAction="#onPenBrushButtonClick" prefHeight="32.0" prefWidth="40.0" text="钢笔">
             <VBox.margin>
                <Insets bottom="15.0" />
             </VBox.margin>
          </Button>
-         <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" text="喷枪">
+         <Button mnemonicParsing="false" onAction="#onPenBrushButtonClick" prefHeight="32.0" prefWidth="40.0" text="喷枪">
             <VBox.margin>
                <Insets bottom="15.0" />
             </VBox.margin>
          </Button>
-         <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" text="选区">
+         <Button mnemonicParsing="false" onAction="#onPenBrushButtonClick" prefHeight="32.0" prefWidth="40.0" text="选区">
             <VBox.margin>
                <Insets bottom="15.0" />
             </VBox.margin>
          </Button>
-         <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" text="油漆">
+         <Button mnemonicParsing="false" onAction="#onPenBrushButtonClick" prefHeight="32.0" prefWidth="40.0" text="油漆">
             <VBox.margin>
                <Insets bottom="15.0" />
             </VBox.margin>
          </Button>
-         <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" text="图形">
+         <Button mnemonicParsing="false" onAction="#onPenBrushButtonClick" prefHeight="32.0" prefWidth="40.0" text="图形">
+            <VBox.margin>
+               <Insets bottom="15.0" />
+            </VBox.margin>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#onPenBrushButtonClick" prefHeight="32.0" prefWidth="40.0" text="橡皮">
             <VBox.margin>
                <Insets bottom="15.0" />
             </VBox.margin>
@@ -105,6 +110,7 @@
             <children>
                <Button fx:id="NewLayerButton" mnemonicParsing="false" onAction="#onNewLayerButtonClick" text="新建图层" />
                <VBox fx:id="LayerBox" prefHeight="200.0" prefWidth="100.0" />
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="这里是图层设置区" />
             </children>
          </VBox>
       </VBox>
