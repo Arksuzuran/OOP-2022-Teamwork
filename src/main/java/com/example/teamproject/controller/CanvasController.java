@@ -1,4 +1,4 @@
-package com.example.teamproject.Controller;
+package com.example.teamproject.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -15,6 +15,7 @@ public class CanvasController {
     //UI中的各个控件 加入@FXML标签即可直接获取该控件 例如下面的MainCanvas就是UI中名为MainCanvas的Canvas组件
     @FXML
     public AnchorPane AnchorPane;
+
     MainDrawingController mdc = MainDrawingController.getMDC();
     @FXML
     private Canvas MainCanvas;
