@@ -40,11 +40,12 @@ public class PenBrush extends Brush{
         if(isDrawing){
             System.out.println("pen :draw end");
             isDrawing = false;
+            //写入layer的image
+            activeLayer.updateImage();
             //清空效果层
             effectGc.clearRect(0, 0, effectCanvas.getWidth(), effectCanvas.getHeight());
 
-            //写入layer的image
-            activeLayer.updateImage();
+
             System.out.println("drawing result :stored");
         }
     }

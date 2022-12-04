@@ -1,6 +1,7 @@
 package com.example.teamproject.layers;
 
 import com.example.teamproject.controller.LayerController;
+import com.example.teamproject.controller.MainDrawingController;
 import com.example.teamproject.tools.ImageFormConverter;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
  **/
 public class Layer{
 
+    MainDrawingController mainDrawingController = MainDrawingController.getMDC();
     //该layer在UI中的控制类
     protected LayerController layerController;
 
@@ -35,14 +37,16 @@ public class Layer{
         this.imageView = imageView;
         this.effectCanvas = effectCanvas;
         this.layerController = layerController;
-        //image = TransTool.getBlankImage();
+        image = ImageFormConverter.newBlankImage((int)effectCanvas.getWidth(), (int)effectCanvas.getHeight());
     }
 
     /**
      * 将effectCanvas中的内容写入该图层的image
      */
     public void updateImage(){
-        image = ImageFormConverter.canvasToImage(effectCanvas);
+        image = ImageFormConverter.mergeImages(image, ImageFormConverter.canvasToImage(effectCanvas));
+        mainDrawingController.updateImageView();
+
     }
 
     //设置图层名称

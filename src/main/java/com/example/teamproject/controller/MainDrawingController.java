@@ -27,7 +27,7 @@ public class MainDrawingController {
     /**
      * 图片展示 用于在UI界面显示当前计算结果
      */
-    private ImageView imageView;
+    public ImageView imageView;//
     public ImageView getImageView() {
         return imageView;
     }

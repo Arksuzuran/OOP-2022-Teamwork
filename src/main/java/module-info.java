@@ -6,6 +6,7 @@ module com.example.teamproject {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires opencv;
+    requires java.desktop;
 
     opens com.example.teamproject to javafx.fxml;
     exports com.example.teamproject;
