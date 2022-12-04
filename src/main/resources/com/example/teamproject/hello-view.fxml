@@ -18,7 +18,7 @@
    <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="562.0">
       <ButtonBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="23.0" prefWidth="420.0">
         <buttons>
-            <Button fx:id="NewCanvasButton" alignment="CENTER" contentDisplay="CENTER" minWidth="25.0" onAction="#onNewLayerButtonClick" prefHeight="23.0" prefWidth="75.0" text="文件" />
+            <Button fx:id="NewWorkButton" alignment="CENTER" contentDisplay="CENTER" minWidth="25.0" onAction="#OnNewWorkButtonClick" prefHeight="23.0" prefWidth="75.0" text="文件" />
             <Button alignment="CENTER" contentDisplay="CENTER" minWidth="25.0" onAction="#onHelloButtonClick" prefWidth="75.0" text="编辑" />
             <Button alignment="CENTER" contentDisplay="CENTER" minWidth="25.0" onAction="#onHelloButtonClick" prefWidth="75.0" text="撤销" />
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="100.0" text="抖动修正" />

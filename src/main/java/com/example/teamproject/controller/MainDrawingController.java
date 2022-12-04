@@ -1,24 +1,46 @@
 package com.example.teamproject.controller;
 
 import com.example.teamproject.brush.Brush;
-import com.example.teamproject.brush.PenBrush;
 import com.example.teamproject.layers.Layer;
+import com.example.teamproject.tools.ImageFormConverter;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
 /**
- * @Description 画图的总控类 负责接受组件controller的信息 并传递给笔刷
- *              注意！目前仅为demo 因此对canvas的操作放在了此处
- *              实际对Canvas的操作并不在此类中，而应当下发到各笔刷中进行处理，以提高可拓展性
+ * @Description 画图的总控类 负责接受组件controller的信息 并传递给相应的处理类：笔刷、effect
+ *
  * @Author CZX
  * @Date 2022.11.30
  **/
 public class MainDrawingController {
 
+    /**
+     * 效果图层 用于接受鼠标输入
+     */
+    private Canvas effectCanvas;
+    public Canvas getEffectCanvas() {
+        return effectCanvas;
+    }
+    /**
+     * 图片展示 用于在UI界面显示当前计算结果
+     */
+    private ImageView imageView;
+    public ImageView getImageView() {
+        return imageView;
+    }
+    /**
+     * MainUIController
+     */
+    public MainUIController mainUIController;
+    public MainUIController getMainUIController() {
+        return mainUIController;
+    }
+
     //图层列表
-    private ArrayList<Layer> layerList = new ArrayList<>();
+    private final ArrayList<Layer> layerList = new ArrayList<>();
 
     //当前选中的图层
     private Layer activeLayer = null;
@@ -26,13 +48,37 @@ public class MainDrawingController {
     //当前选中的笔刷
     private Brush activeBrush;
 
+
+
     //当前该类是否在工作
     private boolean isActive = false;
+    public boolean isActive() {
+        return isActive;
+    }
 
     //单例模式
     private static final MainDrawingController MainDrawingController = new MainDrawingController();
     public static MainDrawingController getMDC() {
         return MainDrawingController;
+    }
+
+
+    //初始化当前作品
+    public void initialize( ImageView imageView, Canvas canvas, Layer layer1, MainUIController mainUIController){
+        layerList.clear();
+        this.effectCanvas = canvas;
+        this.imageView = imageView;
+        this.mainUIController = mainUIController;
+        activeBrush = null;
+        addNewLayer(layer1);
+        activeLayer = layer1;
+        isActive = true;
+    }
+
+    //刷新对图层的更改
+    public void updateImageView(){
+        Image image = ImageFormConverter.mergeLayers(layerList);
+        imageView.setImage(image);
     }
 
     //添加新图层

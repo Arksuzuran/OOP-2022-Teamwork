@@ -2,6 +2,7 @@ package com.example.teamproject.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -17,11 +18,17 @@ public class CanvasController {
     public AnchorPane AnchorPane;
 
     MainDrawingController mdc = MainDrawingController.getMDC();
-    @FXML
-    private Canvas MainCanvas;
 
-    public Canvas getMainCanvas(){
-        return MainCanvas;
+    @FXML
+    private Canvas EffectCanvas;
+    @FXML
+    private ImageView ImageView;
+
+    public Canvas getEffectCanvas(){
+        return EffectCanvas;
+    }
+    public ImageView getImageView(){
+        return ImageView;
     }
 
     /**
