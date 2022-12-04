@@ -9,13 +9,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * @Description 所有layer的父类 待定
- * @Author
- * @Date
+ * @Description layer类 是单次图像处理或者绘画操作的最小单位
+ * @Author  CZX
+ * @Date 2022.12.5
  **/
 public class Layer{
 
-    MainDrawingController mainDrawingController = MainDrawingController.getMDC();
+    private MainDrawingController mdc = MainDrawingController.getMDC();
+
     //该layer在UI中的控制类
     protected LayerController layerController;
 
@@ -37,16 +38,27 @@ public class Layer{
         this.imageView = imageView;
         this.effectCanvas = effectCanvas;
         this.layerController = layerController;
-        image = ImageFormConverter.newBlankImage((int)effectCanvas.getWidth(), (int)effectCanvas.getHeight());
+        image = ImageFormConverter.canvasToImage(new Canvas(effectCanvas.getWidth(), effectCanvas.getHeight()));
     }
 
     /**
      * 将effectCanvas中的内容写入该图层的image
+     * 再将image的更改汇总到imageView里
      */
     public void updateImage(){
-        image = ImageFormConverter.mergeImages(image, ImageFormConverter.canvasToImage(effectCanvas));
-        mainDrawingController.updateImageView();
+        Image newImagePart = ImageFormConverter.canvasToImage(effectCanvas);
+        setImage(ImageFormConverter.mergeImages(image, newImagePart));
+        mdc.updateImageView();
+    }
 
+    /**
+     * 直接更换当前图层的图片为image
+     * 再将image的更改汇总到imageView里
+     * @param image 要更换的图片
+     */
+    public void setImage(Image image){
+        this.image = image;
+        mdc.updateImageView();
     }
 
     //设置图层名称

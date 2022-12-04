@@ -1,5 +1,7 @@
 package com.example.teamproject.brush;
 
+import javafx.scene.paint.Color;
+
 /**
  * @Description 钢笔笔刷（即默认的直线）。
  * 对于钢笔来说，其所作的绘画均在effectCanvas上显示。
@@ -10,9 +12,26 @@ package com.example.teamproject.brush;
 
 public class PenBrush extends Brush{
 
+
+
+    //画笔颜色 默认为黑
+    Color color = Color.BLACK;
+    public void setColor(Color color) {
+        this.color = color;
+        effectGc.setStroke(color);
+    }
+
+    //画笔粗细 默认为5
+    double lineWidth = 5;
+    public void setLineWidth(double lineWidth) {
+        this.lineWidth = lineWidth;
+        effectGc.setLineWidth(lineWidth);
+    }
+
     public PenBrush(){
         super();
     }
+
     //开始画
     @Override
     public void drawBegin(double x, double y) {
@@ -20,7 +39,6 @@ public class PenBrush extends Brush{
         isDrawing = true;
         effectGc.beginPath();
         effectGc.moveTo(x, y);
-        effectGc.stroke();
     }
 
     //画笔移动到指定位置
@@ -38,10 +56,12 @@ public class PenBrush extends Brush{
     @Override
     public void drawEnd() {
         if(isDrawing){
-            System.out.println("pen :draw end");
+            System.out.println("pen: draw end");
             isDrawing = false;
+
             //写入layer的image
             activeLayer.updateImage();
+            
             //清空效果层
             effectGc.clearRect(0, 0, effectCanvas.getWidth(), effectCanvas.getHeight());
 

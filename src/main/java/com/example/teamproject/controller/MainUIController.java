@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -74,9 +75,36 @@ public class MainUIController {
         hasActiveWork = true;
         Layer layer1 = createNewLayer();
         mdc.initialize(imageView, effectCanvas, layer1, this);
+        //layer1.setImage(new Image("E:\\JavaTeamwork\\OOP-2022-Teamwork\\8.png"));
     }
 
-    //生成新图层 并添加至总控类中
+    /**
+     * 生成新的画图板区域 该方法会重置imageView、canvasController、effectCanvas
+     * 该方法需要前端同学根据自己所写的fxml更改
+     */
+    public void createNewCanvasField(){
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("canvas-view.fxml"));
+        try {
+            //加载场景
+            AnchorPane tmp= loader.load();
+            canvasBox.getChildren().add(tmp);
+
+            //获取画布框的控制类(注意！该方法必须在load之后使用！)
+            canvasController = loader.getController();
+
+            //获取画布等的引用
+            effectCanvas = canvasController.getEffectCanvas();
+            imageView = canvasController.getImageView();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 点击“新建图层按钮“
+     * 生成新图层 并添加至总控类中
+     */
     @FXML
     protected void onNewLayerButtonClick() {
         Layer layer = createNewLayer();
@@ -84,7 +112,9 @@ public class MainUIController {
     }
 
     /**
-     * 该方法需要前端同学根据自己所写的fxml更改
+     * 新建一个图层对象 及其对应的边栏UI 并初始化该对象
+     * 该方法需要前端同学根据自己所写的fxml更改这句话：FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("layer-view.fxml"));
+     * @return
      */
     //生成新图层 返回该图层的引用
     public Layer createNewLayer(){
@@ -115,30 +145,7 @@ public class MainUIController {
 
 
     /**
-     * 该方法需要前端同学根据自己所写的fxml更改
-     */
-    //生成新的画图板区域 该方法会重置imageView、canvasController、effectCanvas
-    public void createNewCanvasField(){
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("canvas-view.fxml"));
-
-        try {
-            //加载场景
-            AnchorPane tmp= loader.load();
-            canvasBox.getChildren().add(tmp);
-
-            //获取画布框的控制类(注意！该方法必须在load之后使用！)
-            canvasController = loader.getController();
-
-            //获取画布等的引用
-            effectCanvas = canvasController.getEffectCanvas();
-            imageView = canvasController.getImageView();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
+     * 当按下“选择钢笔按钮时”
      * 后续需要更改 这里在传入前就需要设置好笔刷参数
      */
     //选中铅笔
@@ -146,11 +153,10 @@ public class MainUIController {
     protected void onPenBrushButtonClick(){
         Brush penBrush = new PenBrush();
 
-        //设置笔刷的代码
-
-
-
-
+        //根据当前UIController里 选中的笔刷信息 来设置笔刷对象的属性
+        /*
+        code here
+         */
         //
         //只有主控激活时才能选择笔刷
         if(mdc.isActive()){

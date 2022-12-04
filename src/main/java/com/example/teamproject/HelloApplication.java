@@ -17,6 +17,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
+        //链接OpenCV库！如果开发时这里出问题报错了，请发到群里
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
