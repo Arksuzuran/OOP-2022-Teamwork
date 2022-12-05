@@ -15,7 +15,7 @@ public class PenBrush extends Brush{
 
 
     //画笔颜色 默认为黑
-    Color color = Color.BLACK;
+    Color color = Color.RED;
     public void setColor(Color color) {
         this.color = color;
         effectGc.setStroke(color);
@@ -30,6 +30,8 @@ public class PenBrush extends Brush{
 
     public PenBrush(){
         super();
+        effectGc.setStroke(color);
+        effectGc.setLineWidth(lineWidth);
     }
 
     //开始画

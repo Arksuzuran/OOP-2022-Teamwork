@@ -8,7 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -38,6 +40,16 @@ public class MainUIController {
     @FXML
     protected Button NewLayerButton;
 
+    //调色板
+    @FXML
+    protected ColorPicker ColorChooser;
+    //画笔粗细滑动条
+    @FXML
+    protected Slider PenWidthSlider;
+    //画笔粗细宽度显示标签
+    @FXML
+    protected Label PenWidthLable;
+
     /**
      * 画图层各部分的引用 在创建新画布后必须对此进行更新！否则后端无法工作！
      */
@@ -55,8 +67,8 @@ public class MainUIController {
     }
 
 
-    /**
-     *
+    /*
+
      */
 
     /**
@@ -114,9 +126,9 @@ public class MainUIController {
     /**
      * 新建一个图层对象 及其对应的边栏UI 并初始化该对象
      * 该方法需要前端同学根据自己所写的fxml更改这句话：FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("layer-view.fxml"));
-     * @return
+     * @return  返回该图层的引用
      */
-    //生成新图层 返回该图层的引用
+    //生成新图层
     public Layer createNewLayer(){
         //如果当前没有作品 那么是不可能创建图层的
         if(!hasActiveWork){
@@ -135,9 +147,7 @@ public class MainUIController {
             //获取控制类
             LayerController layerController = loader.getController();
             //生成Layer类
-            Layer layer = new Layer(imageView, effectCanvas, layerController);
-
-            return layer;
+            return new Layer(imageView, effectCanvas, layerController);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -153,15 +163,14 @@ public class MainUIController {
     protected void onPenBrushButtonClick(){
         Brush penBrush = new PenBrush();
 
-        //根据当前UIController里 选中的笔刷信息 来设置笔刷对象的属性
-        /*
-        code here
-         */
-        //
         //只有主控激活时才能选择笔刷
         if(mdc.isActive()){
             System.out.println(penBrush);
             mdc.setActiveBrush(penBrush);
+
+            //根据当前UIController里 选中的笔刷信息 来设置笔刷对象的属性
+            updatePenColor();
+            updatePenWidth();
         }
     }
 
@@ -177,4 +186,40 @@ public class MainUIController {
         createNewWork();
     }
 
+    /**
+     * 颜色选择器被操作
+     * 如果当前有作品且选中了钢笔笔刷 那么调节其颜色
+     */
+    public void updatePenColor(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setColor(ColorChooser.getValue());
+            }
+        }
+    }
+    @FXML
+    protected void OnColorPickerSet(){
+        updatePenColor();
+    }
+
+    /**
+     * 如果当前有作品且选中了钢笔笔刷 那么调节其粗细
+     * 更新对应UI
+     */
+    public void updatePenWidth(){
+        double penWidth = PenWidthSlider.getValue();
+        PenWidthLable.setText(Integer.toString((int)penWidth));
+
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setLineWidth(penWidth);
+            }
+        }
+    }
+    @FXML
+    protected void OnPenWidthSliderSet(){
+        updatePenWidth();
+    }
 }

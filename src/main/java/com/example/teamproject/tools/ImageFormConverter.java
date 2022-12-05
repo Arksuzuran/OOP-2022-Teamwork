@@ -42,10 +42,18 @@ public class ImageFormConverter {
         for( int i = 1 ; i < layerList.size(); i ++){
             image = layerList.get(i).getImage();
             Mat tmp = imageToMat(image);//other blending methods
-            Core.addWeighted(mat, 0.5, tmp, 0.5, 0, mat);
+            mat = mergeMat(mat, tmp);
+            //Core.addWeighted(mat, 0.5, tmp, 0.5, 0, mat);
         }
         return matToImage(mat);
     }
+
+    /**
+     * 创建指定高和宽的黑底空图片
+     * @param width 宽
+     * @param height    高
+     * @return
+     */
     public static Image newBlankImage(int width, int height){
         Mat mat = new Mat(height, width, CvType.CV_8UC4);
         return matToImage(mat);
@@ -71,6 +79,22 @@ public class ImageFormConverter {
         }
         return null;
     }
+    /**
+     * 将两个image对象合并 返回新的mat
+     * @param mat1 要合并的mat
+     * @param mat2 要合并的mat（二者不分先后）
+     * @return
+     */
+    public static Mat mergeMat(Mat mat1, Mat mat2){
+        if(mat1!=null && mat2!=null){
+            mat1 = ImageEffect.reverseColorMat(mat1);
+            mat2 = ImageEffect.reverseColorMat(mat2);
+            Core.add(mat1, mat2, mat1);
+            return ImageEffect.reverseColorMat(mat1);
+        }
+        return null;
+    }
+
 
     /**
      * 将Canvas对象转换为Image对象

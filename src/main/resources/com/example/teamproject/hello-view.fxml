@@ -87,7 +87,7 @@
       <VBox alignment="TOP_CENTER" prefHeight="482.0" prefWidth="123.0">
          <VBox prefHeight="186.0" prefWidth="117.0">
             <children>
-               <ColorPicker>
+               <ColorPicker fx:id="ColorChooser" onAction="#OnColorPickerSet">
                   <VBox.margin>
                      <Insets bottom="30.0" />
                   </VBox.margin>
@@ -96,10 +96,10 @@
                <HBox alignment="TOP_CENTER" prefHeight="23.0" prefWidth="117.0">
                   <children>
                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="画笔粗细" wrappingWidth="85.33334350585938" />
-                     <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="335.0" text="5" />
+                     <Label fx:id="PenWidthLable" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="335.0" text="5" />
                   </children>
                </HBox>
-               <Slider prefHeight="14.0" prefWidth="83.0">
+               <Slider fx:id="PenWidthSlider" min="1.0" onMouseDragged="#OnPenWidthSliderSet" onMouseReleased="#OnPenWidthSliderSet" prefHeight="14.0" prefWidth="83.0" value="5.0">
                   <VBox.margin>
                      <Insets bottom="30.0" />
                   </VBox.margin>

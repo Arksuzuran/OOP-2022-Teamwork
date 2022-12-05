@@ -143,6 +143,7 @@ public class MainDrawingController {
         //更新图像表现
         updateImageView();
     }
+
     //获取当前一共建了多少图层
     public int getLayerNumber() {
         return layerNumber;
@@ -157,6 +158,9 @@ public class MainDrawingController {
         this.activeBrush = brush;
         brush.setActiveLayer(activeLayer);
         System.out.println("set new brush: "+brush);
+    }
+    public Brush getActiveBrush(){
+        return activeBrush;
     }
 
 

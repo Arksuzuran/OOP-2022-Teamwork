@@ -9,9 +9,9 @@ import org.opencv.core.Core;
 import java.io.IOException;
 
 /**
- * @Description 程序入口 目前项目的结构还没确定 暂定这里为入口
+ * @Description 程序入口 暂定这里为入口
  * @Author  CZX
- * @Date    2022.11.30
+ * @Date    2022.12.5
  **/
 public class HelloApplication extends Application {
     @Override
