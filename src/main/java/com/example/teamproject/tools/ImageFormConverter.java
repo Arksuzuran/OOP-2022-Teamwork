@@ -27,26 +27,26 @@ import java.util.ArrayList;
 
 public class ImageFormConverter {
 
-    /**
-     * 将图层数组进行合并，生成混合后的Image
-     * 用于每次画图or图像处理操作后，使得UI界面能够显示最终处理效果
-     * @param layerList 要合并的图层数组
-     * @return  合成的结果
-     */
-    public static Image mergeLayers(ArrayList<Layer> layerList){
-        if(layerList.isEmpty()){
-            return null;
-        }
-        Image image = layerList.get(0).getImage();
-        Mat mat = imageToMat(image);
-        for( int i = 1 ; i < layerList.size(); i ++){
-            image = layerList.get(i).getImage();
-            Mat tmp = imageToMat(image);//other blending methods
-            mat = mergeMat(mat, tmp);
-            //Core.addWeighted(mat, 0.5, tmp, 0.5, 0, mat);
-        }
-        return matToImage(mat);
-    }
+//    /**
+//     * 将图层数组进行合并，生成混合后的Image
+//     * 用于每次画图or图像处理操作后，使得UI界面能够显示最终处理效果
+//     * @param layerList 要合并的图层数组
+//     * @return  合成的结果
+//     */
+//    public static Image mergeLayers(ArrayList<Layer> layerList){
+//        if(layerList.isEmpty()){
+//            return null;
+//        }
+//        Image image = layerList.get(0).getImage();
+//        Mat mat = imageToMat(image);
+//        for( int i = 1 ; i < layerList.size(); i ++){
+//            image = layerList.get(i).getImage();
+//            Mat tmp = imageToMat(image);//other blending methods
+//            mat = mergeMat(mat, tmp);
+//            //Core.addWeighted(mat, 0.5, tmp, 0.5, 0, mat);
+//        }
+//        return matToImage(mat);
+//    }
 
     /**
      * 创建指定高和宽的黑底空图片

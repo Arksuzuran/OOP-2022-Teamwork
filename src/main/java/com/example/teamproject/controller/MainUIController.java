@@ -2,18 +2,17 @@ package com.example.teamproject.controller;
 
 import com.example.teamproject.HelloApplication;
 import com.example.teamproject.brush.Brush;
+import com.example.teamproject.brush.BrushType;
 import com.example.teamproject.brush.PenBrush;
 import com.example.teamproject.layers.Layer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -28,9 +27,6 @@ public class MainUIController {
     @FXML
     protected Label welcomeText;
 
-    //Box
-    @FXML
-    protected VBox canvasBox;
     @FXML
     protected VBox LayerBox;
 
@@ -48,37 +44,44 @@ public class MainUIController {
     protected Slider PenWidthSlider;
     //画笔粗细宽度显示标签
     @FXML
-    protected Label PenWidthLable;
+    protected Label PenWidthLabel;
+    //绘图区
+    @FXML
+    protected ScrollPane DrawingScrollPane;
 
     /**
      * 画图层各部分的引用 在创建新画布后必须对此进行更新！否则后端无法工作！
      */
-    protected boolean hasActiveWork = false;
-    protected ImageView imageView = null;
-    protected Canvas effectCanvas = null;
+
+
+    protected Canvas mainEffectCanvas = null;
+    protected Pane mainDrawingPane = null;
     protected CanvasController canvasController = null;
 
+    //画布尺寸
+    protected double sizeX = 800;
+    protected double sizeY = 600;
+    protected boolean hasActiveWork = false;
     //绘图主控的引用
     protected MainDrawingController mdc = MainDrawingController.getMDC();
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+//    //假单例
+//    private static MainUIController muc = null;
+//    public static MainUIController getMuc() {
+//        return muc;
+//    }
+//    MainUIController(){
+//        muc = this;
+//    }
 
-
-    /*
-
-     */
 
     /**
      * 创建新作品
      * 该方法会重置主控类
      * 创建新作品需要4步：
-     * 1.创建画图板UI
-     * 2.透过画图板UI的controller获取其中的canvas和imageView
-     * 3.创建第一个图层layer1
-     * 4.用canvas、imageView、layer1初始化主控类
+     * 1.加载画布Pane和mainEffectPane
+     * 2.创建第一个图层layer1
+     * 3.用canvas、layer1、this初始化主控类
      *
      * 后续优化：当前没有作品时会在画图板的位置显示其他UI
      */
@@ -86,28 +89,35 @@ public class MainUIController {
         createNewCanvasField();
         hasActiveWork = true;
         Layer layer1 = createNewLayer();
-        mdc.initialize(imageView, effectCanvas, layer1, this);
+        mdc.initialize(mainEffectCanvas, layer1, this, sizeX, sizeY);
         //layer1.setImage(new Image("E:\\JavaTeamwork\\OOP-2022-Teamwork\\8.png"));
     }
 
     /**
-     * 生成新的画图板区域 该方法会重置imageView、canvasController、effectCanvas
-     * 该方法需要前端同学根据自己所写的fxml更改
+     * 生成新的画图板区域 该方法会直接重置画图区
+     * 该方法需要前端根据自己所写的fxml更改
      */
     public void createNewCanvasField(){
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("canvas-view.fxml"));
         try {
-            //加载场景
-            AnchorPane tmp= loader.load();
-            canvasBox.getChildren().add(tmp);
+            //加载画布区域
+            Pane pane = loader.load();
 
-            //获取画布框的控制类(注意！该方法必须在load之后使用！)
+            DrawingScrollPane.setContent(pane);//注意：ScrollPane内只允许有一个Node
+
+            //获取画布区域的控制类(注意！该方法必须在load之后使用！)
             canvasController = loader.getController();
 
-            //获取画布等的引用
-            effectCanvas = canvasController.getEffectCanvas();
-            imageView = canvasController.getImageView();
+            //获取自带的效果画布 以及画图区域pane的引用
+            mainEffectCanvas = canvasController.getMainEffectCanvas();
+            mainDrawingPane = canvasController.getDrawingPane();
 
+            //修改大小至预定值
+            mainDrawingPane.setPrefWidth(sizeX);
+            mainDrawingPane.setPrefHeight(sizeY);
+
+            mainEffectCanvas.setWidth(sizeX);
+            mainEffectCanvas.setHeight(sizeY);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -144,15 +154,37 @@ public class MainUIController {
             tmp= loader.load();
             LayerBox.getChildren().add(tmp);
 
-            //获取控制类
+            //添加两个Canvas
+
+            //效果画布
+            Canvas effectCanvas = createNewCanvasAddingToPane();
+            //主画布
+            Canvas canvas = createNewCanvasAddingToPane();
+
+            //获取画布UI的控制类
             LayerController layerController = loader.getController();
+            //UI控制类和layer互相持有对方的引用
+            Layer layer = new Layer(canvas, effectCanvas, mainEffectCanvas, layerController);
+            layerController.setLayer(layer);
             //生成Layer类
-            return new Layer(imageView, effectCanvas, layerController);
+            return layer;
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * 根据当前选择的尺寸 创建新的画布 并将其加入mainDrawingPane的底部
+     * @return 新画布的引用
+     */
+    public Canvas createNewCanvasAddingToPane(){
+        Canvas canvas = new Canvas(sizeX, sizeY);
+        canvas.setOpacity(1);
+        canvas.setStyle("-fx-background-color: WHITE");
+        canvasController.addNewCanvasAtBack(canvas);
+        return canvas;
+    }
 
     /**
      * 当按下“选择钢笔按钮时”
@@ -161,13 +193,10 @@ public class MainUIController {
     //选中铅笔
     @FXML
     protected void onPenBrushButtonClick(){
-        Brush penBrush = new PenBrush();
-
         //只有主控激活时才能选择笔刷
         if(mdc.isActive()){
-            System.out.println(penBrush);
-            mdc.setActiveBrush(penBrush);
 
+            mdc.setActiveBrush(BrushType.PEN);
             //根据当前UIController里 选中的笔刷信息 来设置笔刷对象的属性
             updatePenColor();
             updatePenWidth();
@@ -183,7 +212,8 @@ public class MainUIController {
     @FXML
     protected void OnNewWorkButtonClick(){
         System.out.println("NewWorkButtonClick");
-        createNewWork();
+        if(!hasActiveWork)
+            createNewWork();
     }
 
     /**
@@ -209,7 +239,7 @@ public class MainUIController {
      */
     public void updatePenWidth(){
         double penWidth = PenWidthSlider.getValue();
-        PenWidthLable.setText(Integer.toString((int)penWidth));
+        PenWidthLabel.setText(Integer.toString((int)penWidth));
 
         if(mdc.isActive()){
             Brush brush = mdc.getActiveBrush();
@@ -221,5 +251,10 @@ public class MainUIController {
     @FXML
     protected void OnPenWidthSliderSet(){
         updatePenWidth();
+    }
+
+    @FXML
+    protected void onHelloButtonClick() {
+        welcomeText.setText("Welcome to JavaFX Application!");
     }
 }

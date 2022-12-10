@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.CanvasController">
+<Pane fx:id="DrawingPane" maxHeight="1600.0" maxWidth="2560.0" minHeight="200.0" minWidth="300.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.CanvasController">
    <children>
-      <ImageView fx:id="ImageView" fitHeight="500.0" fitWidth="600.0" onMouseDragged="#OnCanvasMouseDragged" onMousePressed="#OnCanvasMousePressed" onMouseReleased="#OnCanvasMouseReleased" pickOnBounds="true" preserveRatio="true" />
-      <Canvas fx:id="EffectCanvas" height="500.0" onMouseDragged="#OnCanvasMouseDragged" onMousePressed="#OnCanvasMousePressed" onMouseReleased="#OnCanvasMouseReleased" width="600.0" />
-      <Text layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="芝士画布" wrappingWidth="48.0" />
+      <Canvas fx:id="MainEffectCanvas" height="400.0" onMouseDragged="#OnCanvasMouseDragged" onMousePressed="#OnCanvasMousePressed" onMouseReleased="#OnCanvasMouseReleased" width="600.0" />
    </children>
-</AnchorPane>
+</Pane>

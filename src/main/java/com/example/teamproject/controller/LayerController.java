@@ -12,21 +12,23 @@ import javafx.scene.control.Label;
  * @Date
  **/
 public class LayerController {
-
     @FXML
     private Label LayerNameLabel;
-    @FXML
-    private Button LayerCloseButton;
-    @FXML
-    private Button LayerVisibleButton;
 
     private Layer layer = null;
 
+    private MainDrawingController mdc = MainDrawingController.getMDC();
     //设置对应的图层
     public void setLayer(Layer layer){
         this.layer = layer;
     }
 
-
+    @FXML
+    public void OnLayerSelectButtonClick(){
+        mdc.setActiveLayer(layer);
+    }
+    public void setLayerNameLabel(String s){
+        LayerNameLabel.setText(s);
+    }
 
 }

@@ -9,7 +9,7 @@ import org.opencv.core.Core;
 import java.io.IOException;
 
 /**
- * @Description 程序入口 暂定这里为入口
+ * @Description 程序入口
  * @Author  CZX
  * @Date    2022.12.5
  **/

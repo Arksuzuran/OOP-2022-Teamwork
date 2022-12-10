@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.layout.HBox?>
@@ -96,7 +97,7 @@
                <HBox alignment="TOP_CENTER" prefHeight="23.0" prefWidth="117.0">
                   <children>
                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="画笔粗细" wrappingWidth="85.33334350585938" />
-                     <Label fx:id="PenWidthLable" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="335.0" text="5" />
+                     <Label fx:id="PenWidthLabel" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="335.0" text="5" />
                   </children>
                </HBox>
                <Slider fx:id="PenWidthSlider" min="1.0" onMouseDragged="#OnPenWidthSliderSet" onMouseReleased="#OnPenWidthSliderSet" prefHeight="14.0" prefWidth="83.0" value="5.0">
@@ -114,7 +115,7 @@
             </children>
          </VBox>
       </VBox>
-      <VBox fx:id="canvasBox" prefHeight="500.0" prefWidth="600.0" />
+      <ScrollPane fx:id="DrawingScrollPane" prefHeight="400.0" prefWidth="600.0" />
    </HBox>
    <HBox alignment="CENTER" prefHeight="71.0" prefWidth="790.0">
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="这里是底部信息栏，会显示程序的提示信息，当前鼠标坐标等" wrappingWidth="444.0" />

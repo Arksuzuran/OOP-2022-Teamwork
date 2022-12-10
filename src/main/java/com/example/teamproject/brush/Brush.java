@@ -16,27 +16,25 @@ public abstract class Brush {
     MainDrawingController mdc = MainDrawingController.getMDC();
     protected Layer activeLayer = null;
 
-    protected Canvas effectCanvas = null;
-    protected GraphicsContext effectGc = null;
-
     //当前笔刷是否正在运动
     protected Boolean isDrawing = false;
 
-    //初始化笔刷
-    public Brush(){
+    //抖动修正等级 1代表不修正
+    protected int smoothLevel = 1;
+
+    //画笔粗细 默认为1
+    double lineWidth = 1;
+
+    //画笔移动到新的图层
+    public void updateActiveLayer(){
         if (mdc.isActive()){
-            this.effectCanvas = mdc.getEffectCanvas();
-            this.effectGc = effectCanvas.getGraphicsContext2D();
-            this.isDrawing = false;
+            activeLayer = mdc.getActiveLayer();
         }
     }
 
-    //画笔移动到新的图层
-    public void setActiveLayer(Layer layer){
-        activeLayer = layer;
-        //如果移动到空图层 那么canvas和gc延迟设置
+    public void setSmoothLevel(int level){
+        smoothLevel = level;
     }
-
     //开始画线
     public abstract void drawBegin(double x, double y);
     //正在画线 画线至
