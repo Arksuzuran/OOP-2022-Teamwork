@@ -65,15 +65,6 @@ public class MainUIController {
     //绘图主控的引用
     protected MainDrawingController mdc = MainDrawingController.getMDC();
 
-//    //假单例
-//    private static MainUIController muc = null;
-//    public static MainUIController getMuc() {
-//        return muc;
-//    }
-//    MainUIController(){
-//        muc = this;
-//    }
-
 
     /**
      * 创建新作品
