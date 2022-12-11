@@ -1,8 +1,7 @@
 package com.example.teamproject.brush;
 
 import com.example.teamproject.controller.MainDrawingController;
-import com.example.teamproject.controller.MainUIController;
-import com.example.teamproject.layers.Layer;
+import com.example.teamproject.structure.Layer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -14,13 +13,19 @@ import javafx.scene.canvas.GraphicsContext;
 public abstract class Brush {
 
     MainDrawingController mdc = MainDrawingController.getMDC();
+
+    //画布
+    protected Canvas canvas = null;
+    protected GraphicsContext gc = null;
+    protected Canvas effectCanvas = null;
+    protected GraphicsContext effectGc = null;
+    protected Canvas mainEffectCanvas = null;
+    protected GraphicsContext mainEffectGc = null;
+
     protected Layer activeLayer = null;
 
     //当前笔刷是否正在运动
     protected Boolean isDrawing = false;
-
-    //抖动修正等级 1代表不修正
-    protected int smoothLevel = 1;
 
     //画笔粗细 默认为1
     double lineWidth = 1;
@@ -30,10 +35,6 @@ public abstract class Brush {
         if (mdc.isActive()){
             activeLayer = mdc.getActiveLayer();
         }
-    }
-
-    public void setSmoothLevel(int level){
-        smoothLevel = level;
     }
     //开始画线
     public abstract void drawBegin(double x, double y);

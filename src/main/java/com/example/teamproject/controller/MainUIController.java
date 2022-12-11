@@ -4,16 +4,19 @@ import com.example.teamproject.HelloApplication;
 import com.example.teamproject.brush.Brush;
 import com.example.teamproject.brush.BrushType;
 import com.example.teamproject.brush.PenBrush;
-import com.example.teamproject.layers.Layer;
+import com.example.teamproject.brush.SelectorBrush;
+import com.example.teamproject.structure.Layer;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -26,7 +29,8 @@ public class MainUIController {
 
     @FXML
     protected Label welcomeText;
-
+    @FXML
+    protected Text OutputText;
     @FXML
     protected VBox LayerBox;
 
@@ -38,34 +42,76 @@ public class MainUIController {
 
     //调色板
     @FXML
-    protected ColorPicker ColorChooser;
+    protected ColorPicker PenColorPicker;//画笔的选色器
+    @FXML
+    protected ColorPicker RegionColorPicker;//选区的选色器
+    /**
+     * 滑动条部分
+     */
     //画笔粗细滑动条
     @FXML
     protected Slider PenWidthSlider;
     //画笔粗细宽度显示标签
     @FXML
     protected Label PenWidthLabel;
-    //绘图区
+
     @FXML
-    protected ScrollPane DrawingScrollPane;
+    //抖动修正滑动条
+    protected Slider SmoothLevelSlider;
+    //抖动修正值显示标签
+    @FXML
+    protected Label SmoothLevelLabel;
+
+    /**
+     * checkbox
+     */
+    @FXML
+    protected CheckBox SelectSaveCheckBox;
+    @FXML
+    protected CheckBox SelectLineCheckBox;
+
 
     /**
      * 画图层各部分的引用 在创建新画布后必须对此进行更新！否则后端无法工作！
      */
-
-
+    //绘图区
+    @FXML
+    protected ScrollPane DrawingScrollPane;
     protected Canvas mainEffectCanvas = null;
     protected Pane mainDrawingPane = null;
     protected CanvasController canvasController = null;
 
     //画布尺寸
-    protected double sizeX = 800;
+    protected double sizeX = 900;
     protected double sizeY = 600;
     protected boolean hasActiveWork = false;
     //绘图主控的引用
     protected MainDrawingController mdc = MainDrawingController.getMDC();
 
 
+    //============================================创建新作品==============================================//
+    /**
+     * 根据当前选择的尺寸 创建新的画布 并将其加入mainDrawingPane的底部
+     * @return 新画布的引用
+     */
+    public Canvas createNewCanvasAddingToPane(){
+        Canvas canvas = new Canvas(sizeX, sizeY);
+        canvas.setOpacity(1);
+        canvas.setStyle("-fx-background-color: WHITE");
+        canvasController.addNewCanvasAtBack(canvas);
+        return canvas;
+    }
+    /**
+     * @Description 按下“新空作品”按钮时，生成新的空作品.
+     * @Author  CZX
+     * @Date    2022.12.4
+     */
+    @FXML
+    protected void OnNewWorkButtonClick(){
+        System.out.println("NewWorkButtonClick");
+        if(!hasActiveWork)
+            createNewWork();
+    }
     /**
      * 创建新作品
      * 该方法会重置主控类
@@ -73,7 +119,6 @@ public class MainUIController {
      * 1.加载画布Pane和mainEffectPane
      * 2.创建第一个图层layer1
      * 3.用canvas、layer1、this初始化主控类
-     *
      * 后续优化：当前没有作品时会在画图板的位置显示其他UI
      */
     protected void createNewWork(){
@@ -113,7 +158,7 @@ public class MainUIController {
             throw new RuntimeException(e);
         }
     }
-
+//==================================================图层===========================================//
     /**
      * 点击“新建图层按钮“
      * 生成新图层 并添加至总控类中
@@ -157,6 +202,7 @@ public class MainUIController {
             //UI控制类和layer互相持有对方的引用
             Layer layer = new Layer(canvas, effectCanvas, mainEffectCanvas, layerController);
             layerController.setLayer(layer);
+            layerController.setMuc(this);
             //生成Layer类
             return layer;
 
@@ -164,22 +210,38 @@ public class MainUIController {
             throw new RuntimeException(e);
         }
     }
-
     /**
-     * 根据当前选择的尺寸 创建新的画布 并将其加入mainDrawingPane的底部
-     * @return 新画布的引用
+     * 删除某个图层
+     * @param layerController 要删除的图层的controller
      */
-    public Canvas createNewCanvasAddingToPane(){
-        Canvas canvas = new Canvas(sizeX, sizeY);
-        canvas.setOpacity(1);
-        canvas.setStyle("-fx-background-color: WHITE");
-        canvasController.addNewCanvasAtBack(canvas);
-        return canvas;
+    public void DeleteLayer(LayerController layerController){
+        ObservableList<Node> list = LayerBox.getChildren();
+        Layer layer = layerController.getLayer();
+        //最后一个图层不允许删除
+        if(list.size()<=1){
+            System.out.println("delete layer failed: last layer");
+            return;
+        }
+        //先后在总控类 画图区 删除该图层
+        mdc.delLayer(layer);
+        canvasController.deleteLayer(layer);
+        //给总控类设置新的被选中的图层
+        layer = canvasController.getTopLayer();
+        mdc.setActiveLayer(layer);
+        //在UI界面删除该图层的UI
+        AnchorPane anchorPane = layerController.getLayerPane();
+        for (Node node : list){
+            if(node == anchorPane){
+                LayerBox.getChildren().remove(node);
+                break;
+            }
+        }
+        System.out.println("delete layer success");
     }
 
+//=============================================画笔=====================================================//
     /**
-     * 当按下“选择钢笔按钮时”
-     * 后续需要更改 这里在传入前就需要设置好笔刷参数
+     * 选择画笔的按钮
      */
     //选中铅笔
     @FXML
@@ -193,34 +255,20 @@ public class MainUIController {
             updatePenWidth();
         }
     }
-
-    /**
-     * @Description 按下“新空作品”按钮时，生成新的空作品.
-     * @Author  CZX
-     * @Date    2022.12.4
-     */
-
-    @FXML
-    protected void OnNewWorkButtonClick(){
-        System.out.println("NewWorkButtonClick");
-        if(!hasActiveWork)
-            createNewWork();
-    }
-
     /**
      * 颜色选择器被操作
-     * 如果当前有作品且选中了钢笔笔刷 那么调节其颜色
+     * 画笔的颜色选择器
      */
     public void updatePenColor(){
         if(mdc.isActive()){
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof PenBrush){
-                ((PenBrush) brush).setColor(ColorChooser.getValue());
+                ((PenBrush) brush).setColor(PenColorPicker.getValue());
             }
         }
     }
     @FXML
-    protected void OnColorPickerSet(){
+    protected void OnPenColorPickerSet(){
         updatePenColor();
     }
 
@@ -228,6 +276,10 @@ public class MainUIController {
      * 如果当前有作品且选中了钢笔笔刷 那么调节其粗细
      * 更新对应UI
      */
+    @FXML
+    protected void OnPenWidthSliderSet(){
+        updatePenWidth();
+    }
     public void updatePenWidth(){
         double penWidth = PenWidthSlider.getValue();
         PenWidthLabel.setText(Integer.toString((int)penWidth));
@@ -240,12 +292,104 @@ public class MainUIController {
         }
     }
     @FXML
-    protected void OnPenWidthSliderSet(){
-        updatePenWidth();
+    protected void OnSmoothLevelSliderSet(){
+        updateSmoothLevel();
     }
 
+    /**
+     * 如果当前有作品且选中了钢笔笔刷 那么调节其抖动修正级别
+     * 更新对应UI
+     */
+    public void updateSmoothLevel(){
+        int smoothLevel = (int)SmoothLevelSlider.getValue();
+        SmoothLevelLabel.setText(Integer.toString(smoothLevel));
+
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setSmoothLevel(smoothLevel);
+            }
+        }
+    }
+//=================================================选区======================================================//
+    /**
+     * 选择选区笔的按钮
+     */
+    @FXML
+    protected void onSelectorButtonClick(){
+        if(mdc.isActive()){
+            mdc.setActiveBrush(BrushType.SELECTOR);
+        }
+    }
+    /**
+     * 选区的颜色选择器
+     */
+    public void fillRegion(){
+        Color color = RegionColorPicker.getValue();
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof SelectorBrush){
+                ((SelectorBrush) brush).fillSelectedRegion(color);
+            }
+        }
+    }
+
+    /**
+     * 为选区填充指定颜色
+     */
+    @FXML
+    protected void OnRegionFillButtonClick(){
+        fillRegion();
+    }
+
+    /**
+     * 确认选区
+     */
+    @FXML
+    protected void OnRegionSelectedButtonClick(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof SelectorBrush){
+                ((SelectorBrush) brush).endSelecting();
+            }
+        }
+    }
+
+    /**
+     * 选区不保留（松手即确定选区）
+     */
+    @FXML
+    protected void OnSelectSaveCheckBoxChanged(){
+        boolean save = SelectSaveCheckBox.isSelected();
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof SelectorBrush){
+                ((SelectorBrush) brush).changeRegionSave(save);
+            }
+        }
+
+    }
+
+    /**
+     * 选区边界线不跟随
+     */
+    @FXML
+    protected void OnSelectLineCheckBoxChanged(){
+        boolean hasLine = SelectLineCheckBox.isSelected();
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof SelectorBrush){
+                ((SelectorBrush) brush).changeBoundFollow(hasLine);
+            }
+        }
+    }
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
+
+    protected void setOutputText(String s){
+        OutputText.setText(s);
+    }
+
 }

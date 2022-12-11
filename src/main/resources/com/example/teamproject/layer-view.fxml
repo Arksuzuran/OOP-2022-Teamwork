@@ -4,12 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.LayerController">
+<AnchorPane fx:id="LayerPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.LayerController">
 
    <children>
       <Label fx:id="LayerNameLabel" text="图层1" />
       <Button fx:id="LayerSelectButton" alignment="CENTER" layoutX="50.0" layoutY="3.0" mnemonicParsing="false" onAction="#OnLayerSelectButtonClick" prefHeight="15.0" prefWidth="6.0" text="V" />
-      <Button alignment="CENTER" layoutX="74.0" layoutY="4.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="6.0" text="X" />
+      <Button alignment="CENTER" layoutX="74.0" layoutY="4.0" mnemonicParsing="false" onAction="#OnLayerDeleteButtonClick" prefHeight="15.0" prefWidth="6.0" text="X" />
    </children>
 
 </AnchorPane>

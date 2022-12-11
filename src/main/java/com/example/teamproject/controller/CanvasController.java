@@ -1,12 +1,10 @@
 package com.example.teamproject.controller;
 
+import com.example.teamproject.structure.Layer;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -31,7 +29,10 @@ public class CanvasController {
         return DrawingPane;
     }
 
-
+    /**
+     * 在底部添加新的画布
+     * @param canvas 添加的画布
+     */
     public void addNewCanvasAtBack(Canvas canvas){
         DrawingPane.getChildren().add(canvas);
         canvas.toBack();
@@ -40,6 +41,35 @@ public class CanvasController {
 //        canvas.setStyle("-fx-background-color: WHITE");
 //        MainEffectCanvas.setStyle("-fx-background-color: WHITE");
     }
+
+    /**
+     * 删除指定图层的canvas
+     * @param layer 要删除的图层
+     */
+    public void deleteLayer(Layer layer){
+        if(DrawingPane.getChildren().size() <=1)
+            return;
+        Canvas canvas = layer.getCanvas();
+        Canvas effectCanvas = layer.getEffectCanvas();
+        DrawingPane.getChildren().remove(canvas);
+        DrawingPane.getChildren().remove(effectCanvas);
+    }
+
+    /**
+     * 获取当前顶层的画布属于哪个layer
+     * @return 找到的layer
+     */
+    public Layer getTopLayer(){
+        ArrayList<Layer> arrayList = mdc.getLayerList();
+        Node node = DrawingPane.getChildren().get(1);
+        for (Layer layer : arrayList){
+            if(layer.getCanvas() == node || layer.getEffectCanvas() == node){
+                return layer;
+            }
+        }
+        return null;
+    }
+
 
     /**
      * 按下鼠标 进入开始划线的状态

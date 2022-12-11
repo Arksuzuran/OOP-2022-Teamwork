@@ -1,12 +1,12 @@
 package com.example.teamproject.tools;
-
-import com.example.teamproject.layers.Layer;
+import com.example.teamproject.effect.ImageEffect;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.image.WritablePixelFormat;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Transform;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
@@ -14,10 +14,14 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 
 /**
  * @Description 实现Image、Mat、Canvas的互相转化，Canvas是前端对象，Mat是后端对象用于具体的图像处理
@@ -47,6 +51,91 @@ public class ImageFormConverter {
 //        }
 //        return matToImage(mat);
 //    }
+
+    /**
+     * 将image转换为bufferedImage
+     * @param image 要转换的image
+     * @return  转换完的bufferedImage
+     */
+    public static BufferedImage ImageToBufferedImage(Image image){
+        //先把image转换为mat
+        Mat matrix = imageToMat(image);
+        //再把mat转换为bufferedImage
+        BufferedImage bufImage = matToBufferImage(matrix, ".jpg");
+        System.out.println("image to bufferedImage success");
+        return bufImage;
+    }
+
+    /**
+     * 将mat转换为bufferedImage
+     * @param matrix mat
+     * @param fileExtension 文件扩展格式，例如.jpg
+     * @return bufferedImage
+     */
+    public static BufferedImage matToBufferImage (Mat matrix, String fileExtension) {
+        MatOfByte mob = new MatOfByte();
+        Imgcodecs.imencode(fileExtension, matrix, mob);
+        // convert the "matrix of bytes" into a byte array
+        byte[] byteArray = mob.toArray();
+        BufferedImage bufImage = null;
+        try {
+            InputStream in = new ByteArrayInputStream(byteArray);
+            bufImage = ImageIO.read(in);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bufImage;
+    }
+
+    /**
+     * BufferedImage转image
+     * @param bufferedImage bf
+     * @return image
+     */
+    public static Image BufferedImageToImage(BufferedImage bufferedImage){
+        //先把bf转换为mat
+        Mat matrix = bufferImageToMat(bufferedImage, BufferedImage.TYPE_4BYTE_ABGR, CvType.CV_8UC4);
+        //再把mat转换为image
+        Image image = matToImage(matrix);
+        System.out.println("bufferedImage to image success");
+        return image;
+    }
+    /**
+     * 将bufferedImage转换为mat
+     * @param original bf
+     * @param imgType   bf的格式 4通道32位
+     * @param matType   mat的格式 4通道32位
+     * @return  mat
+     */
+    public static Mat bufferImageToMat (BufferedImage original, int imgType, int matType) {
+        if (original == null) {
+            throw new IllegalArgumentException("original == null");
+        }
+        if (original.getType() != imgType) {
+
+            // Create a buffered image
+            BufferedImage image = new BufferedImage(original.getWidth(), original.getHeight(), imgType);
+
+            // Draw the image onto the new buffer
+            Graphics2D g = image.createGraphics();
+            try {
+                g.setComposite(AlphaComposite.Src);
+                g.drawImage(original, 0, 0, null);
+            } finally {
+                g.dispose();
+            }
+        }
+        DataBufferByte dbi =(DataBufferByte)original.getRaster().getDataBuffer();
+        byte[] pixels = dbi.getData();
+        Mat mat = Mat.eye(original.getHeight(), original.getWidth(), matType);
+        mat.put(0, 0, pixels);
+        return mat;
+    }
+
+
+
+
+
 
     /**
      * 创建指定高和宽的黑底空图片
@@ -97,14 +186,22 @@ public class ImageFormConverter {
 
 
     /**
-     * 将Canvas对象转换为Image对象
+     * 将Canvas对象转换为Image对象 该image对象保持a通道
      * @param canvas    要转的canvas
      * @return  转换好的Image
      */
-    public static Image canvasToImage(Canvas canvas){
+    public static WritableImage canvasToImage(Canvas canvas){
         double pixelScale = 1.0;//?
+
         WritableImage writableImage = new WritableImage((int)(pixelScale*canvas.getWidth()), (int)Math.rint(pixelScale*canvas.getHeight()));
+
         SnapshotParameters spa = new SnapshotParameters();
+        /**
+         * 注意！
+         * 这一步 设置透明保持a通道 不可省略
+         */
+        spa.setFill(Color.TRANSPARENT);
+
         spa.setTransform(Transform.scale(pixelScale, pixelScale));
         writableImage = canvas.snapshot(spa, writableImage);
         return writableImage;
@@ -126,13 +223,12 @@ public class ImageFormConverter {
             System.out.println("imageToMat error");
             return null;
         }
-
     }
 
     public static Image matToImage(Mat mat){
         try {
             MatOfByte matOfByte = new MatOfByte();
-            Imgcodecs.imencode(".bmp", mat, matOfByte);
+            Imgcodecs.imencode(".jpg", mat, matOfByte);
             return new Image(new ByteArrayInputStream(matOfByte.toArray()));
         } catch (Exception e) {
             System.out.println("matToImage error");

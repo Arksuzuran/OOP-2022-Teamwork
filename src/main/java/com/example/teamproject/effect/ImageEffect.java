@@ -1,4 +1,4 @@
-package com.example.teamproject.tools;
+package com.example.teamproject.effect;
 
 import javafx.scene.image.Image;
 import org.opencv.core.Mat;

@@ -3,12 +3,9 @@ package com.example.teamproject.controller;
 import com.example.teamproject.brush.Brush;
 import com.example.teamproject.brush.BrushType;
 import com.example.teamproject.brush.PenBrush;
-import com.example.teamproject.layers.Layer;
-import com.example.teamproject.tools.ImageFormConverter;
+import com.example.teamproject.brush.SelectorBrush;
+import com.example.teamproject.structure.Layer;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import org.opencv.core.Point;
 
 import java.util.ArrayList;
 
@@ -41,6 +38,7 @@ public class MainDrawingController {
      */
     public double sizeX;
     public double sizeY;
+
     /**
      * 图层
      */
@@ -139,18 +137,23 @@ public class MainDrawingController {
             }
         }
         layerList.remove(layer);
-        System.out.println("del layer: "+layer);
+        System.out.println("mdc delete layer: "+layer);
     }
-
     /**
      * 获取新图层的默认名
-     * @return
+     * @return  图层默认名
      */
     public String getNewLayerName() {
         String name = "图层"+(totalLayerNum+1);
         return name;
     }
-
+    /**
+     * 获取图层列表
+     * @return  图层列表
+     */
+    public ArrayList<Layer> getLayerList() {
+        return layerList;
+    }
 
     /**
      * 选中新的笔刷
@@ -159,6 +162,7 @@ public class MainDrawingController {
     public void setActiveBrush(BrushType brushType){
         switch (brushType){
             case PEN -> this.activeBrush = PenBrush.getPenBrush();
+            case SELECTOR -> this.activeBrush = SelectorBrush.getSelectorBrush();
         }
         activeBrush.updateActiveLayer();
         System.out.println("set new brush: "+activeBrush);
