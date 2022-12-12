@@ -16,19 +16,19 @@ import java.awt.geom.Point2D;
  **/
 public class FillColorEffect {
 
-    public static WritableImage FillSelectedRegion(SelectedRegion selectedRegion, Color color){
-        WritableImage image = selectedRegion.selectedImage;
-        PixelWriter pixelWriter = image.getPixelWriter();
+    public static void FillSelectedRegion(SelectedRegion selectedRegion, Color color) {
+//        WritableImage image = selectedRegion.selectedImage;
+//        PixelWriter pixelWriter = image.getPixelWriter();
+        Color[][] colors = selectedRegion.getColorRegion();
         //遍历所有可能的像素点
-        for(int x = 0; x < image.getWidth(); x++){
-            for(int y = 0; y < image.getHeight(); y++){
+        for (int x = 0; x < selectedRegion.sizeX; x++) {
+            for (int y = 0; y < selectedRegion.sizeY; y++) {
                 //在选区内 则染色
-                if(selectedRegion.pointInRegion(x, y)){
-                    pixelWriter.setColor(x, y, color);
+                if (selectedRegion.pointInRegion(x, y)) {
+                    colors[x][y] = color;
                 }
             }
         }
-        return image;
     }
 
 }

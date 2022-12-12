@@ -31,6 +31,8 @@ public class SelectorBrush extends Brush{
         return selectorBrush;
     }
 
+
+
     //更新当前选中的图层
     @Override
     public void updateActiveLayer(){
@@ -53,21 +55,21 @@ public class SelectorBrush extends Brush{
     /**
      * 实现不规则选区的数据结构
      */
-    ArrayList<Point2D.Double> pointList = new ArrayList<>();//点集
-    GeneralPath polygon = null;//边界点集组成的多边形
-    Rectangle bounds = null;//多边形的矩形边界
+    private ArrayList<Point2D.Double> pointList = new ArrayList<>();//点集
+    private GeneralPath polygon = null;//边界点集组成的多边形
+    private Rectangle bounds = null;//多边形的矩形边界
 
-    SelectedRegion selectedRegion = null;//被选中的区域
-    WritableImage selectedImage = null;//裁剪下来的图形
-    WritableImage boundImage = null;//边缘辅助线线图形
-    double posX = 0, posY = 0;//裁剪处的x与y值
-    double deltaX = 0, deltaY = 0;//拖动过程中的总偏移量
-    boolean hasSelected = false;//当前是否已经完成选区绘制
+    private SelectedRegion selectedRegion = null;//被选中的区域
+    private WritableImage selectedImage = null;//裁剪下来的图形
+    private WritableImage boundImage = null;//边缘辅助线线图形
+    private double posX = 0, posY = 0;//裁剪处的x与y值
+    private double deltaX = 0, deltaY = 0;//拖动过程中的总偏移量
+    private boolean hasSelected = false;//当前是否已经完成选区绘制
 
-    boolean boundFollowing = true;//选区边界是否跟随移动
-    boolean regionSave = true;//选区是否在鼠标松开后仍然保留
+    public boolean boundFollowing = true;//选区边界是否跟随移动
+    public boolean regionSave = true;//选区是否在鼠标松开后仍然保留
     //上一次的坐标
-    PathPoint lastPoint;
+    private PathPoint lastPoint;
 
     /**
      * 开始绘制选区
@@ -115,8 +117,10 @@ public class SelectorBrush extends Brush{
         else if(isDrawing){
             deltaX += newPoint.x - lastPoint.x;
             deltaY += newPoint.y - lastPoint.y;
-
-            activeLayer.updateEffectCanvas(posX+deltaX, posY+deltaY, selectedImage, false);
+            selectedRegion.setPosition(posX+deltaX, posY+deltaY);
+            //更新effectCanvas
+            activeLayer.updateEffectCanvas(selectedRegion, false);
+            //选择线跟随
             if(boundFollowing)
                 activeLayer.updateMainEffectCanvas(deltaX, deltaY ,boundImage);
             else
@@ -134,6 +138,8 @@ public class SelectorBrush extends Brush{
             isDrawing = false;
             hasSelected = true;
             processSelectedRegion();
+
+            PenBrush.getPenBrush().changeSelectedGc(true);//其他笔刷此时切换到effectCanvas
         }
         else if(isDrawing){
             if(regionSave)
@@ -152,7 +158,8 @@ public class SelectorBrush extends Brush{
         //如果已经完成了选区的绘制 正在移动选区 那么把选区内容合并到canvas里面
         if(hasSelected){
 
-            activeLayer.updateEffectCanvas(posX+deltaX, posY+deltaY, selectedImage, true);
+            activeLayer.updateEffectCanvas(selectedRegion, true);
+            //activeLayer.updateEffectCanvas(posX+deltaX, posY+deltaY, selectedImage, true);
             activeLayer.clearMainEffectCanvas();
         }
         //无论如何 都停止当前绘画
@@ -160,6 +167,8 @@ public class SelectorBrush extends Brush{
             hasSelected = false;
             isDrawing = false;
             init();
+
+            PenBrush.getPenBrush().changeSelectedGc(false);
         }
     }
     /**
@@ -177,9 +186,7 @@ public class SelectorBrush extends Brush{
 
         //原图层的图片
         WritableImage oriImage = ImageFormConverter.canvasToImage(canvas);
-
         PixelReader pixelReader1 = oriImage.getPixelReader();
-
         PixelWriter pixelWriter1 = gc.getPixelWriter();
 
 
@@ -194,6 +201,12 @@ public class SelectorBrush extends Brush{
         PixelWriter pixelWriter2 = selectedImage.getPixelWriter();
         //创建边界线图片
         boundImage = ImageFormConverter.canvasToImage(mainEffectCanvas);
+        //颜色数组
+        Color[][] colorRegion = new Color[bounds.width+2][bounds.height+2];
+//        for(int i=0; i<=bounds.width; i++)
+//            for (int j=0; j<=bounds.height; j++)
+//                colorRegion[i][j] = Color.TRANSPARENT;
+
         //矩形区的像素点是否在选区内
         boolean[][] inRegion = new boolean[bounds.width+2][bounds.height+2];
 
@@ -207,9 +220,9 @@ public class SelectorBrush extends Brush{
                 if(Polygon.polygonContains(p, polygon)){
                     //取得颜色
                     Color color = pixelReader1.getColor(x, y);
-
                     //抠出来的图上复制颜色 注意新图的大小变小了 所以要进行坐标变换
                     pixelWriter2.setColor(x-minX, y-minY, color);
+                    colorRegion[x-minX][y-minY] = color;
 
                     //原图上该像素点直接设置为透明
                     color = Color.TRANSPARENT;
@@ -223,10 +236,13 @@ public class SelectorBrush extends Brush{
         //将图片再写入canvas 和effectCanvas
 //        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
 //        gc.drawImage(oriImage, 0, 0);
-        effectGc.drawImage(selectedImage, posX, posY);
+//        effectGc.drawImage(selectedImage, posX, posY);
 
         //生成选区对象
-        selectedRegion = new SelectedRegion(selectedImage, inRegion);
+        selectedRegion = new SelectedRegion(selectedImage, inRegion, colorRegion, minX, minY, bounds.width, bounds.height, polygon);
+
+        //及时更新
+        activeLayer.updateEffectCanvas(selectedRegion, false);
 
         System.out.println("select process success. [width]"+bounds.width+" [height]"+bounds.height);
     }
@@ -256,13 +272,15 @@ public class SelectorBrush extends Brush{
     }
 
     /**
-     * 将选区填充为指定颜色
+     * 将选区填充为指定颜色 并及时更新该颜色
      * @param color 所要填充的颜色
      */
     public void fillSelectedRegion(Color color){
         if(hasSelected){
-            WritableImage image = FillColorEffect.FillSelectedRegion(selectedRegion, color);
-            updateImage(image);
+            FillColorEffect.FillSelectedRegion(selectedRegion, color);
+            activeLayer.updateEffectCanvas(selectedRegion, false);
+//            WritableImage image = FillColorEffect.FillSelectedRegion(selectedRegion, color);
+//            updateImage(image);
         }
     }
 
@@ -286,16 +304,30 @@ public class SelectorBrush extends Brush{
     }
 
     /**
-     * 更新当前的选区为新图片
-     * @param image 新图片
+     * 查询点(x,y)是否在选区内部 如果当前没有选区 那么一定返回true
+     * @param x x
+     * @param y y
+     * @return  在选区内部
      */
-    public void updateImage(WritableImage image) {
-        if(hasSelected){
-            selectedImage = image;
-            selectedRegion.selectedImage = image;
-            activeLayer.updateEffectCanvas(posX+deltaX, posY+deltaY, selectedImage, false);
-        }
+    public boolean inSelectedRegion(double x, double y){
+        if(!hasSelected)
+            return true;
+        //将x y反向变换回选区移动前的位置
+        x -= deltaX;
+        y -= deltaY;
+        return Polygon.polygonContains(new Point2D.Double(x, y), polygon);
     }
+//    /**
+//     * 更新当前的选区为新图片
+//     * @param image 新图片
+//     */
+//    public void updateImage(WritableImage image) {
+//        if(hasSelected){
+//            selectedImage = image;
+//            selectedRegion.selectedImage = image;
+//            activeLayer.updateEffectCanvas(posX+deltaX, posY+deltaY, selectedImage, false);
+//        }
+//    }
     /**
      * 获取当前选区
      */

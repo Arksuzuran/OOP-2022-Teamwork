@@ -1,7 +1,8 @@
 package com.example.teamproject.brush;
 
-import javafx.scene.canvas.Canvas;
+import com.example.teamproject.structure.SelectedRegion;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
@@ -23,17 +24,20 @@ public class PenBrush extends Brush{
         return Pen;
     }
 
+    public static SelectorBrush selectorBrush = SelectorBrush.getSelectorBrush();
     //画笔颜色 默认为黑
     Color color = Color.BLACK;
+    //当前正在操作的画笔
+    private GraphicsContext nowGc = null;
+    private boolean selected = false;
 
     public void setColor(Color color) {
         this.color = color;
-        gc.setStroke(color);
-
+        nowGc.setStroke(color);
     }
     public void setLineWidth(double lineWidth) {
         this.lineWidth = lineWidth;
-        gc.setLineWidth(lineWidth);
+        nowGc.setLineWidth(lineWidth);
     }
 
     //更新当前选中的图层
@@ -47,6 +51,12 @@ public class PenBrush extends Brush{
                 gc = canvas.getGraphicsContext2D();
                 effectCanvas = activeLayer.getEffectCanvas();
                 effectGc = effectCanvas.getGraphicsContext2D();
+
+                if(selected)
+                    nowGc = effectGc;
+                else
+                    nowGc = gc;//默认画笔
+
                 //笔刷设置为当前选择的状态
                 setColor(color);
                 setLineWidth(lineWidth);
@@ -77,12 +87,17 @@ public class PenBrush extends Brush{
     @Override
     public void drawBegin(double x, double y) {
         initSmoothing();
+        //只能在选区内工作 一旦检测到当前笔刷超出了选区 那么不允许继续绘画
+        if(!selectorBrush.inSelectedRegion(x, y))
+            return;
+
         isDrawing = true;
         System.out.println("[pen] draw start. [color]"+color+" [smoothLevel]"+smoothLevel);
         if(smoothLevel <= 1){
-            gc.beginPath();
-            gc.moveTo(x, y);
-            gc.stroke();
+            startPoint = new PathPoint(x, y);
+//            nowGc.beginPath();
+//            nowGc.moveTo(x, y);
+//            nowGc.stroke();
         }
         //等级2
         else if(smoothLevel == 2){
@@ -102,27 +117,30 @@ public class PenBrush extends Brush{
     @Override
     public void drawTo(double x, double y) {
         if(isDrawing){
+            //只能在选区内工作 一旦检测到当前笔刷的边缘超出了选区 那么不让绘画
+            if(!selectorBrush.inSelectedRegion(x, y)){
+                drawClose();
+                return;
+            }
+
+            PathPoint inputPoint = new PathPoint(x, y);
             if(smoothLevel <= 1){
-                gc.lineTo(x, y);
-                gc.stroke();
+                drawLine(startPoint, inputPoint);
+                startPoint = inputPoint;
             }
             //等级2
             else if(smoothLevel == 2){
                 //上一步刚刚推入起点p1 那么本步不需要画曲线 而是取p2作为控制点
-                if(controlPoint==null){
-                    controlPoint = new PathPoint(x, y);
-                }
-                else{
-                    PathPoint inputPoint = new PathPoint(x, y);
+                if (controlPoint != null) {
                     endPoint = getMidPoint(controlPoint, inputPoint);
                     drawQuadraticCurve(startPoint, controlPoint, endPoint);
                     startPoint = endPoint;
-                    controlPoint = inputPoint;
                 }
+                controlPoint = inputPoint;
             }
             //等级3
             else if(smoothLevel == 3){
-                pointQueue.addLast(new PathPoint(x, y));
+                pointQueue.addLast(inputPoint);
                 //凑够三个路径点 就进行一次绘制
                 if(pointQueue.size()==3){
                     drawQuadraticCurve(pointQueue.get(0), pointQueue.get(1), pointQueue.get(2));
@@ -131,7 +149,7 @@ public class PenBrush extends Brush{
             }
             //等级4
             else if(smoothLevel == 4){
-                pointQueue.addLast(new PathPoint(x, y));
+                pointQueue.addLast(inputPoint);
                 //凑够四个路径点 就进行一次绘制
                 if(pointQueue.size()==4){
                     drawTripleCurve(pointQueue.get(0), pointQueue.get(1), pointQueue.get(2), pointQueue.get(3));
@@ -144,24 +162,36 @@ public class PenBrush extends Brush{
     @Override
     public void drawEnd() {
         if(isDrawing){
-            if(smoothLevel == 2){
-                //此时没有了inputPoint 那么直接将剩下的startPoint和controlPoint相连即可
-                drawLine(startPoint, controlPoint);
-            }
-            //三阶
-            else if(smoothLevel>=3) {
-                //根据余下路径点的数量进行绘制
-                if(pointQueue.size()==3){
-                    drawQuadraticCurve(pointQueue.get(0), pointQueue.get(1), pointQueue.get(2));
-                }
-                else if(pointQueue.size()==2){
-                    drawLine(pointQueue.get(0), pointQueue.get(1));
-                }
-            }
-            initSmoothing();
+            //如果当前有选区 那么将结果反向写回选区
+            if(SelectorBrush.getSelectorBrush().hasSelected())
+                activeLayer.updateColorRegionByEffectCanvas();
+            drawClose();
             System.out.println("[pen] draw end");
             isDrawing = false;
         }
+    }
+
+    /**
+     * 进行当前绘画的结算 但保留isDrawing
+     */
+    private void drawClose(){
+        if(smoothLevel == 2){
+            //此时没有了inputPoint 那么直接将剩下的startPoint和controlPoint相连即可
+            drawLine(startPoint, controlPoint);
+        }
+        //三阶
+        else if(smoothLevel>=3) {
+            //根据余下路径点的数量进行绘制
+            if(pointQueue.size()==3){
+                drawQuadraticCurve(pointQueue.get(0), pointQueue.get(1), pointQueue.get(2));
+                pointQueue.clear();
+            }
+            else if(pointQueue.size()==2){
+                drawLine(pointQueue.get(0), pointQueue.get(1));
+                pointQueue.clear();
+            }
+        }
+        initSmoothing();
     }
 
     /**
@@ -179,11 +209,12 @@ public class PenBrush extends Brush{
     private void drawLine(PathPoint sp, PathPoint ep){
         if(sp==null || ep==null)
             return;
-        gc.beginPath();
-        gc.moveTo(sp.x, sp.y);
-        gc.lineTo(ep.x, ep.y);
-        gc.stroke();
-        gc.closePath();
+        nowGc.beginPath();
+        nowGc.moveTo(sp.x, sp.y);
+        nowGc.lineTo(ep.x, ep.y);
+        nowGc.stroke();
+        nowGc.closePath();
+        eraseOutRegion(ep.x, ep.y);//删除超出选区的部分
     }
     /**
      * 绘制二阶贝赛尔曲线
@@ -194,11 +225,12 @@ public class PenBrush extends Brush{
     private void drawQuadraticCurve(PathPoint sp, PathPoint cp, PathPoint ep){
         if(sp==null || ep==null || cp==null)
             return;
-        gc.beginPath();
-        gc.moveTo(sp.x, sp.y);
-        gc.quadraticCurveTo(cp.x, cp.y, ep.x, ep.y);
-        gc.stroke();
-        gc.closePath();
+        nowGc.beginPath();
+        nowGc.moveTo(sp.x, sp.y);
+        nowGc.quadraticCurveTo(cp.x, cp.y, ep.x, ep.y);
+        nowGc.stroke();
+        nowGc.closePath();
+        eraseOutRegion(ep.x, ep.y);//删除超出选区的部分
     }
     /**
      * 绘制三阶贝塞尔曲线
@@ -210,11 +242,46 @@ public class PenBrush extends Brush{
     private void drawTripleCurve(PathPoint sp, PathPoint cp1, PathPoint cp2, PathPoint ep){
         if(sp==null || ep==null || cp1==null || cp2==null)
             return;
-        gc.beginPath();
-        gc.moveTo(sp.x, sp.y);
-        gc.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, ep.x, ep.y);
-        gc.stroke();
-        gc.closePath();
+        nowGc.beginPath();
+        nowGc.moveTo(sp.x, sp.y);
+        nowGc.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, ep.x, ep.y);
+        nowGc.stroke();
+        nowGc.closePath();
+        eraseOutRegion(ep.x, ep.y);//删除超出选区的部分
+    }
+
+    /**
+     * 根据当前是否有选区来调整所使用的gc
+     * @param selected  有选区
+     */
+    public void changeSelectedGc(boolean selected){
+        this.selected = selected;
+        if(selected)
+            nowGc = effectGc;
+        else
+            nowGc = gc;
+    }
+
+    /**
+     * 删除当前画布中 超出选区的部分
+     */
+    public void eraseOutRegion(double x, double y){
+        if(!selected)
+            return;
+        PixelWriter pixelWriter = nowGc.getPixelWriter();
+        SelectedRegion selectedRegion = SelectorBrush.getSelectorBrush().getSelectedRegion();
+        int sx = (int)(x - lineWidth), ex = (int)(x + lineWidth), offsetX = (int)selectedRegion.x;
+        int sy = (int)(y - lineWidth), ey = (int)(y + lineWidth), offsetY = (int)selectedRegion.y;
+        //在所有可能的区域内 如果超出 那么清除
+        for(int i=sx; i<ex; i++){
+            for (int j=sy; j<ey; j++){
+                if(i<0 || j<0)
+                    continue;
+                if(!selectedRegion.pointInRegion(i-offsetX, j-offsetY)){
+                    pixelWriter.setColor(i, j, Color.TRANSPARENT);
+                }
+            }
+        }
     }
 
 }

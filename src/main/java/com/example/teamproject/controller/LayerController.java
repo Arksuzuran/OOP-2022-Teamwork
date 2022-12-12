@@ -46,6 +46,8 @@ public class LayerController {
         //选区笔不工作时才允许切换图层
         if(!SelectorBrush.getSelectorBrush().hasSelected())
             mdc.setActiveLayer(layer);
+        else
+            System.out.println("cannot change layer when selecting");
     }
     @FXML
     public void OnLayerDeleteButtonClick(){

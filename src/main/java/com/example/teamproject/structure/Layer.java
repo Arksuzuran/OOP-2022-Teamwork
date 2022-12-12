@@ -1,13 +1,13 @@
 package com.example.teamproject.structure;
 
+import com.example.teamproject.brush.SelectorBrush;
 import com.example.teamproject.controller.LayerController;
 import com.example.teamproject.controller.MainDrawingController;
 import com.example.teamproject.tools.ImageFormConverter;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
+import javafx.scene.image.*;
+import javafx.scene.paint.Color;
 
 /**
  * @Description layer类
@@ -57,7 +57,7 @@ public class Layer{
     }
 
     /**
-     * 重新绘制effectCanvas
+     * 利用image重新绘制effectCanvas
      * @param x 新图案左上角的坐标x
      * @param y 新图案左上角的坐标y
      * @param image 要绘制的新图案
@@ -68,7 +68,58 @@ public class Layer{
             effectGc.drawImage(image, x, y);
         else
             gc.drawImage(image, x, y);
+    }
 
+    /**
+     * 利用selectedRegion重新绘制effectCanvas
+     * @param selectedRegion    选区
+     * @param mergeToCanvas     是否复制给主画布
+     */
+    public void updateEffectCanvas(SelectedRegion selectedRegion, boolean mergeToCanvas){
+        clearEffectCanvas();
+        PixelWriter pixelWriter;
+        if(!mergeToCanvas){
+            pixelWriter = effectGc.getPixelWriter();
+        }
+        else{
+            pixelWriter = gc.getPixelWriter();
+        }
+        Color[][] colors = selectedRegion.getColorRegion();
+        int offsetX = (int)selectedRegion.x, offsetY = (int)selectedRegion.y;
+        for(int i=0; i<selectedRegion.sizeX; i++){
+            for (int j=0; j<selectedRegion.sizeY; j++){
+                //在选区内 且不透明 那么复制
+                if(selectedRegion.pointInRegion(i, j)){
+                    Color color = colors[i][j];
+                    if(color.getOpacity()!=0){
+                        pixelWriter.setColor(i+offsetX, j+offsetY, color);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 画笔在对选区操作完成后调用
+     * 利用当前effectCanvas里的内容 反向写回selectedRegion的colorRegion数组
+     */
+    public void updateColorRegionByEffectCanvas(){
+        SelectedRegion selectedRegion = SelectorBrush.getSelectorBrush().getSelectedRegion();
+        Color[][] colors = selectedRegion.getColorRegion();
+        int offsetX = (int)selectedRegion.x, offsetY = (int)selectedRegion.y;
+
+        WritableImage oriImage = ImageFormConverter.canvasToImage(effectCanvas);
+        PixelReader pixelReader = oriImage.getPixelReader();
+
+        for(int i=0; i<selectedRegion.sizeX; i++){
+            for (int j=0; j<selectedRegion.sizeY; j++){
+                //将选区内effectCanvas的内容再复制到color数组里面
+                if(i+offsetX>=0 && j+offsetY>=0){
+                    Color color = pixelReader.getColor(i+offsetX, j+offsetY);
+                    colors[i][j] = color;
+                }
+            }
+        }
     }
 
     public void updateMainEffectCanvas(double x, double y, WritableImage image){
