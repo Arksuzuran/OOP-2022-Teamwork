@@ -29,6 +29,7 @@ public class PenBrush extends Brush{
     public void setColor(Color color) {
         this.color = color;
         gc.setStroke(color);
+
     }
     public void setLineWidth(double lineWidth) {
         this.lineWidth = lineWidth;

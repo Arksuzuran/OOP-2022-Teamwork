@@ -177,7 +177,8 @@ public class SelectorBrush extends Brush{
         WritableImage oriImage = ImageFormConverter.canvasToImage(canvas);
 
         PixelReader pixelReader1 = oriImage.getPixelReader();
-        PixelWriter pixelWriter1 = oriImage.getPixelWriter();
+
+        PixelWriter pixelWriter1 = gc.getPixelWriter();
 
 
         //矩形区域的属性
@@ -218,8 +219,8 @@ public class SelectorBrush extends Brush{
         }
 
         //将图片再写入canvas 和effectCanvas
-        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-        gc.drawImage(oriImage, 0, 0);
+//        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+//        gc.drawImage(oriImage, 0, 0);
         effectGc.drawImage(selectedImage, posX, posY);
 
         //生成选区对象
