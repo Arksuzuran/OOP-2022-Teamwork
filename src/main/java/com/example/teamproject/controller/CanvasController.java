@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
 /**
- * @Description 监听画布上的所有操作 并把对画布的操作传递给MainDrawingController进行处理
+ * @Description 控制绘图区   监听画布上的所有操作 并把对画布的操作传递给MainDrawingController进行处理
  * @Author  CZX
  * @Date    2022.11.30
  **/

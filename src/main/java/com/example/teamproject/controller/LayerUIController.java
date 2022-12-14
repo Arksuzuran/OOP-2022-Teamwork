@@ -8,11 +8,11 @@ import javafx.scene.layout.AnchorPane;
 
 
 /**
- * @Description TODO
- * @Author
- * @Date
+ * @Description 控制单个图层UI
+ * @Author  CZX
+ * @Date    2022.12.11
  **/
-public class LayerController {
+public class LayerUIController {
 
     @FXML
     private AnchorPane LayerPane;

@@ -10,8 +10,7 @@ import javafx.scene.canvas.Canvas;
 import java.util.ArrayList;
 
 /**
- * @Description 画图的总控类 负责接受组件controller的信息 并传递给相应的处理类
- *
+ * @Description 画图的总控类 负责接受组件controller的信息 并传递给相应的处理类 且存储当前工具选择、图层创建情况
  * @Author CZX
  * @Date 2022.11.30
  **/

@@ -1,7 +1,7 @@
 package com.example.teamproject.structure;
 
 import com.example.teamproject.brush.SelectorBrush;
-import com.example.teamproject.controller.LayerController;
+import com.example.teamproject.controller.LayerUIController;
 import com.example.teamproject.controller.MainDrawingController;
 import com.example.teamproject.tools.ImageFormConverter;
 import javafx.scene.canvas.Canvas;
@@ -19,7 +19,7 @@ public class Layer{
     private MainDrawingController mdc = MainDrawingController.getMDC();
 
     //该layer在UI中的控制类
-    protected LayerController layerController;
+    protected LayerUIController layerUIController;
     //最顶层的效果画布
     final protected Canvas mainEffectCanvas;
     final protected GraphicsContext mainEffectGc;
@@ -32,16 +32,16 @@ public class Layer{
     //图层命名
     protected String layerName;
 
-    public Layer(Canvas canvas, Canvas effectCanvas, Canvas mainEffectCanvas, LayerController layerController){
+    public Layer(Canvas canvas, Canvas effectCanvas, Canvas mainEffectCanvas, LayerUIController layerUIController){
         this.canvas = canvas;
         this.effectCanvas = effectCanvas;
-        this.layerController = layerController;
+        this.layerUIController = layerUIController;
         this.mainEffectCanvas = mainEffectCanvas;
         gc = canvas.getGraphicsContext2D();
         effectGc = effectCanvas.getGraphicsContext2D();
         mainEffectGc = mainEffectCanvas.getGraphicsContext2D();
         layerName = mdc.getNewLayerName();
-        layerController.setLayerNameLabel(layerName);
+        layerUIController.setLayerNameLabel(layerName);
     }
 
     public Canvas getMainEffectCanvas() {

@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -17,12 +18,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
 /**
- * @Description 目前所有界面上常驻的UI组件的Controller 根据后序开发进度 可以分设更多Controller
- * @Author  CZX
+ * @Description 目前主界面上常驻的UI组件的Controller
+ * @Author  CZX FGL
  * @Date    2022.11.30
  **/
 public class MainUIController {
@@ -33,7 +35,8 @@ public class MainUIController {
     protected Text OutputText;
     @FXML
     protected VBox LayerBox;
-
+    @FXML
+    protected VBox BrushBox;
     //按钮
     @FXML
     protected Button NewWorkButton;
@@ -82,12 +85,15 @@ public class MainUIController {
     protected CanvasController canvasController = null;
 
     //画布尺寸
-    protected double sizeX = 900;
-    protected double sizeY = 600;
+    protected double sizeX = 980;
+    protected double sizeY = 900;
     protected boolean hasActiveWork = false;
     //绘图主控的引用
     protected MainDrawingController mdc = MainDrawingController.getMDC();
 
+    {
+        ControllerSet.muc = this;
+    }
 
     //============================================创建新作品==============================================//
     /**
@@ -103,15 +109,40 @@ public class MainUIController {
     }
     /**
      * @Description 按下“新空作品”按钮时，生成新的空作品.
-     * @Author  CZX
+     * @Author  CZX FGL
      * @Date    2022.12.4
      */
     @FXML
     protected void OnNewWorkButtonClick(){
         System.out.println("NewWorkButtonClick");
-        if(!hasActiveWork)
-            createNewWork();
+        if(!hasActiveWork) {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("new_work-view.fxml"));
+            try {
+                Scene scene = new Scene(loader.load(), 300, 200);
+                Stage stage = new Stage();
+                stage.setTitle("New");
+
+                NewWorkUIController controller = loader.getController();
+                controller.init(stage);
+
+                stage.setScene(scene);
+                stage.show();
+            }catch (IOException e){
+                sendMessage("创建作品失败, 文件IO异常。");
+            }
+        }
+        else{
+
+            /**
+             *
+             * 此处填充IO代码
+             * 在已存在作品的情况下新建作品 需要询问覆盖情况
+             *
+             */
+        }
+
     }
+
     /**
      * 创建新作品
      * 该方法会重置主控类
@@ -120,12 +151,17 @@ public class MainUIController {
      * 2.创建第一个图层layer1
      * 3.用canvas、layer1、this初始化主控类
      * 后续优化：当前没有作品时会在画图板的位置显示其他UI
+     * @param sizeX 新作品的宽度
+     * @param sizeY 新作品的高度
      */
-    protected void createNewWork(){
+    protected void createNewWork(double sizeX, double sizeY){
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
         createNewCanvasField();
         hasActiveWork = true;
         Layer layer1 = createNewLayer();
         mdc.initialize(mainEffectCanvas, layer1, this, sizeX, sizeY);
+        sendMessage(String.format("成功新建作品, 高度%d, 宽度%d", (int)sizeX, (int)sizeY));
         //layer1.setImage(new Image("E:\\JavaTeamwork\\OOP-2022-Teamwork\\8.png"));
     }
 
@@ -143,6 +179,7 @@ public class MainUIController {
 
             //获取画布区域的控制类(注意！该方法必须在load之后使用！)
             canvasController = loader.getController();
+            ControllerSet.canvasController = canvasController;
 
             //获取自带的效果画布 以及画图区域pane的引用
             mainEffectCanvas = canvasController.getMainEffectCanvas();
@@ -165,8 +202,15 @@ public class MainUIController {
      */
     @FXML
     protected void onNewLayerButtonClick() {
-        Layer layer = createNewLayer();
-        mdc.addNewLayer(layer);
+        //只有主控激活的时候才能创建新图层
+        if(mdc.isActive()){
+            Layer layer = createNewLayer();
+            mdc.addNewLayer(layer);
+        }
+        else{
+            sendMessage("要新建图层，请先新建作品。");
+        }
+
     }
 
     /**
@@ -198,11 +242,11 @@ public class MainUIController {
             Canvas canvas = createNewCanvasAddingToPane();
 
             //获取画布UI的控制类
-            LayerController layerController = loader.getController();
+            LayerUIController layerUIController = loader.getController();
             //UI控制类和layer互相持有对方的引用
-            Layer layer = new Layer(canvas, effectCanvas, mainEffectCanvas, layerController);
-            layerController.setLayer(layer);
-            layerController.setMuc(this);
+            Layer layer = new Layer(canvas, effectCanvas, mainEffectCanvas, layerUIController);
+            layerUIController.setLayer(layer);
+            layerUIController.setMuc(this);
             //生成Layer类
             return layer;
 
@@ -212,11 +256,11 @@ public class MainUIController {
     }
     /**
      * 删除某个图层
-     * @param layerController 要删除的图层的controller
+     * @param layerUIController 要删除的图层的controller
      */
-    public void DeleteLayer(LayerController layerController){
+    public void DeleteLayer(LayerUIController layerUIController){
         ObservableList<Node> list = LayerBox.getChildren();
-        Layer layer = layerController.getLayer();
+        Layer layer = layerUIController.getLayer();
         //最后一个图层不允许删除
         if(list.size()<=1){
             System.out.println("delete layer failed: last layer");
@@ -229,7 +273,7 @@ public class MainUIController {
         layer = canvasController.getTopLayer();
         mdc.setActiveLayer(layer);
         //在UI界面删除该图层的UI
-        AnchorPane anchorPane = layerController.getLayerPane();
+        AnchorPane anchorPane = layerUIController.getLayerPane();
         for (Node node : list){
             if(node == anchorPane){
                 LayerBox.getChildren().remove(node);
@@ -242,17 +286,30 @@ public class MainUIController {
 //=============================================画笔=====================================================//
     /**
      * 选择画笔的按钮
+     * 1.更换上新的UI
+     * 2.如果主控激活 那么选择画笔作为笔刷
      */
     //选中铅笔
     @FXML
     protected void onPenBrushButtonClick(){
+        //更新UI
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("pen-view.fxml"));
+        VBox tmp = null;
+        try {
+            tmp = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BrushBox.getChildren().clear();
+        BrushBox.getChildren().add(tmp);
+        ControllerSet.penUIController = loader.getController();
+
         //只有主控激活时才能选择笔刷
         if(mdc.isActive()){
-
             mdc.setActiveBrush(BrushType.PEN);
             //根据当前UIController里 选中的笔刷信息 来设置笔刷对象的属性
-            updatePenColor();
-            updatePenWidth();
+//            updatePenColor();
+//            updatePenWidth();
         }
     }
     /**
@@ -260,6 +317,7 @@ public class MainUIController {
      * 画笔的颜色选择器
      */
     public void updatePenColor(){
+
         if(mdc.isActive()){
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof PenBrush){
@@ -311,12 +369,45 @@ public class MainUIController {
             }
         }
     }
+
+    /**
+     * 选择橡皮的按钮
+     */
+    @FXML
+    protected void onEraserBrushButtonClick(){
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("pen-view.fxml"));
+        VBox tmp = null;
+        try {
+            tmp = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BrushBox.getChildren().clear();
+        BrushBox.getChildren().add(tmp);
+
+        if(mdc.isActive()){
+            mdc.setActiveBrush(BrushType.SELECTOR);
+        }
+    }
 //=================================================选区======================================================//
     /**
      * 选择选区笔的按钮
      */
     @FXML
     protected void onSelectorButtonClick(){
+        //更新UI
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("selector-view.fxml"));
+        VBox tmp = null;
+        try {
+            tmp = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BrushBox.getChildren().clear();
+        BrushBox.getChildren().add(tmp);
+        ControllerSet.selectorUIController = loader.getController();
+
+        //只有主控激活的时候才能选择笔刷
         if(mdc.isActive()){
             mdc.setActiveBrush(BrushType.SELECTOR);
         }
@@ -383,13 +474,28 @@ public class MainUIController {
             }
         }
     }
+
+    //==========================图形=========================
+    @FXML
+    protected void onShapeBrushButtonClick(){
+        fillRegion();
+    }
+
+    @FXML
+    protected void onImageProcessButtonClick(){
+        fillRegion();
+    }
+
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
-    protected void setOutputText(String s){
+    /**
+     * 设置底部提示文本
+     * @param s 要设置的文本
+     */
+    public void sendMessage(String s){
         OutputText.setText(s);
     }
-
 }

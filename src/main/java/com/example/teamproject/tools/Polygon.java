@@ -5,9 +5,9 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
- * @Description 多边形相关
- * @Author
- * @Date
+ * @Description 多边形区域的工具类
+ * @Author  CZX
+ * @Date    2022.12.11
  **/
 public class Polygon {
     /**

@@ -22,7 +22,7 @@ public class HelloApplication extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 
-        Scene scene = new Scene(fxmlLoader.load(), 1200, 720);
+        Scene scene = new Scene(fxmlLoader.load(), 1250, 900);
 
         stage.setTitle("haSAIki");
 

@@ -7,8 +7,8 @@ import javafx.scene.canvas.GraphicsContext;
 
 /**
  * @Description 所有笔刷的父类
- * @Author
- * @Date
+ * @Author  CZX
+ * @Date    2022.12.1
  **/
 public abstract class Brush {
 

@@ -1,11 +1,9 @@
 package com.example.teamproject.brush;
 
 import com.example.teamproject.effect.FillColorEffect;
-import com.example.teamproject.structure.Layer;
 import com.example.teamproject.structure.SelectedRegion;
 import com.example.teamproject.tools.ImageFormConverter;
 import com.example.teamproject.tools.Polygon;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;

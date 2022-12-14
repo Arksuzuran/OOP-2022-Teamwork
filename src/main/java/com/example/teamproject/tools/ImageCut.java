@@ -10,9 +10,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
- * @Description TODO
- * @Author
- * @Date
+ * @Description 将指定多边形内的图片裁剪下来 返回
+ * @Author  CZX
+ * @Date    2022.12.11
  **/
 public class ImageCut {
 

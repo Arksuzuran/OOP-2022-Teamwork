@@ -6,8 +6,8 @@ import org.opencv.imgproc.Imgproc;
 
 /**
  * @Description 整张图片高斯模糊 实现的方式待定
- * @Author
- * @Date
+ * @Author  ZDW
+ * @Date    2022.12.14
  **/
 public class GaussianBlurEffect extends Effect{
     //level = 1 - 15
