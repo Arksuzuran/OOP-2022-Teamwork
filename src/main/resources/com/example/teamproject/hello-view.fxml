@@ -161,7 +161,7 @@
             <Insets left="20.0" right="10.0" />
          </HBox.margin>
       </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="456, 566 像素">
+      <Text fx:id="PositionText" strokeType="OUTSIDE" strokeWidth="0.0" text="尚未创建作品">
          <HBox.margin>
             <Insets right="350.0" />
          </HBox.margin>

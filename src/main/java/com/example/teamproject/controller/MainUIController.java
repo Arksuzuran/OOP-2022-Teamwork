@@ -37,6 +37,8 @@ public class MainUIController {
     @FXML
     protected Text OutputText;
     @FXML
+    protected Text PositionText;
+    @FXML
     protected VBox LayerBox;
     @FXML
     protected VBox BrushBox;
@@ -535,5 +537,8 @@ public class MainUIController {
      */
     public void sendMessage(String s){
         OutputText.setText(s);
+    }
+    public void updatePositionText(String s){
+        PositionText.setText(s);
     }
 }
