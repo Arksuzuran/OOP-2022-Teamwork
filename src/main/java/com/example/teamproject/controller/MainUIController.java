@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -33,6 +34,8 @@ public class MainUIController {
     protected Label welcomeText;
     @FXML
     protected Text OutputText;
+    @FXML
+    protected Text CordText;
     @FXML
     protected VBox LayerBox;
     @FXML
@@ -497,5 +500,9 @@ public class MainUIController {
      */
     public void sendMessage(String s){
         OutputText.setText(s);
+    }
+
+    public void updateCordText(String s){
+        CordText.setText(s);
     }
 }
