@@ -1,6 +1,8 @@
 package com.example.teamproject.brush;
 
+import com.example.teamproject.controller.ControllerSet;
 import com.example.teamproject.effect.FillColorEffect;
+import com.example.teamproject.io.Open;
 import com.example.teamproject.structure.SelectedRegion;
 import com.example.teamproject.tools.ImageFormConverter;
 import com.example.teamproject.tools.Polygon;
@@ -12,6 +14,7 @@ import javafx.scene.paint.Color;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -64,8 +67,10 @@ public class SelectorBrush extends Brush{
     private double deltaX = 0, deltaY = 0;//拖动过程中的总偏移量
     private boolean hasSelected = false;//当前是否已经完成选区绘制
 
-    public boolean boundFollowing = true;//选区边界是否跟随移动
-    public boolean regionSave = true;//选区是否在鼠标松开后仍然保留
+    private boolean boundFollowing = true;//选区边界是否跟随移动
+    private boolean regionSave = true;//选区是否在鼠标松开后仍然保留
+
+
     //上一次的坐标
     private PathPoint lastPoint;
 
@@ -135,9 +140,11 @@ public class SelectorBrush extends Brush{
         if(isDrawing && !hasSelected){
             isDrawing = false;
             hasSelected = true;
-            processSelectedRegion();
+            createLineSelectedRegion();
 
-            PenBrush.getPenBrush().changeSelectedGc(true);//其他笔刷此时切换到effectCanvas
+            //其他笔刷此时切换到effectCanvas
+            PenBrush.getPenBrush().changeSelectedGc(true);
+            EraserBrush.getEraserBrush().changeSelected(true);
         }
         else if(isDrawing){
             if(regionSave)
@@ -167,14 +174,16 @@ public class SelectorBrush extends Brush{
             init();
 
             PenBrush.getPenBrush().changeSelectedGc(false);
+            EraserBrush.getEraserBrush().changeSelected(false);
         }
     }
+
     /**
-     * 完成选区的绘制 生成选区：
+     * 完成选区的绘制 通过选区边界生成选区：
      * 清空原有图层中被选中的区域
      * 将原有图层中被选中的区域转移到效果图层上面
      */
-    private void processSelectedRegion(){
+    private void createLineSelectedRegion(){
         //获得多边形和矩形框
         polygon = Polygon.createPolygon(pointList);
         bounds = polygon.getBounds();
@@ -230,20 +239,38 @@ public class SelectorBrush extends Brush{
                 }
             }
         }
-
         //将图片再写入canvas 和effectCanvas
 //        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
 //        gc.drawImage(oriImage, 0, 0);
 //        effectGc.drawImage(selectedImage, posX, posY);
-
         //生成选区对象
-        selectedRegion = new SelectedRegion(selectedImage, inRegion, colorRegion, minX, minY, bounds.width, bounds.height, polygon);
+        selectedRegion = new SelectedRegion(inRegion, colorRegion, minX, minY, bounds.width, bounds.height, polygon);
 
         //及时更新
         activeLayer.updateEffectCanvas(selectedRegion, false);
 
         System.out.println("select process success. [width]"+bounds.width+" [height]"+bounds.height);
     }
+
+    /**
+     * 导入图片并以此新建选区
+     * @param file  要导入的图片
+     */
+    public void createImageSelectedRegion(File file){
+        if(hasSelected)
+            return;
+        //生成选区
+        selectedRegion = Open.importImageInSelectedRegion(file);
+        if(selectedRegion == null)
+            return;
+
+        //更新画面
+        activeLayer.updateEffectCanvas(selectedRegion, false);
+        System.out.println("import image as selectedRegion success. [width]"+selectedRegion.sizeX+" [height]"+selectedRegion.sizeY);
+        hasSelected = true;
+    }
+
+
 
     public void addPointToList(double x, double y){
         pointList.add(new Point2D.Double(x, y));
@@ -277,18 +304,28 @@ public class SelectorBrush extends Brush{
         if(hasSelected){
             FillColorEffect.FillSelectedRegion(selectedRegion, color);
             activeLayer.updateEffectCanvas(selectedRegion, false);
+            ControllerSet.muc.sendMessage("成功为选区填充颜色："+color+"。");
 //            WritableImage image = FillColorEffect.FillSelectedRegion(selectedRegion, color);
 //            updateImage(image);
+        }
+    }
+    /**
+     * 将选区外的区域填充为指定颜色 并及时更新该颜色
+     * @param color 所要填充的颜色
+     */
+    public void fillUnselectedRegion(Color color){
+        if(hasSelected){
+            FillColorEffect.FillUnselectedRegion(selectedRegion, color, canvas);
         }
     }
 
     /**
      * 从前端UI直接接受信息
      */
-    public void changeBoundFollow(boolean follow){
+    public void setBoundFollow(boolean follow){
         boundFollowing = follow;
     }
-    public void changeRegionSave(boolean save){
+    public void setRegionSave(boolean save){
         regionSave = save;
         endSelecting();
     }

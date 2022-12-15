@@ -23,7 +23,7 @@ public class PenBrush extends Brush{
     public static PenBrush getPenBrush() {
         return Pen;
     }
-
+    private PenBrush(){}
     public static SelectorBrush selectorBrush = SelectorBrush.getSelectorBrush();
     //画笔颜色 默认为黑
     Color color = Color.BLACK;
@@ -79,6 +79,9 @@ public class PenBrush extends Brush{
     public void setSmoothLevel(int level){
         smoothLevel = level;
     }
+
+    private static final double GAP_TWO = 0.5;
+    private static final double GAP_THREE = 1;
     /**
      * 开始绘画
      * @param x 起始点的x
@@ -133,23 +136,29 @@ public class PenBrush extends Brush{
                 //上一步刚刚推入起点p1 那么本步不需要画曲线 而是取p2作为控制点
                 if (controlPoint != null) {
                     endPoint = getMidPoint(controlPoint, inputPoint);
-                    drawQuadraticCurve(startPoint, controlPoint, endPoint);
+                    //要求间隔大于GAP_TWO时才允许画线
+                    if(calDistance2(startPoint, endPoint)>GAP_TWO)
+                        drawQuadraticCurve(startPoint, controlPoint, endPoint);
                     startPoint = endPoint;
                 }
                 controlPoint = inputPoint;
             }
             //等级3
             else if(smoothLevel == 3){
-                pointQueue.addLast(inputPoint);
+                //要求间隔大于GAP_THREE时才允许添加
+                if(calDistance2(pointQueue.getLast(), inputPoint)>GAP_THREE)
+                    pointQueue.addLast(inputPoint);
                 //凑够三个路径点 就进行一次绘制
                 if(pointQueue.size()==3){
                     drawQuadraticCurve(pointQueue.get(0), pointQueue.get(1), pointQueue.get(2));
                     pointQueue.removeFirst();   pointQueue.removeFirst();
                 }
             }
-            //等级4
-            else if(smoothLevel == 4){
-                pointQueue.addLast(inputPoint);
+            //等级4及以上
+            else{
+                //要求间隔大于smoothLevel*0.5时才允许添加
+                if(calDistance2(pointQueue.getLast(), inputPoint)>smoothLevel)
+                    pointQueue.addLast(inputPoint);
                 //凑够四个路径点 就进行一次绘制
                 if(pointQueue.size()==4){
                     drawTripleCurve(pointQueue.get(0), pointQueue.get(1), pointQueue.get(2), pointQueue.get(3));
@@ -205,6 +214,9 @@ public class PenBrush extends Brush{
     }
     private PathPoint getMidPoint(PathPoint p1, PathPoint p2){
         return new PathPoint((p1.x+ p2.x)/2, (p1.y+ p2.y)/2);
+    }
+    private double calDistance2(PathPoint p1, PathPoint p2){
+        return (p1.x-p2.x)*(p1.x-p2.x) + (p1.y-p2.y)*(p1.y-p2.y);
     }
     private void drawLine(PathPoint sp, PathPoint ep){
         if(sp==null || ep==null)
@@ -277,7 +289,7 @@ public class PenBrush extends Brush{
             for (int j=sy; j<ey; j++){
                 if(i<0 || j<0)
                     continue;
-                if(!selectedRegion.pointInRegion(i-offsetX, j-offsetY)){
+                if(!selectedRegion.pointInRegionRelative(i-offsetX, j-offsetY)){
                     pixelWriter.setColor(i, j, Color.TRANSPARENT);
                 }
             }

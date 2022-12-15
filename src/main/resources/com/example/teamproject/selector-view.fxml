@@ -7,37 +7,67 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="160.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.SelectorUIController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="283.0" prefWidth="160.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.SelectorUIController">
    <children>
       <ColorPicker fx:id="RegionColorPicker" prefHeight="25.0" prefWidth="100.0">
          <VBox.margin>
             <Insets bottom="10.0" left="2.0" right="2.0" top="2.0" />
          </VBox.margin>
       </ColorPicker>
-      <HBox prefHeight="30.0" prefWidth="200.0">
+      <VBox prefHeight="40.0" prefWidth="160.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#OnRegionFillButtonClick" text="填充">
-               <HBox.margin>
-                  <Insets right="15.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#OnRegionSelectedButtonClick" text="确认更改" />
+            <HBox prefHeight="30.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#OnRegionFillButtonClick" text="填充选区">
+                     <HBox.margin>
+                        <Insets left="5.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#OnUnselectedRegionFillButtonClick" text="填充选区外" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+            <VBox prefHeight="50.0" prefWidth="100.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onImportImageButtonClock" text="导入图片并生成选区">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#OnRegionSelectedButtonClick" text="确认更改">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </VBox>
          </children>
          <VBox.margin>
-            <Insets bottom="10.0" />
+            <Insets bottom="20.0" top="10.0" />
          </VBox.margin>
-      </HBox>
-      <CheckBox fx:id="SelectSaveCheckBox" mnemonicParsing="false" onAction="#OnSelectSaveCheckBoxChanged" selected="true" text="选区状态保留">
+      </VBox>
+      <VBox prefHeight="116.0" prefWidth="160.0">
+         <children>
+            <CheckBox fx:id="SelectSaveCheckBox" mnemonicParsing="false" onAction="#OnSelectSaveCheckBoxChanged" selected="true" text="选区状态保留">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </CheckBox>
+            <CheckBox fx:id="SelectLineCheckBox" mnemonicParsing="false" onAction="#OnSelectLineCheckBoxChanged" selected="true" text="选区边界可见">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </CheckBox>
+            <CheckBox mnemonicParsing="false" selected="true" text="选区可拖拽" />
+         </children>
          <VBox.margin>
-            <Insets bottom="5.0" />
+            <Insets left="5.0" />
          </VBox.margin>
-      </CheckBox>
-      <CheckBox fx:id="SelectLineCheckBox" mnemonicParsing="false" onAction="#OnSelectLineCheckBoxChanged" selected="true" text="选区边界可见">
-         <VBox.margin>
-            <Insets bottom="5.0" />
-         </VBox.margin>
-      </CheckBox>
-      <CheckBox mnemonicParsing="false" selected="true" text="选区可拖拽" />
+      </VBox>
    </children>
 </VBox>

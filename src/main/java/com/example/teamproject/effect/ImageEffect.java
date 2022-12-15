@@ -5,9 +5,6 @@ import com.example.teamproject.structure.SelectedRegion;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfByte;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.core.Mat;
 
 /**
  * @Description 用于直接处理Mat的工具类
@@ -55,7 +52,7 @@ public class ImageEffect {
         byte[] dstData = new byte[(int) (dst.total() * dst.channels())];
         for (int y = 0; y < mat.rows(); y++) {
             for (int x = 0; x < mat.cols(); x++) {
-                if(!selectedRegion.pointInRegion(x, y)){//如果出现问题就只能删掉了
+                if(!selectedRegion.pointInRegionRelative(x, y)){//如果出现问题就只能删掉了
                     continue;
                 }
                 for (int c = 0; c < mat.channels(); c++) {
@@ -75,7 +72,7 @@ public class ImageEffect {
         byte[] dstData = new byte[(int) (dst.total() * dst.channels())];
         for (int y = 0; y < mat.rows(); y++) {
             for (int x = 0; x < mat.cols(); x++) {
-                if(!selectedRegion.pointInRegion(x, y)){
+                if(!selectedRegion.pointInRegionRelative(x, y)){
                     continue;
                 }
                 for (int c = 0; c < mat.channels(); c++) {

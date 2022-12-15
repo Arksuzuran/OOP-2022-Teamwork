@@ -21,9 +21,9 @@
        <Menu mnemonicParsing="false" text="文件">
          <items>
            <MenuItem mnemonicParsing="false" onAction="#OnNewWorkButtonClick" text="新建" />
-               <MenuItem mnemonicParsing="false" text="打开" />
+               <MenuItem mnemonicParsing="false" onAction="#OnImportWorkButtonClick" text="打开" />
                <MenuItem mnemonicParsing="false" text="保存" />
-               <MenuItem mnemonicParsing="false" text="另存为" />
+               <MenuItem mnemonicParsing="false" onAction="#OnSaveWorkButtonClick" text="另存为" />
          </items>
        </Menu>
        <Menu mnemonicParsing="false" text="编辑">

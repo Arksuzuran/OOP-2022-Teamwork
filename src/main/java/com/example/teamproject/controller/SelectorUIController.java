@@ -6,7 +6,11 @@ import com.example.teamproject.brush.SelectorBrush;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
+import javafx.stage.FileChooser;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+import java.io.File;
 
 /**
  * @Description 控制选区笔UI
@@ -36,7 +40,7 @@ public class SelectorUIController {
         }
     }
     /**
-     * 选区的颜色选择器
+     * 选区的颜色填充
      */
     public void fillRegion(){
         Color color = RegionColorPicker.getValue();
@@ -44,6 +48,17 @@ public class SelectorUIController {
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof SelectorBrush){
                 ((SelectorBrush) brush).fillSelectedRegion(color);
+                ControllerSet.muc.sendMessage("已为选区填充颜色："+color);
+            }
+        }
+    }
+    public void fillUnselectedRegion(){
+        Color color = RegionColorPicker.getValue();
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof SelectorBrush){
+                ((SelectorBrush) brush).fillUnselectedRegion(color);
+                ControllerSet.muc.sendMessage("已为选区外填充颜色："+color);
             }
         }
     }
@@ -55,6 +70,44 @@ public class SelectorUIController {
     protected void OnRegionFillButtonClick(){
         fillRegion();
     }
+    @FXML
+    protected void OnUnselectedRegionFillButtonClick(){
+        fillUnselectedRegion();
+    }
+
+    /**
+     * 导入图片并生成选区
+     */
+    @FXML
+    protected void onImportImageButtonClock(){
+        importImageAsRegion();
+    }
+
+    protected void importImageAsRegion(){
+
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof SelectorBrush){
+                SelectorBrush selectorBrush = (SelectorBrush) brush;
+                if(((SelectorBrush) brush).hasSelected())
+                    ControllerSet.muc.sendMessage("不能在已有选区的情况下导入图片作为选区。");
+
+                else{
+                    Stage stage = new Stage();
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.setTitle("Open");
+                    fileChooser.getExtensionFilters().addAll(
+                            new FileChooser.ExtensionFilter("All Images", "*.*"),
+                            new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                            new FileChooser.ExtensionFilter("PNG", "*.png"));
+                    File file = fileChooser.showOpenDialog(stage);
+
+                    ((SelectorBrush) brush).createImageSelectedRegion(file);
+                    ControllerSet.muc.sendMessage("成功导入图片作为选区。");
+                }
+            }
+        }
+    }
 
     /**
      * 确认选区
@@ -65,6 +118,7 @@ public class SelectorUIController {
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof SelectorBrush){
                 ((SelectorBrush) brush).endSelecting();
+                ControllerSet.muc.sendMessage("选区已确认更改。");
             }
         }
     }
@@ -78,10 +132,10 @@ public class SelectorUIController {
         if(mdc.isActive()){
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof SelectorBrush){
-                ((SelectorBrush) brush).changeRegionSave(save);
+                ((SelectorBrush) brush).setRegionSave(save);
+                ControllerSet.muc.sendMessage("选区不保留。现在，拖动并松手后将自动确认选区。");
             }
         }
-
     }
 
     /**
@@ -93,7 +147,8 @@ public class SelectorUIController {
         if(mdc.isActive()){
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof SelectorBrush){
-                ((SelectorBrush) brush).changeBoundFollow(hasLine);
+                ((SelectorBrush) brush).setBoundFollow(hasLine);
+                ControllerSet.muc.sendMessage("选区边界不跟随。现在，选区边界虚线将不再显示");
             }
         }
     }

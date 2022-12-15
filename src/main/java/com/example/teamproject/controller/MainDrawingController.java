@@ -1,12 +1,17 @@
 package com.example.teamproject.controller;
 
-import com.example.teamproject.brush.Brush;
-import com.example.teamproject.brush.BrushType;
-import com.example.teamproject.brush.PenBrush;
-import com.example.teamproject.brush.SelectorBrush;
+import com.example.teamproject.brush.*;
 import com.example.teamproject.structure.Layer;
+import com.example.teamproject.tools.ImageFormConverter;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
 
+import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.util.ArrayList;
 
 /**
@@ -162,6 +167,7 @@ public class MainDrawingController {
         switch (brushType){
             case PEN -> this.activeBrush = PenBrush.getPenBrush();
             case SELECTOR -> this.activeBrush = SelectorBrush.getSelectorBrush();
+            case ERASER -> this.activeBrush = EraserBrush.getEraserBrush();
         }
         activeBrush.updateActiveLayer();
         System.out.println("set new brush: "+activeBrush);
@@ -178,7 +184,10 @@ public class MainDrawingController {
      */
     public void lineBegin(double x, double y){
         if(isActive && activeBrush!=null){
-            activeBrush.drawBegin(x,y);
+            if(activeLayer.isVisible())
+                activeBrush.drawBegin(x,y);
+            else
+                ControllerSet.muc.sendMessage("您不能在不可见的图层上作画。");
         }
     }
 
@@ -189,7 +198,8 @@ public class MainDrawingController {
      */
     public void lineGoto(double x, double y){
         if(isActive && activeBrush!=null){
-            activeBrush.drawTo(x,y);
+            if(activeLayer.isVisible())
+                activeBrush.drawTo(x,y);
         }
     }
 
@@ -198,8 +208,27 @@ public class MainDrawingController {
      */
     public void stopDrawing(){
         if(isActive && activeBrush!=null){
-            activeBrush.drawEnd();
+            if(activeLayer.isVisible())
+                activeBrush.drawEnd();
         }
+    }
+
+    /**
+     * 合并所有layers 输出合成后的图像
+     * @return  合并后的图像
+     */
+    public Image mergeAllLayers(){
+        //合并所有layers
+        GraphicsContext mainEffectGc = mainEffectCanvas.getGraphicsContext2D();
+        for(int i=layerList.size()-1; i>=0; i--){
+            Layer layer = layerList.get(i);
+            WritableImage image = ImageFormConverter.canvasToImage(layer.getCanvas());
+            mainEffectGc.drawImage(image, 0, 0);
+        }
+        //读出合并结果 清空用于合并的effectCanvas
+        WritableImage result = ImageFormConverter.canvasToImage(mainEffectCanvas);
+        mainEffectGc.clearRect(0, 0, mainEffectCanvas.getWidth(), mainEffectCanvas.getHeight());
+        return result;
     }
 
 }
