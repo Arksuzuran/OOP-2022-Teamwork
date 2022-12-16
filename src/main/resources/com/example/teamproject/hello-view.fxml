@@ -21,9 +21,9 @@
        <Menu mnemonicParsing="false" text="文件">
          <items>
            <MenuItem mnemonicParsing="false" onAction="#OnNewWorkButtonClick" text="新建" />
-               <MenuItem mnemonicParsing="false" text="打开" />
+               <MenuItem mnemonicParsing="false" onAction="#OnImportWorkButtonClick" text="打开" />
                <MenuItem mnemonicParsing="false" text="保存" />
-               <MenuItem mnemonicParsing="false" text="另存为" />
+               <MenuItem mnemonicParsing="false" onAction="#OnSaveWorkButtonClick" text="另存为" />
          </items>
        </Menu>
        <Menu mnemonicParsing="false" text="编辑">
@@ -161,7 +161,7 @@
             <Insets left="20.0" right="10.0" />
          </HBox.margin>
       </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="456, 566 像素">
+      <Text fx:id="PositionText" strokeType="OUTSIDE" strokeWidth="0.0" text="尚未创建作品">
          <HBox.margin>
             <Insets right="350.0" />
          </HBox.margin>

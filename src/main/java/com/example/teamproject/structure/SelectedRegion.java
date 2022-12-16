@@ -16,14 +16,15 @@ public class SelectedRegion {
     private final boolean[][] inRegion;//标记当前坐标的像素是否在选区内
 
     private final Color[][] colorRegion;//选区内的颜色数组
+
     public GeneralPath polygon;//选区的边界
+
     //该选区应当处于的位置
     public double x, y;
     //该选区矩形域的尺寸
     public double sizeX, sizeY;
-    public SelectedRegion(WritableImage selectedImage, boolean[][] inRegion, Color[][] colorRegion,
+    public SelectedRegion(boolean[][] inRegion, Color[][] colorRegion,
                           double x, double y, double sizeX, double sizeY, GeneralPath polygon){
-        this.selectedImage = selectedImage;
         this.inRegion = inRegion;
         this.colorRegion = colorRegion;
         this.x = x;
@@ -39,7 +40,21 @@ public class SelectedRegion {
      * @param y y
      * @return  在区域内
      */
-    public boolean pointInRegion(int x, int y){
+    public boolean pointInRegionRelative(int x, int y){
+        if(x>=0 && y>=0 && x<inRegion.length && y<inRegion[x].length )
+            return inRegion[x][y];
+        return false;
+    }
+
+    /**
+     * 查询点是否在区域内 要求使用绝对坐标
+     * @param x x
+     * @param y y
+     * @return  在区域内
+     */
+    public boolean pointInRegionAbsolute(int x, int y){
+        x = x - (int)this.x;
+        y = y - (int)this.y;
         if(x>=0 && y>=0 && x<inRegion.length && y<inRegion[x].length )
             return inRegion[x][y];
         return false;
@@ -52,6 +67,7 @@ public class SelectedRegion {
         this.x = x;
         this.y = y;
     }
+
     public Color[][] getColorRegion() {
         return colorRegion;
     }

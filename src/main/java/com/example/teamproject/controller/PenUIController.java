@@ -62,7 +62,6 @@ public class PenUIController {
     public void updatePenWidth(){
         double penWidth = PenWidthSlider.getValue();
         PenWidthLabel.setText(Integer.toString((int)penWidth));
-
         if(mdc.isActive()){
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof PenBrush){
@@ -70,6 +69,7 @@ public class PenUIController {
             }
         }
     }
+
     @FXML
     protected void OnPenWidthSliderSet(){
         updatePenWidth();
@@ -107,7 +107,7 @@ public class PenUIController {
      */
     public void updateSmoothLevel(){
         int smoothLevel = (int)SmoothLevelSlider.getValue();
-        SmoothLevelLabel.setText(Integer.toString(smoothLevel));
+        updateSmoothLevelLabel(smoothLevel);
 
         if(mdc.isActive()){
             Brush brush = mdc.getActiveBrush();
@@ -116,6 +116,12 @@ public class PenUIController {
             }
         }
     }
-
+    private void updateSmoothLevelLabel(double penWidth){
+        int width = (int)penWidth;
+        if(width<23)
+            SmoothLevelLabel.setText(Integer.toString(width));
+        else
+            SmoothLevelLabel.setText("S"+Integer.toString(width-23));
+    }
 
 }

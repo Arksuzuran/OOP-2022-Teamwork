@@ -93,4 +93,9 @@ public class CanvasController {
     private void OnCanvasMouseReleased(){
         mdc.stopDrawing();
     }
+
+    @FXML
+    private void updateCord(MouseEvent mouseEvent){
+        ControllerSet.muc.updatePositionText((int)mouseEvent.getX() + ", " + (int)mouseEvent.getY() + "像素");
+    }
 }
