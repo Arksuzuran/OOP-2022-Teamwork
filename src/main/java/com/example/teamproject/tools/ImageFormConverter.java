@@ -215,7 +215,7 @@ public class ImageFormConverter {
             PixelReader pixelReader = image.getPixelReader();
             WritablePixelFormat<ByteBuffer> format = WritablePixelFormat.getByteBgraInstance();
             pixelReader.getPixels(0, 0, width, height, format, pixelBuffer, 0, width * 4);
-            Mat mat = new Mat(height, width, CvType.CV_8UC4);
+            Mat mat = new Mat(height, width, CvType.CV_8SC4);
 
             mat.put(0, 0, pixelBuffer);
             return mat;

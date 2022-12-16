@@ -2,12 +2,15 @@ package com.example.teamproject.effect;
 
 import com.example.teamproject.brush.SelectorBrush;
 import com.example.teamproject.structure.SelectedRegion;
+import javafx.scene.paint.Color;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.core.Mat;
+
+import java.awt.image.BufferedImage;
 
 /**
  * @Description 用于直接处理Mat的工具类
@@ -98,6 +101,37 @@ public class ImageEffect {
         dst.put(0, 0, dstData);
         return dst;
     }
+    /*
+    public static Mat brushSetColor(BufferedImage bufferedImage, Color color){
+        Mat dst = new Mat(mat.size(), mat.type());
+        byte[] matData = new byte[(int) (mat.total() * mat.channels())];
+        mat.get(0, 0, matData);
+        byte[] dstData = new byte[(int) (dst.total() * dst.channels())];
+        for (int y = 0; y < mat.rows(); y++) {
+            for (int x = 0; x < mat.cols(); x++) {
+
+                for (int c = 0; c < mat.channels(); c++) {
+                    double pixelValue = matData[(y * mat.cols() + x) * mat.channels() + c];
+                    pixelValue = pixelValue < 0 ? pixelValue + 256 : pixelValue;
+                    double val = 0;
+                    if(c == 0){
+                        val = color.getRed();
+                    }
+                    if(c == 1){
+                        val = color.getGreen() ;
+                    }
+                    if(c == 2){
+                        val = color.getBlue() ;
+                    }
+                    dstData[(y * mat.cols() + x) * mat.channels() + c] = (byte) val;
+                }
+            }
+        }
+        dst.put(0, 0, dstData);
+        return dst;
+    }
+    */
+
     /*
     非线性地处理亮度，让图片不会过暗或者过曝
     gamma > 0
