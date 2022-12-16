@@ -90,7 +90,7 @@ public class SelectorUIController {
             if(brush instanceof SelectorBrush){
                 SelectorBrush selectorBrush = (SelectorBrush) brush;
                 if(((SelectorBrush) brush).hasSelected())
-                    ControllerSet.muc.sendMessage("不能在已有选区的情况下导入图片作为选区。");
+                    ControllerSet.muc.sendMessage("[选区笔] 不能在已有选区的情况下导入图片作为选区。");
 
                 else{
                     Stage stage = new Stage();
@@ -103,7 +103,7 @@ public class SelectorUIController {
                     File file = fileChooser.showOpenDialog(stage);
 
                     ((SelectorBrush) brush).createImageSelectedRegion(file);
-                    ControllerSet.muc.sendMessage("成功导入图片作为选区。");
+                    ControllerSet.muc.sendMessage("[选区笔] 成功导入图片作为选区。");
                 }
             }
         }
@@ -118,7 +118,7 @@ public class SelectorUIController {
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof SelectorBrush){
                 ((SelectorBrush) brush).endSelecting();
-                ControllerSet.muc.sendMessage("选区已确认更改。");
+                ControllerSet.muc.sendMessage("[选区笔] 选区已确认更改。");
             }
         }
     }
@@ -133,7 +133,7 @@ public class SelectorUIController {
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof SelectorBrush){
                 ((SelectorBrush) brush).setRegionSave(save);
-                ControllerSet.muc.sendMessage("选区不保留。现在，拖动并松手后将自动确认选区。");
+                ControllerSet.muc.sendMessage("[选区笔] 选区不保留。现在，拖动并松手后将自动确认选区。");
             }
         }
     }
@@ -148,7 +148,7 @@ public class SelectorUIController {
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof SelectorBrush){
                 ((SelectorBrush) brush).setBoundFollow(hasLine);
-                ControllerSet.muc.sendMessage("选区边界不跟随。现在，选区边界虚线将不再显示");
+                ControllerSet.muc.sendMessage("[选区笔] 选区边界不跟随。现在，选区边界虚线将不再显示。");
             }
         }
     }

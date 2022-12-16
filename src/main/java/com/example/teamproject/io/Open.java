@@ -1,6 +1,7 @@
 package com.example.teamproject.io;
 
 import com.example.teamproject.brush.SelectorBrush;
+import com.example.teamproject.controller.ControllerSet;
 import com.example.teamproject.structure.SelectedRegion;
 import com.example.teamproject.tools.Polygon;
 import javafx.scene.image.Image;
@@ -49,7 +50,21 @@ public class Open {
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG", "*.png"));
         File file = fileChooser.showOpenDialog(stage);
-        return file;
+        if(file==null)
+            return null;
+        String s = file.getName();
+        //确保可读入
+        if(s.endsWith(".jpg") || s.endsWith(".png")){
+            //去除可能存在的拓展名
+            int index = s.lastIndexOf('.');
+            if(index >= 0)
+                ControllerSet.muc.setName(s.substring(0, s.lastIndexOf('.')));
+            else
+                ControllerSet.muc.setName(s);
+            return file;
+        }
+        else
+            return null;
     }
 
     /**

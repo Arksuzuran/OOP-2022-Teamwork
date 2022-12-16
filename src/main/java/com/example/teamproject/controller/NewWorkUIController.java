@@ -26,18 +26,18 @@ public class NewWorkUIController {
 
     public void init(Stage stage){
         this.stage = stage;
-        NewName.setText("未命名");
+        NewName.setText("untitled");
         NewHeight.setText("900");
         NewWidth.setText("700");
     }
 
     @FXML
-    void ConfirmNew(MouseEvent event) {
+    protected void ConfirmNew(MouseEvent event) {
         String name = NewName.getText();
         int width = Integer.parseInt(NewWidth.getText());
         int height = Integer.parseInt(NewHeight.getText());
 
-        ControllerSet.muc.createNewWork(width, height);
+        ControllerSet.muc.createNewWork(width, height, name);
 
         stage.close();
     }

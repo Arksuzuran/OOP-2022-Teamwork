@@ -60,14 +60,45 @@ public class PenBrush extends Brush{
         this.lineWidth = lineWidth;
         nowGc.setLineWidth(lineWidth);
     }
+
+    /**
+     * 多种笔刷的实现
+     */
+    private static final String SOFT = "soft";
+    private static final String GRID_1 = "brushtex/Canvas.bmp";
+    private static final String CARPET_1 = "brushtex/Carpet 01.bmp";
+    private static final String CLOUD_1 = "brushtex/Cloud 01.bmp";
+    private static final String DIRT_1 = "brushtex/Dirt 01.bmp";
+    private static final String DIRT_2 = "brushtex/Dirt 06.bmp";
+    private static final String DIRT_3 = "brushtex/Dirt 09.bmp";
+    private static final String FABRIC_1 = "brushtex/Fabric 02.bmp";
+    private static final String FUZY_1 = "brushtex/Fuzystatic.bmp";
+    private static final String GLASS_1 = "brushtex/Glass 02.bmp";
+    private static final String LEAVES_1 = "brushtex/Leaves 04.bmp";
+    private static final String METAL_1 = "brushtex/Metal 01.bmp";
+    private static final String NOISE_1 = "brushtex/Noise 01.bmp";
+    private static final String PAPER_1 = "brushtex/Paper 01.bmp";
+    private static final String ROCK_1 = "brushtex/Rock 01.bmp";
+    private static final String SPOT = "brushtex/Spot 02.BMP";
+    private static final String WAVE_1 = "brushtex/Wave 01.bmp";
+    private static final String WAVE_2 = "brushtex/Wave 08.bmp";
+    private static final String WOOD_1 = "brushtex/Wood 03.bmp";
+
     //达不到预期的调节笔刷硬度的效果，只能大致的实现软笔刷，只分成启用或者不启用
     //启用时需要在setColor,setOpacity之后调用：ui上搞一个勾选框，勾上则把isSoft设置为true
-    public void setSoft() {
-        nowGc.setStroke(createSoftBrushGradient(color, lineWidth));//直径还是半径？
-    }
+    /**
+     * 设置画笔的笔刷效果
+     * @param url   笔刷常量
+     */
     public void setBrushMaterial(String url){
+        if(url.equals("soft")){
+            nowGc.setStroke(createSoftBrushGradient(color, lineWidth));//直径还是半径？
+        }
+        else {
+            Image image = new Image(url);
+            nowGc.setStroke(new ImagePattern(image));
+        }
 
-        Image image = new Image(url);
         /*
         BufferedImage img = null;
         try {
@@ -94,12 +125,12 @@ public class PenBrush extends Brush{
         }
         ImagePattern imagePattern = new ImagePattern(SwingFXUtils.toFXImage(img, null));
          */
-        nowGc.setStroke(new ImagePattern(image));
     }
     //只有圆形，正方形，三角形
     public void setCap(StrokeLineCap strokeLineCap){
         nowGc.setLineCap(strokeLineCap);
     }
+
     //更新当前选中的图层
     @Override
     public void updateActiveLayer(){
@@ -164,7 +195,6 @@ public class PenBrush extends Brush{
         else {
             setColor(color);
         }
-
          */
         System.out.println("[pen] draw start. [color]"+color+" [smoothLevel]"+smoothLevel);
         if(smoothLevel <= 1){
@@ -246,6 +276,7 @@ public class PenBrush extends Brush{
             //如果当前有选区 那么将结果反向写回选区
             if(SelectorBrush.getSelectorBrush().hasSelected())
                 activeLayer.updateColorRegionByEffectCanvas();
+            activeLayer.saveOp();
             drawClose();
             System.out.println("[pen] draw end");
             isDrawing = false;

@@ -86,7 +86,7 @@ public class EraserBrush extends Brush{
             //如果当前有选区 那么将结果反向写回选区
             if(SelectorBrush.getSelectorBrush().hasSelected())
                 activeLayer.updateColorRegionByEffectCanvas();
-
+            activeLayer.saveOp();
             System.out.println("[eraser] draw end");
             isDrawing = false;
         }

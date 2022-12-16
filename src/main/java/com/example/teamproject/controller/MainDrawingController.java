@@ -1,25 +1,27 @@
 package com.example.teamproject.controller;
 
 import com.example.teamproject.brush.*;
+import com.example.teamproject.io.Save;
 import com.example.teamproject.structure.Layer;
 import com.example.teamproject.tools.ImageFormConverter;
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Description 画图的总控类 负责接受组件controller的信息 并传递给相应的处理类 且存储当前工具选择、图层创建情况
  * @Author CZX
  * @Date 2022.11.30
  **/
-public class MainDrawingController {
+public class MainDrawingController extends TimerTask {
 
     /**
      * 总效果图层 用于接受鼠标输入
@@ -54,6 +56,12 @@ public class MainDrawingController {
     private Layer activeLayer = null;
     //当前选中的笔刷
     private Brush activeBrush;
+
+    //作品名
+    private String name;
+
+    //作品自动保存的文件
+    private File autoSaveFile = null;
     //当前该类是否在工作
     private boolean isActive = false;
     public boolean isActive() {
@@ -65,7 +73,7 @@ public class MainDrawingController {
     public static MainDrawingController getMDC() {
         return MainDrawingController;
     }
-
+    private MainDrawingController(){}
 
 
     /**
@@ -74,11 +82,14 @@ public class MainDrawingController {
      * @param layer1    新作品的默认图层
      * @param mainUIController  UIController
      */
-    public void initialize(Canvas mainEffectCanvas, Layer layer1, MainUIController mainUIController, double sizeX, double sizeY){
+    public void initialize(Canvas mainEffectCanvas, Layer layer1, MainUIController mainUIController, double sizeX, double sizeY, String name){
         this.mainEffectCanvas = mainEffectCanvas;
         this.mainUIController = mainUIController;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
+        this.name = name;
+
+        this.autoSaveFile = new File("save\\"+name+".png");
 
         //一系列属性均还原
         layerList.clear();
@@ -86,6 +97,14 @@ public class MainDrawingController {
         addNewLayer(layer1);
         activeLayer = layer1;//自动选择第一个图层
         isActive = true;
+    }
+
+    /**
+     * 获取作品名
+     * @return  作品名
+     */
+    public String getName() {
+        return name;
     }
 
 
@@ -148,8 +167,7 @@ public class MainDrawingController {
      * @return  图层默认名
      */
     public String getNewLayerName() {
-        String name = "图层"+(totalLayerNum+1);
-        return name;
+        return "图层"+(totalLayerNum+1);
     }
     /**
      * 获取图层列表
@@ -187,7 +205,7 @@ public class MainDrawingController {
             if(activeLayer.isVisible())
                 activeBrush.drawBegin(x,y);
             else
-                ControllerSet.muc.sendMessage("您不能在不可见的图层上作画。");
+                ControllerSet.muc.sendMessage("[图层] 您不能在不可见的图层上作画。");
         }
     }
 
@@ -231,4 +249,45 @@ public class MainDrawingController {
         return result;
     }
 
+
+    /**
+     * 保存作品到指定文件 auto代表保存到默认位置
+     * @param file  指定的文件
+     * @param auto  是否保存到默认路径
+     */
+    public void save(File file, Boolean auto){
+        Image image = mergeAllLayers();
+        file = auto ? autoSaveFile:file;
+        Save.outputImage(image, file);
+        System.out.println("file saved: "+file+" "+file.getName());
+
+        if(judgeChinese(file.toString())){
+            ControllerSet.muc.sendMessage("[保存作品] 检测到路径中含有中文字符，您的作品可能并未保存成功。");
+        }
+        else if(auto){
+            ControllerSet.muc.sendMessage("[保存作品] 您的作品已被另存到指定路径。");
+        }
+        else{
+            ControllerSet.muc.sendMessage("[保存作品] 您的作品已被另存到指定路径。");
+        }
+    }
+    public void setAutoSaveFile(File file){
+        autoSaveFile = file;
+    }
+    /**
+     * 自动保存
+     */
+    @Override
+    public void run() {
+        Platform.runLater(() -> {
+            if(isActive){
+                save(autoSaveFile, true);
+            }
+        });
+    }
+    private boolean judgeChinese(String s){
+        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher m = p.matcher(s);
+        return m.find();
+    }
 }

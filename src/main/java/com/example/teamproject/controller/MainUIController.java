@@ -92,6 +92,8 @@ public class MainUIController {
     //画布尺寸
     protected double sizeX = 980;
     protected double sizeY = 900;
+
+    protected String name = null;
     protected boolean hasActiveWork = false;
     //绘图主控的引用
     protected MainDrawingController mdc = MainDrawingController.getMDC();
@@ -154,13 +156,15 @@ public class MainUIController {
             Image image = Open.importImage(file);
             sizeX = image.getWidth();
             sizeY = image.getHeight();
-            Layer layer = createNewWork(sizeX, sizeY);
+            Layer layer = createNewWork(sizeX, sizeY, name);
             layer.importImageToCanvas(image);
         }
         else{
-            sendMessage("文件打开失败。请确保您打开的是支持的文件类型。");
+            sendMessage("[打开文件] 文件未成功打开。可能是您手动取消了导入，或者文件格式不支持。");
         }
-
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
 
@@ -176,14 +180,14 @@ public class MainUIController {
      * @param sizeY 新作品的高度
      * @return 首个图层的引用
      */
-    protected Layer createNewWork(double sizeX, double sizeY){
+    protected Layer createNewWork(double sizeX, double sizeY, String name){
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         createNewCanvasField();
         hasActiveWork = true;
         Layer layer1 = createNewLayer();
-        mdc.initialize(mainEffectCanvas, layer1, this, sizeX, sizeY);
-        sendMessage(String.format("成功新建作品, 高度%d, 宽度%d", (int)sizeX, (int)sizeY));
+        mdc.initialize(mainEffectCanvas, layer1, this, sizeX, sizeY, name);
+        sendMessage(String.format("[新建作品] 成功新建作品, 高度%d, 宽度%d，名称 %s", (int)sizeX, (int)sizeY ,name));
         return layer1;
         //layer1.setImage(new Image("E:\\JavaTeamwork\\OOP-2022-Teamwork\\8.png"));
     }
@@ -220,17 +224,55 @@ public class MainUIController {
     }
 
     @FXML
-    protected void OnSaveWorkButtonClick(){
-        File file = Save.getOutputFile();
-        if(file != null && mdc.isActive()){
-            Image image = mdc.mergeAllLayers();
-            Save.outputImage(image, file, "png");
+    protected void OnAutoSaveWorkButtonClick(){
+        if(mdc.isActive()){
+            mdc.save(null, true);
+
         }
         else{
-            sendMessage("文件打开失败。请确保您打开的是支持的文件类型。");
+            sendMessage("[保存作品] 要进行保存，您首先需要新建一个作品。");
         }
-
     }
+    /**
+     * 按下另存按钮
+     */
+    @FXML
+    protected void OnSaveWorkButtonClick(){
+        if(mdc.isActive()){
+            File file = Save.getOutputFile();
+            if(file != null){
+                mdc.save(file, false);
+
+            }
+            else{
+                sendMessage("[另存作品] 文件保存失败。可能是您选择的不支持的类型。");
+            }
+        }
+        else{
+            sendMessage("[另存作品] 要进行保存，您首先需要新建一个作品。");
+        }
+    }
+
+    /**
+     * 按下修改自动保存路径的按钮
+     */
+    @FXML
+    protected void OnAutoSaveChangeButtonClick(){
+        if(mdc.isActive()){
+            File file = Save.getOutputFile();
+            if(file != null){
+                mdc.setAutoSaveFile(file);
+                sendMessage("[自动保存] 已成功为您修改自动保存路径。");
+            }
+            else{
+                sendMessage("[自动保存] 文件打开失败。请确保您打开的是支持的文件类型。");
+            }
+        }
+        else{
+            sendMessage("[自动保存] 要修改自动保存路径，您首先需要新建一个作品。");
+        }
+    }
+
 
 //==================================================图层===========================================//
     /**
@@ -243,9 +285,10 @@ public class MainUIController {
         if(mdc.isActive()){
             Layer layer = createNewLayer();
             mdc.addNewLayer(layer);
+            sendMessage("[新建图层] 成功新建图层。");
         }
         else{
-            sendMessage("要新建图层，请先新建作品。");
+            sendMessage("[新建图层] 要新建图层，请先新建作品。");
         }
     }
 
@@ -300,6 +343,7 @@ public class MainUIController {
         //最后一个图层不允许删除
         if(list.size()<=1){
             System.out.println("delete layer failed: last layer");
+            sendMessage("[删除图层] 您不能删除最后一个图层");
             return;
         }
         //先后在总控类 画图区 删除该图层
@@ -317,6 +361,37 @@ public class MainUIController {
             }
         }
         System.out.println("delete layer success");
+        sendMessage("[删除图层] 图层已被删除");
+    }
+
+    /**
+     * 按下撤回按钮
+     */
+    @FXML
+    protected void OnUndoButtonClick(){
+        if(mdc.isActive()){
+            if(mdc.getActiveLayer().undoOp()){
+                sendMessage("[撤回] 已成功撤回操作。");
+            }
+            else{
+                sendMessage("[撤回] 图层已被清空。");
+            }
+        }
+    }
+
+    /**
+     * 按下重做按钮
+     */
+    @FXML
+    protected void OnReDoButtonClick(){
+        if(mdc.isActive()){
+            if(mdc.getActiveLayer().RedoOp()){
+                sendMessage("[重做] 已成功取回被撤销的操作。");
+            }
+            else{
+                sendMessage("[重做] 当前没有可取回的操作");
+            }
+        }
     }
 
 //=============================================画笔=====================================================//
@@ -346,6 +421,7 @@ public class MainUIController {
             //根据当前UIController里 选中的笔刷信息 来设置笔刷对象的属性
 //            updatePenColor();
 //            updatePenWidth();
+            sendMessage("[画笔] 成功选中画笔");
         }
     }
     /**
@@ -359,6 +435,7 @@ public class MainUIController {
             if(brush instanceof PenBrush){
                 ((PenBrush) brush).setColor(PenColorPicker.getValue());
             }
+            sendMessage("[画笔] 成功选择颜色");
         }
     }
     @FXML
@@ -383,6 +460,7 @@ public class MainUIController {
             if(brush instanceof PenBrush){
                 ((PenBrush) brush).setLineWidth(penWidth);
             }
+            sendMessage("[画笔] 成功调整大小");
         }
     }
     @FXML
@@ -403,6 +481,7 @@ public class MainUIController {
             if(brush instanceof PenBrush){
                 ((PenBrush) brush).setSmoothLevel(smoothLevel);
             }
+            sendMessage("[画笔] 成功调整抖动修正等级");
         }
     }
 
@@ -423,7 +502,7 @@ public class MainUIController {
 
         if(mdc.isActive()){
             mdc.setActiveBrush(BrushType.ERASER);
-            sendMessage("当前工具切换为橡皮。");
+            sendMessage("[橡皮] 成功选中橡皮");
         }
     }
 //=================================================选区======================================================//
@@ -448,6 +527,7 @@ public class MainUIController {
         if(mdc.isActive()){
             mdc.setActiveBrush(BrushType.SELECTOR);
             sendMessage("当前工具切换为选区笔。");
+            sendMessage("[橡皮] 成功选中选区笔");
         }
     }
 

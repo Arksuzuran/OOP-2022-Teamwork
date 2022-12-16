@@ -166,6 +166,7 @@ public class SelectorBrush extends Brush{
             activeLayer.updateEffectCanvas(selectedRegion, true);
             //activeLayer.updateEffectCanvas(posX+deltaX, posY+deltaY, selectedImage, true);
             activeLayer.clearMainEffectCanvas();
+            activeLayer.saveOp();
         }
         //无论如何 都停止当前绘画
         if(isDrawing || hasSelected){

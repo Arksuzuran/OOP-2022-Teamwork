@@ -78,7 +78,10 @@ public class LayerUIController {
     @FXML
     public void OnImportImageButtonClick(){
         File file = Open.getInputFile();
-        layer.importImageToCanvas(file);
+        if (file!=null)
+            layer.importImageToCanvas(file);
+        else
+            ControllerSet.muc.sendMessage("[打开文件] 文件未成功打开。可能是您手动取消了导入，或者文件格式不支持。");
     }
 
     public void setLayerNameLabel(String s){

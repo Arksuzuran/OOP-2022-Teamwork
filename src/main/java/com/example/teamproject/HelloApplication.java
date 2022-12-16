@@ -1,5 +1,6 @@
 package com.example.teamproject;
 
+import com.example.teamproject.controller.MainDrawingController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import org.opencv.core.Core;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
 
 /**
  * @Description 程序入口
@@ -34,6 +36,9 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
 
         stage.show();
+
+        Timer t = new Timer();
+        t.scheduleAtFixedRate(MainDrawingController.getMDC(),1000*30, 1000*30);
     }
     public static void main(String[] args) {
         launch();

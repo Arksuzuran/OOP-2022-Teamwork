@@ -70,9 +70,9 @@ public class EraserUIController {
             if(brush instanceof EraserBrush){
                 ((EraserBrush) brush).setType(isCircular);
                 if(isCircular)
-                    ControllerSet.muc.sendMessage("橡皮切换为圆形擦除");
+                    ControllerSet.muc.sendMessage("[橡皮] 橡皮切换为圆形擦除");
                 else
-                    ControllerSet.muc.sendMessage("橡皮切换为方形擦除");
+                    ControllerSet.muc.sendMessage("[橡皮] 橡皮切换为方形擦除");
             }
         }
     }

@@ -61,7 +61,7 @@ public class ImageFormConverter {
         //先把image转换为mat
         Mat matrix = imageToMat(image);
         //再把mat转换为bufferedImage
-        BufferedImage bufImage = matToBufferImage(matrix, ".jpg");
+        BufferedImage bufImage = matToBufferImage(matrix, ".png");
         System.out.println("image to bufferedImage success");
         return bufImage;
     }
@@ -215,7 +215,7 @@ public class ImageFormConverter {
             PixelReader pixelReader = image.getPixelReader();
             WritablePixelFormat<ByteBuffer> format = WritablePixelFormat.getByteBgraInstance();
             pixelReader.getPixels(0, 0, width, height, format, pixelBuffer, 0, width * 4);
-            Mat mat = new Mat(height, width, CvType.CV_8SC4);
+            Mat mat = new Mat(height, width, CvType.CV_8UC4);
 
             mat.put(0, 0, pixelBuffer);
             return mat;
@@ -228,7 +228,7 @@ public class ImageFormConverter {
     public static Image matToImage(Mat mat){
         try {
             MatOfByte matOfByte = new MatOfByte();
-            Imgcodecs.imencode(".jpg", mat, matOfByte);
+            Imgcodecs.imencode(".png", mat, matOfByte);
             return new Image(new ByteArrayInputStream(matOfByte.toArray()));
         } catch (Exception e) {
             System.out.println("matToImage error");

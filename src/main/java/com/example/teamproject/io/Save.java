@@ -30,15 +30,22 @@ public class Save {
                 new FileChooser.ExtensionFilter("All Images", "*.*"),
                 new FileChooser.ExtensionFilter("PNG", "*.png"));
 //        new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+        System.out.println(MainDrawingController.getMDC().getName());
+        fileChooser.setInitialFileName(MainDrawingController.getMDC().getName());
         File file = fileChooser.showSaveDialog(stage);
         return file;
     }
 
-    public static void outputImage(Image image, File file, String s){
+    public static void outputImage(Image image, File file){
         if(MainDrawingController.getMDC().isActive()){
             try {
+                File p = file.getParentFile();
+                if(!p.exists())
+                    p.mkdir();
+                if(file.exists())
+                    file.delete();
                 Mat mat = ImageFormConverter.imageToMat(image);
-                imwrite(file.getAbsolutePath(), mat);
+                imwrite(file.toString(), mat);
 //                MatOfByte mob = new MatOfByte();
 //                imencode(".jpg", mat, mob);
 //                byte[] byteArray = mob.toArray();
@@ -48,4 +55,5 @@ public class Save {
             }
         }
     }
+
 }
