@@ -3,11 +3,14 @@ package com.example.teamproject.structure;
 import com.example.teamproject.brush.SelectorBrush;
 import com.example.teamproject.controller.LayerUIController;
 import com.example.teamproject.controller.MainDrawingController;
+import com.example.teamproject.io.Open;
 import com.example.teamproject.tools.ImageFormConverter;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
 import javafx.scene.paint.Color;
+
+import java.io.File;
 
 /**
  * @Description layer类
@@ -32,6 +35,9 @@ public class Layer{
     //图层命名
     protected String layerName;
 
+    //当前图层是否可见
+    private boolean isVisible = true;
+
     public Layer(Canvas canvas, Canvas effectCanvas, Canvas mainEffectCanvas, LayerUIController layerUIController){
         this.canvas = canvas;
         this.effectCanvas = effectCanvas;
@@ -44,6 +50,13 @@ public class Layer{
         layerUIController.setLayerNameLabel(layerName);
     }
 
+    public void importImageToCanvas(File file){
+        Image image = Open.importImage(file);
+        gc.drawImage(image, 0, 0);
+    }
+    public void importImageToCanvas(Image image){
+        gc.drawImage(image, 0, 0);
+    }
     public Canvas getMainEffectCanvas() {
         return mainEffectCanvas;
     }
@@ -55,7 +68,14 @@ public class Layer{
     public Canvas getCanvas() {
         return canvas;
     }
-
+    public boolean isVisible() {
+        return isVisible;
+    }
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+        canvas.setVisible(visible);
+        effectCanvas.setVisible(visible);
+    }
     /**
      * 利用image重新绘制effectCanvas
      * @param x 新图案左上角的坐标x
@@ -89,7 +109,7 @@ public class Layer{
         for(int i=0; i<selectedRegion.sizeX; i++){
             for (int j=0; j<selectedRegion.sizeY; j++){
                 //在选区内 且不透明 那么复制
-                if(selectedRegion.pointInRegion(i, j)){
+                if(selectedRegion.pointInRegionRelative(i, j)){
                     Color color = colors[i][j];
                     if(color.getOpacity()!=0){
                         pixelWriter.setColor(i+offsetX, j+offsetY, color);

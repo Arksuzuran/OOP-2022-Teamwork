@@ -1,10 +1,14 @@
 package com.example.teamproject.controller;
 
 import com.example.teamproject.brush.SelectorBrush;
+import com.example.teamproject.io.Open;
 import com.example.teamproject.structure.Layer;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+
+import java.io.File;
 
 
 /**
@@ -15,9 +19,12 @@ import javafx.scene.layout.AnchorPane;
 public class LayerUIController {
 
     @FXML
-    private AnchorPane LayerPane;
+    private VBox LayerBox;
     @FXML
     private Label LayerNameLabel;
+
+    @FXML
+    private CheckBox VisibleCheckBox;
 
     private Layer layer = null;
 
@@ -37,8 +44,8 @@ public class LayerUIController {
     public Layer getLayer() {
         return layer;
     }
-    public AnchorPane getLayerPane() {
-        return LayerPane;
+    public VBox getLayerPane() {
+        return LayerBox;
     }
 
     @FXML
@@ -54,6 +61,24 @@ public class LayerUIController {
         if(muc!=null){
             muc.DeleteLayer(this);
         }
+    }
+
+    /**
+     * 按下切换课可见与不可见按钮
+     */
+    @FXML
+    public void onVisibleCheckBoxChanged(){
+        layer.setVisible(VisibleCheckBox.isSelected());
+    }
+
+    /**
+     *
+     * 按下导入图片按钮
+     */
+    @FXML
+    public void OnImportImageButtonClick(){
+        File file = Open.getInputFile();
+        layer.importImageToCanvas(file);
     }
 
     public void setLayerNameLabel(String s){

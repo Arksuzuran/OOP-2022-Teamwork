@@ -1,10 +1,20 @@
 package com.example.teamproject.brush;
 
+import com.example.teamproject.effect.ImageEffect;
 import com.example.teamproject.structure.SelectedRegion;
+import com.example.teamproject.tools.ImageFormConverter;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Effect;
+import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.*;
+import javafx.scene.shape.StrokeLineCap;
+import org.opencv.core.Mat;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 
 /**
@@ -23,23 +33,73 @@ public class PenBrush extends Brush{
     public static PenBrush getPenBrush() {
         return Pen;
     }
-
+    private PenBrush(){}
     public static SelectorBrush selectorBrush = SelectorBrush.getSelectorBrush();
     //画笔颜色 默认为黑
     Color color = Color.BLACK;
+    double opacity = 0;
+    Boolean isSoft = false;
+    Image brushMaterial = null;
+    Paint paint = null;
     //当前正在操作的画笔
     private GraphicsContext nowGc = null;
+
     private boolean selected = false;
 
     public void setColor(Color color) {
         this.color = color;
         nowGc.setStroke(color);
     }
+    //设置新的滑动条，范围0-1
+    public void setOpacity(double opacity){
+        this.opacity = opacity;
+        this.color = new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), opacity);
+        nowGc.setStroke(color);
+    }
     public void setLineWidth(double lineWidth) {
         this.lineWidth = lineWidth;
         nowGc.setLineWidth(lineWidth);
     }
+    //达不到预期的调节笔刷硬度的效果，只能大致的实现软笔刷，只分成启用或者不启用
+    //启用时需要在setColor,setOpacity之后调用：ui上搞一个勾选框，勾上则把isSoft设置为true
+    public void setSoft() {
+        nowGc.setStroke(createSoftBrushGradient(color, lineWidth));//直径还是半径？
+    }
+    public void setBrushMaterial(String url){
 
+        Image image = new Image(url);
+        /*
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("D:\\Personal\\computing\\java\\OOP\\OOP-2022-Teamwork\\brushtex\\Carpet 02.bmp"));
+        }
+        catch (IOException e) {
+            System.out.println(e);
+        }
+        for (int y = 0; y < img.getHeight(); y++) {
+            for (int x = 0; x < img.getWidth(); x++) {
+
+                int p = img.getRGB(x, y);
+                int a = (p >> 24) & 0xff;
+                int r = (int)(color.getRed() * 256);
+                int g = (int)(color.getGreen() * 256);
+                int b = (int)(color.getBlue() * 256);
+                // set new RGB keeping the r
+                // value same as in original image
+                // and setting g and b as 0.
+                p = (a << 24) | (r << 16) | (g << 8) | b;
+
+                img.setRGB(x, y, p);
+            }
+        }
+        ImagePattern imagePattern = new ImagePattern(SwingFXUtils.toFXImage(img, null));
+         */
+        nowGc.setStroke(new ImagePattern(image));
+    }
+    //只有圆形，正方形，三角形
+    public void setCap(StrokeLineCap strokeLineCap){
+        nowGc.setLineCap(strokeLineCap);
+    }
     //更新当前选中的图层
     @Override
     public void updateActiveLayer(){
@@ -79,11 +139,15 @@ public class PenBrush extends Brush{
     public void setSmoothLevel(int level){
         smoothLevel = level;
     }
+
+    private static final double GAP_TWO = 0.5;
+    private static final double GAP_THREE = 1;
     /**
      * 开始绘画
      * @param x 起始点的x
      * @param y 起始点的y
      */
+
     @Override
     public void drawBegin(double x, double y) {
         initSmoothing();
@@ -92,6 +156,16 @@ public class PenBrush extends Brush{
             return;
 
         isDrawing = true;
+        setCap(StrokeLineCap.ROUND);
+        /*
+        if(isSoft){
+            setSoft();
+        }
+        else {
+            setColor(color);
+        }
+
+         */
         System.out.println("[pen] draw start. [color]"+color+" [smoothLevel]"+smoothLevel);
         if(smoothLevel <= 1){
             startPoint = new PathPoint(x, y);
@@ -122,10 +196,11 @@ public class PenBrush extends Brush{
                 drawClose();
                 return;
             }
-
             PathPoint inputPoint = new PathPoint(x, y);
+
             if(smoothLevel <= 1){
                 drawLine(startPoint, inputPoint);
+
                 startPoint = inputPoint;
             }
             //等级2
@@ -133,23 +208,29 @@ public class PenBrush extends Brush{
                 //上一步刚刚推入起点p1 那么本步不需要画曲线 而是取p2作为控制点
                 if (controlPoint != null) {
                     endPoint = getMidPoint(controlPoint, inputPoint);
-                    drawQuadraticCurve(startPoint, controlPoint, endPoint);
+                    //要求间隔大于GAP_TWO时才允许画线
+                    if(calDistance2(startPoint, endPoint)>GAP_TWO)
+                        drawQuadraticCurve(startPoint, controlPoint, endPoint);
                     startPoint = endPoint;
                 }
                 controlPoint = inputPoint;
             }
             //等级3
             else if(smoothLevel == 3){
-                pointQueue.addLast(inputPoint);
+                //要求间隔大于GAP_THREE时才允许添加
+                if(calDistance2(pointQueue.getLast(), inputPoint)>GAP_THREE)
+                    pointQueue.addLast(inputPoint);
                 //凑够三个路径点 就进行一次绘制
                 if(pointQueue.size()==3){
                     drawQuadraticCurve(pointQueue.get(0), pointQueue.get(1), pointQueue.get(2));
                     pointQueue.removeFirst();   pointQueue.removeFirst();
                 }
             }
-            //等级4
-            else if(smoothLevel == 4){
-                pointQueue.addLast(inputPoint);
+            //等级4及以上
+            else{
+                //要求间隔大于smoothLevel*0.5时才允许添加
+                if(calDistance2(pointQueue.getLast(), inputPoint)>smoothLevel)
+                    pointQueue.addLast(inputPoint);
                 //凑够四个路径点 就进行一次绘制
                 if(pointQueue.size()==4){
                     drawTripleCurve(pointQueue.get(0), pointQueue.get(1), pointQueue.get(2), pointQueue.get(3));
@@ -205,6 +286,9 @@ public class PenBrush extends Brush{
     }
     private PathPoint getMidPoint(PathPoint p1, PathPoint p2){
         return new PathPoint((p1.x+ p2.x)/2, (p1.y+ p2.y)/2);
+    }
+    private double calDistance2(PathPoint p1, PathPoint p2){
+        return (p1.x-p2.x)*(p1.x-p2.x) + (p1.y-p2.y)*(p1.y-p2.y);
     }
     private void drawLine(PathPoint sp, PathPoint ep){
         if(sp==null || ep==null)
@@ -277,11 +361,22 @@ public class PenBrush extends Brush{
             for (int j=sy; j<ey; j++){
                 if(i<0 || j<0)
                     continue;
-                if(!selectedRegion.pointInRegion(i-offsetX, j-offsetY)){
+                if(!selectedRegion.pointInRegionRelative(i-offsetX, j-offsetY)){
                     pixelWriter.setColor(i, j, Color.TRANSPARENT);
                 }
             }
         }
     }
 
+    private RadialGradient createSoftBrushGradient(Color primaryColor, double radius) {
+        return new RadialGradient(
+                0, 0,
+                0, 0,
+                radius,
+                true,
+                CycleMethod.NO_CYCLE,
+                new Stop(0, primaryColor),
+                new Stop(1, Color.TRANSPARENT)
+        );
+    }
 }

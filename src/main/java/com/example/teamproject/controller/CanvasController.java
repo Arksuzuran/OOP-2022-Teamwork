@@ -96,6 +96,6 @@ public class CanvasController {
 
     @FXML
     private void updateCord(MouseEvent mouseEvent){
-        mdc.mainUIController.updateCordText((int)mouseEvent.getX() + " " + (int)mouseEvent.getY() + "像素");
+        ControllerSet.muc.updatePositionText((int)mouseEvent.getX() + ", " + (int)mouseEvent.getY() + "像素");
     }
 }

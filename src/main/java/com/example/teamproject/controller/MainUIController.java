@@ -5,6 +5,8 @@ import com.example.teamproject.brush.Brush;
 import com.example.teamproject.brush.BrushType;
 import com.example.teamproject.brush.PenBrush;
 import com.example.teamproject.brush.SelectorBrush;
+import com.example.teamproject.io.Open;
+import com.example.teamproject.io.Save;
 import com.example.teamproject.structure.Layer;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,14 +15,14 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -35,7 +37,7 @@ public class MainUIController {
     @FXML
     protected Text OutputText;
     @FXML
-    protected Text CordText;
+    protected Text PositionText;
     @FXML
     protected VBox LayerBox;
     @FXML
@@ -143,8 +145,24 @@ public class MainUIController {
              *
              */
         }
+    }
+
+    @FXML
+    protected void OnImportWorkButtonClick(){
+        File file = Open.getInputFile();
+        if(file != null){
+            Image image = Open.importImage(file);
+            sizeX = image.getWidth();
+            sizeY = image.getHeight();
+            Layer layer = createNewWork(sizeX, sizeY);
+            layer.importImageToCanvas(image);
+        }
+        else{
+            sendMessage("文件打开失败。请确保您打开的是支持的文件类型。");
+        }
 
     }
+
 
     /**
      * 创建新作品
@@ -156,8 +174,9 @@ public class MainUIController {
      * 后续优化：当前没有作品时会在画图板的位置显示其他UI
      * @param sizeX 新作品的宽度
      * @param sizeY 新作品的高度
+     * @return 首个图层的引用
      */
-    protected void createNewWork(double sizeX, double sizeY){
+    protected Layer createNewWork(double sizeX, double sizeY){
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         createNewCanvasField();
@@ -165,6 +184,7 @@ public class MainUIController {
         Layer layer1 = createNewLayer();
         mdc.initialize(mainEffectCanvas, layer1, this, sizeX, sizeY);
         sendMessage(String.format("成功新建作品, 高度%d, 宽度%d", (int)sizeX, (int)sizeY));
+        return layer1;
         //layer1.setImage(new Image("E:\\JavaTeamwork\\OOP-2022-Teamwork\\8.png"));
     }
 
@@ -198,6 +218,20 @@ public class MainUIController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    protected void OnSaveWorkButtonClick(){
+        File file = Save.getOutputFile();
+        if(file != null && mdc.isActive()){
+            Image image = mdc.mergeAllLayers();
+            Save.outputImage(image, file, "png");
+        }
+        else{
+            sendMessage("文件打开失败。请确保您打开的是支持的文件类型。");
+        }
+
+    }
+
 //==================================================图层===========================================//
     /**
      * 点击“新建图层按钮“
@@ -213,7 +247,6 @@ public class MainUIController {
         else{
             sendMessage("要新建图层，请先新建作品。");
         }
-
     }
 
     /**
@@ -233,8 +266,8 @@ public class MainUIController {
 
         try {
             //生成左侧边栏的图层UI
-            AnchorPane tmp;
-            tmp= loader.load();
+            VBox tmp;
+            tmp = loader.load();
             LayerBox.getChildren().add(tmp);
 
             //添加两个Canvas
@@ -276,9 +309,9 @@ public class MainUIController {
         layer = canvasController.getTopLayer();
         mdc.setActiveLayer(layer);
         //在UI界面删除该图层的UI
-        AnchorPane anchorPane = layerUIController.getLayerPane();
+        VBox layerBox = layerUIController.getLayerPane();
         for (Node node : list){
-            if(node == anchorPane){
+            if(node == layerBox){
                 LayerBox.getChildren().remove(node);
                 break;
             }
@@ -378,7 +411,7 @@ public class MainUIController {
      */
     @FXML
     protected void onEraserBrushButtonClick(){
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("pen-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("eraser-view.fxml"));
         VBox tmp = null;
         try {
             tmp = loader.load();
@@ -389,7 +422,8 @@ public class MainUIController {
         BrushBox.getChildren().add(tmp);
 
         if(mdc.isActive()){
-            mdc.setActiveBrush(BrushType.SELECTOR);
+            mdc.setActiveBrush(BrushType.ERASER);
+            sendMessage("当前工具切换为橡皮。");
         }
     }
 //=================================================选区======================================================//
@@ -413,10 +447,12 @@ public class MainUIController {
         //只有主控激活的时候才能选择笔刷
         if(mdc.isActive()){
             mdc.setActiveBrush(BrushType.SELECTOR);
+            sendMessage("当前工具切换为选区笔。");
         }
     }
+
     /**
-     * 选区的颜色选择器
+     * 选区的颜色填充
      */
     public void fillRegion(){
         Color color = RegionColorPicker.getValue();
@@ -424,6 +460,7 @@ public class MainUIController {
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof SelectorBrush){
                 ((SelectorBrush) brush).fillSelectedRegion(color);
+
             }
         }
     }
@@ -435,6 +472,7 @@ public class MainUIController {
     protected void OnRegionFillButtonClick(){
         fillRegion();
     }
+
 
     /**
      * 确认选区
@@ -458,10 +496,9 @@ public class MainUIController {
         if(mdc.isActive()){
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof SelectorBrush){
-                ((SelectorBrush) brush).changeRegionSave(save);
+                ((SelectorBrush) brush).setRegionSave(save);
             }
         }
-
     }
 
     /**
@@ -473,7 +510,7 @@ public class MainUIController {
         if(mdc.isActive()){
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof SelectorBrush){
-                ((SelectorBrush) brush).changeBoundFollow(hasLine);
+                ((SelectorBrush) brush).setBoundFollow(hasLine);
             }
         }
     }
@@ -501,8 +538,7 @@ public class MainUIController {
     public void sendMessage(String s){
         OutputText.setText(s);
     }
-
-    public void updateCordText(String s){
-        CordText.setText(s);
+    public void updatePositionText(String s){
+        PositionText.setText(s);
     }
 }
