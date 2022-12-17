@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,35 +8,63 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.NewWorkUIController">
+<AnchorPane prefHeight="190.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.NewWorkUIController">
    <children>
-      <VBox>
+      <AnchorPane prefHeight="145.0" prefWidth="380.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
-            <HBox>
+            <VBox>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="文件名" />
-                  <TextArea fx:id="NewName" prefHeight="0.0" prefWidth="1007.0" />
+                  <HBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="文件名" />
+                        <TextArea fx:id="NewName" prefHeight="32.0" prefWidth="235.0">
+                           <HBox.margin>
+                              <Insets left="72.0" />
+                           </HBox.margin>
+                        </TextArea>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="宽度（像素）" />
+                        <TextArea fx:id="NewWidth" prefHeight="31.0" prefWidth="235.0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="高度（像素）" />
+                        <TextArea fx:id="NewHeight" prefHeight="32.0" prefWidth="235.0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onMouseClicked="#ConfirmNew" text="确定">
+                           <HBox.margin>
+                              <Insets left="105.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#CancelNew" text="取消">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
-            </HBox>
-            <HBox>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="宽度（像素）" />
-                  <TextArea fx:id="NewWidth" prefHeight="0.0" prefWidth="1007.0" />
-               </children>
-            </HBox>
-            <HBox>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="高度（像素）" />
-                  <TextArea fx:id="NewHeight" prefHeight="0.0" prefWidth="1007.0" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button mnemonicParsing="false" onMouseClicked="#ConfirmNew" text="确定" />
-                  <Button mnemonicParsing="false" onMouseClicked="#CancelNew" text="取消" />
-               </children>
-            </HBox>
+            </VBox>
          </children>
-      </VBox>
+      </AnchorPane>
    </children>
 </AnchorPane>
