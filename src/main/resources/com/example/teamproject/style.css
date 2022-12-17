@@ -1,0 +1,18 @@
+#fuck:selected{
+    -fx-background-color: #d3d3d3;
+}
+#button1 {
+    -fx-background-color: #d3d3d3;
+}
+
+#button1:focused {
+    -fx-background-color: #d3d3d3;
+}
+
+#Mid{
+    -fx-background-image: url("https://img.51miz.com/Element/00/64/94/27/0de61e46_E649427_d85fbb9g.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 300px;
+    -fx-background-position: bottom right;
+}
+
