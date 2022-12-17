@@ -24,7 +24,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<VBox alignment="TOP_CENTER" minHeight="450.0" minWidth="600.0" prefHeight="900.0" prefWidth="1250.0" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #d3d3d3;" stylesheets="@style.css" fx:controller="com.example.teamproject.controller.MainUIController">
+<VBox alignment="TOP_CENTER" minHeight="450.0" minWidth="600.0" prefHeight="900.0" prefWidth="1250.0" spacing="20.0" style="-fx-background-color: #d3d3d3;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.MainUIController">
    <children>
       <MenuBar VBox.vgrow="NEVER">
         <menus>
@@ -62,7 +62,7 @@
                         <Insets bottom="15.0" />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="b1" fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="https://img.icons8.com/sf-regular/96/000000/pencil-tip.png" />
                            </image>
@@ -74,7 +74,7 @@
                         <Insets bottom="15.0" />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="b2" fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="https://img.icons8.com/dotty/80/null/take-screenshot.png" />
                            </image>
@@ -86,7 +86,7 @@
                         <Insets bottom="15.0" />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="b3" fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="https://img.icons8.com/sf-regular-filled/96/null/erase.png" />
                            </image>
@@ -98,7 +98,7 @@
                         <Insets bottom="15.0" />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="b4" fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="https://img.icons8.com/plumpy/96/null/rounded-rectangle-stroked.png" />
                            </image>
@@ -110,7 +110,7 @@
                         <Insets bottom="15.0" />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="b5" fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="https://img.icons8.com/ios/50/null/picture.png" />
                            </image>
@@ -122,7 +122,7 @@
                         <ColorAdjust brightness="0.06" contrast="0.08" />
                      </effect>
                      <graphic>
-                        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="b6" fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="https://img.icons8.com/ios/100/null/photo-editor.png" />
                            </image>
