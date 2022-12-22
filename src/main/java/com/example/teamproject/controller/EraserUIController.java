@@ -53,10 +53,12 @@ public class EraserUIController {
     }
     @FXML
     protected void OnPenWidthDecreaseButtonClick(){
+        PenWidthSlider.setValue(PenWidthSlider.getValue()-1);
         updatePenWidth();
     }
     @FXML
     protected void OnPenWidthIncreaseButtonClick(){
+        PenWidthSlider.setValue(PenWidthSlider.getValue()+1);
         updatePenWidth();
     }
 
