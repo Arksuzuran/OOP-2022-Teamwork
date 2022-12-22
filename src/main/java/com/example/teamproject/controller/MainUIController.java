@@ -430,6 +430,8 @@ public class MainUIController {
         BrushBox.getChildren().add(tmp);
         ControllerSet.penUIController = loader.getController();
 
+        ControllerSet.penUIController.init(0);
+
         //只有主控激活时才能选择笔刷
         if(mdc.isActive()){
             mdc.setActiveBrush(BrushType.PEN);
@@ -524,21 +526,12 @@ public class MainUIController {
     @FXML
     protected void onMoverButtonClick(){
         IconController.change(7, this);
+        BrushBox.getChildren().clear();
 
-//        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("mover-view.fxml"));
-//        VBox tmp = null;
-//        try {
-//            tmp = loader.load();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        BrushBox.getChildren().clear();
-//        BrushBox.getChildren().add(tmp);
-//
-//        if(mdc.isActive()){
-//            mdc.setActiveBrush(BrushType.MOVEBRUSH);
-//            sendMessage("[移动] 成功选中移动");
-//        }
+        if(mdc.isActive()){
+            mdc.setActiveBrush(BrushType.MOVEBRUSH);
+            sendMessage("[移动] 成功选中移动");
+        }
     }
 //=================================================选区======================================================//
     /**

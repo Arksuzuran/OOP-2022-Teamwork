@@ -20,6 +20,26 @@ public class IconController {
     public static Image i5 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/66.png")).toString());
     public static Image i7 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/77.png")).toString());
 
+    public static Image b1 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b1.png")).toString());
+    public static Image b2 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b2.png")).toString());
+    public static Image b3 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b3.png")).toString());
+    public static Image b4 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b4.png")).toString());
+    public static Image b5 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b5.png")).toString());
+    public static Image b6 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b6.png")).toString());
+    public static Image b7 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b7.png")).toString());
+    public static Image b8 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b8.png")).toString());
+    public static Image b9 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b9.png")).toString());
+
+    public static Image b11 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b11.png")).toString());
+    public static Image b22 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b22.png")).toString());
+    public static Image b33 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b33.png")).toString());
+    public static Image b44 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b44.png")).toString());
+    public static Image b55 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b55.png")).toString());
+    public static Image b66 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b66.png")).toString());
+    public static Image b77 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b77.png")).toString());
+    public static Image b88 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b88.png")).toString());
+    public static Image b99 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b99.png")).toString());
+
     public static void change(int index, MainUIController m){
         m.b1.setImage(i1);
         m.b2.setImage(i2);
