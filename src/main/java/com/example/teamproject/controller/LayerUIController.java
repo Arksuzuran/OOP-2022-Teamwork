@@ -6,7 +6,10 @@ import com.example.teamproject.structure.Layer;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 
@@ -51,8 +54,10 @@ public class LayerUIController {
     @FXML
     public void OnLayerSelectButtonClick(){
         //选区笔不工作时才允许切换图层
-        if(!SelectorBrush.getSelectorBrush().hasSelected())
+        if(!SelectorBrush.getSelectorBrush().hasSelected()) {
             mdc.setActiveLayer(layer);
+            mdc.refreshLayers();
+        }
         else
             System.out.println("cannot change layer when selecting");
     }

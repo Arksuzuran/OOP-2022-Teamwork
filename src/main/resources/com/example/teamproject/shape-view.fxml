@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.ShapeController">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="形状选择" />
+      <HBox VBox.vgrow="ALWAYS">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onRectButtonClicked" text="矩形" HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#onCircleButtonClicked" text="圆形" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox VBox.vgrow="ALWAYS">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onOvalButtonClicked" text="椭圆" HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#onLineButtonClicked" text="直线" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox VBox.vgrow="ALWAYS">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="内部填充" HBox.hgrow="ALWAYS" />
+            <RadioButton fx:id="FillRadioButton" mnemonicParsing="false">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </RadioButton>
+         </children>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </HBox>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="颜色">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </Text>
+      <ColorPicker fx:id="ShapeColorPicker" />
+   </children>
+</VBox>

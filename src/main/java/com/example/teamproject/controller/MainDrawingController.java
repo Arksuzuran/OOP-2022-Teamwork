@@ -9,6 +9,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -74,6 +77,13 @@ public class MainDrawingController extends TimerTask {
         return MainDrawingController;
     }
     private MainDrawingController(){}
+
+    public void refreshLayers(){
+        for(Layer l : layerList){
+            l.layerUIController.getLayerPane().setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
+        }
+        activeLayer.layerUIController.getLayerPane().setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, null, null)));
+    }
 
 
     /**
