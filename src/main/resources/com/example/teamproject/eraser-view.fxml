@@ -102,15 +102,42 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="4" GridPane.rowIndex="2" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="5" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="10" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Button id="1" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" />
-                  <Button id="1.5" mnemonicParsing="false" prefHeight="30.0" prefWidth="81.0" GridPane.columnIndex="1" />
-                  <Button id="2" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" GridPane.columnIndex="2" />
-                  <Button id="2.3" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" GridPane.rowIndex="1" />
-                  <Button id="2.6" mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button id="3" mnemonicParsing="false" prefHeight="30.0" prefWidth="106.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button id="4" mnemonicParsing="false" prefHeight="30.0" prefWidth="107.0" GridPane.rowIndex="2" />
-                  <Button id="5" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="97.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button id="10" mnemonicParsing="false" prefHeight="30.0" prefWidth="114.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button id="1" mnemonicParsing="false" onAction="#B1Clicked" prefHeight="30.0" prefWidth="80.0">
+                     <graphic>
+                        <ImageView fx:id="b1" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic></Button>
+                  <Button id="1.5" mnemonicParsing="false" onAction="#B2Clicked" prefHeight="30.0" prefWidth="81.0" GridPane.columnIndex="1">
+                     <graphic>
+                        <ImageView fx:id="b2" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic></Button>
+                  <Button id="2" mnemonicParsing="false" onAction="#B3Clicked" prefHeight="30.0" prefWidth="112.0" GridPane.columnIndex="2">
+                     <graphic>
+                        <ImageView fx:id="b3" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic></Button>
+                  <Button id="2.3" mnemonicParsing="false" onAction="#B4Clicked" prefHeight="30.0" prefWidth="98.0" GridPane.rowIndex="1">
+                     <graphic>
+                        <ImageView fx:id="b4" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic></Button>
+                  <Button id="2.6" mnemonicParsing="false" onAction="#B5Clicked" prefHeight="30.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <graphic>
+                        <ImageView fx:id="b5" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic></Button>
+                  <Button id="3" mnemonicParsing="false" onAction="#B6Clicked" prefHeight="30.0" prefWidth="106.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <graphic>
+                        <ImageView fx:id="b6" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic></Button>
+                  <Button id="4" mnemonicParsing="false" onAction="#B7Clicked" prefHeight="30.0" prefWidth="107.0" GridPane.rowIndex="2">
+                     <graphic>
+                        <ImageView fx:id="b7" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic></Button>
+                  <Button id="5" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#B8Clicked" prefHeight="30.0" prefWidth="97.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <graphic>
+                        <ImageView fx:id="b8" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic></Button>
+                  <Button id="10" mnemonicParsing="false" onAction="#B9Clicked" prefHeight="30.0" prefWidth="114.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <graphic>
+                        <ImageView fx:id="b9" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic></Button>
                     </children>
                 </GridPane>
             </children>
