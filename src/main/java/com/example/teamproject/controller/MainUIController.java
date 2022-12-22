@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -31,6 +32,13 @@ import java.io.IOException;
  * @Date    2022.11.30
  **/
 public class MainUIController {
+
+    //按钮图标
+    public ImageView b1;
+    public ImageView b2;
+    public ImageView b3;
+    public ImageView b4;
+    public ImageView b5;
 
     @FXML
     protected Label welcomeText;
@@ -125,7 +133,7 @@ public class MainUIController {
         if(!hasActiveWork) {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("new_work-view.fxml"));
             try {
-                Scene scene = new Scene(loader.load(), 300, 200);
+                Scene scene = new Scene(loader.load(), 350, 190);
                 Stage stage = new Stage();
                 stage.setTitle("New");
 
@@ -403,6 +411,7 @@ public class MainUIController {
     //选中铅笔
     @FXML
     protected void onPenBrushButtonClick(){
+        IconController.change(1, this);
         //更新UI
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("pen-view.fxml"));
         VBox tmp = null;
@@ -490,6 +499,7 @@ public class MainUIController {
      */
     @FXML
     protected void onEraserBrushButtonClick(){
+        IconController.change(3, this);
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("eraser-view.fxml"));
         VBox tmp = null;
         try {
@@ -511,6 +521,7 @@ public class MainUIController {
      */
     @FXML
     protected void onSelectorButtonClick(){
+        IconController.change(2, this);
         //更新UI
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("selector-view.fxml"));
         VBox tmp = null;
@@ -598,12 +609,38 @@ public class MainUIController {
     //==========================图形=========================
     @FXML
     protected void onShapeBrushButtonClick(){
+        IconController.change(4, this);
         fillRegion();
+
+        //更新UI
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("shape-view.fxml"));
+        VBox tmp = null;
+        try {
+            tmp = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BrushBox.getChildren().clear();
+        BrushBox.getChildren().add(tmp);
+        ControllerSet.shapeController = loader.getController();
     }
 
     @FXML
     protected void onImageProcessButtonClick(){
+        IconController.change(5, this);
         fillRegion();
+
+        //更新UI
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("process-view.fxml"));
+        VBox tmp = null;
+        try {
+            tmp = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BrushBox.getChildren().clear();
+        BrushBox.getChildren().add(tmp);
+        ControllerSet.processController = loader.getController();
     }
 
     @FXML
