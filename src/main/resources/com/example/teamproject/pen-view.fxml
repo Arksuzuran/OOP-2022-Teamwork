@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.input.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -21,7 +22,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="283.0" prefWidth="183.0" style="-fx-border-color: lightgrey; -fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.PenUIController">
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="332.0" prefWidth="192.0" style="-fx-border-color: lightgrey; -fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.PenUIController">
    <children>
       <HBox prefHeight="46.0" prefWidth="180.0">
          <children>
@@ -30,13 +31,40 @@
                   <Image url="https://img.icons8.com/ios-filled/100/null/paint-palette.png" />
                </image>
             </ImageView>
-            <ColorPicker fx:id="PenColorPicker" onAction="#OnPenColorPickerSet" prefHeight="38.0" prefWidth="158.0" style="-fx-background-color: darkgray;">
+            <ColorPicker fx:id="PenColorPicker" nodeOrientation="LEFT_TO_RIGHT" onAction="#OnPenColorPickerSet" prefHeight="38.0" prefWidth="116.0" style="-fx-background-color: darkgray;">
                <padding>
                   <Insets right="10.0" />
                </padding>
             </ColorPicker>
          </children>
       </HBox>
+      <AnchorPane>
+         <children>
+            <SplitPane>
+               <items>
+                  <MenuButton mnemonicParsing="false" prefHeight="24.0" prefWidth="115.0" text="笔刷选择">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="1" />
+                      <MenuItem mnemonicParsing="false" text="2" />
+                        <MenuItem mnemonicParsing="false" text="3" />
+                        <MenuItem mnemonicParsing="false" text="4" />
+                        <MenuItem mnemonicParsing="false" text="5" />
+                        <MenuItem mnemonicParsing="false" text="6" />
+                        <MenuItem mnemonicParsing="false" text="7" />
+                        <MenuItem mnemonicParsing="false" text="8" />
+                        <MenuItem mnemonicParsing="false" text="9" />
+                        <MenuItem mnemonicParsing="false" text="10" />
+                        <MenuItem mnemonicParsing="false" text="11" />
+                        <MenuItem mnemonicParsing="false" text="12" />
+                        <MenuItem mnemonicParsing="false" text="13" />
+                        <MenuItem mnemonicParsing="false" text="14" />
+                        <MenuItem mnemonicParsing="false" text="15" />
+                        <MenuItem mnemonicParsing="false" text="16" />
+                    </items>
+                  </MenuButton>
+               </items>
+            </SplitPane>
+         </children></AnchorPane>
       <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="238.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -61,7 +89,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label fx:id="SmoothLevelLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="40.0" text="1" />
+                  <Label fx:id="SmoothLevelLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="22.0" text="1" />
                   <Button id="+" mnemonicParsing="false" onAction="#OnSmoothIncreaseButtonClick" prefWidth="25.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
@@ -113,7 +141,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label fx:id="PenWidthLabel" alignment="CENTER" prefHeight="20.0" prefWidth="40.0" text="3" />
+                  <Label fx:id="PenWidthLabel" alignment="CENTER" prefHeight="20.0" prefWidth="23.0" text="3" />
                   <Button id="+" mnemonicParsing="false" onAction="#OnPenWidthIncreaseButtonClick" prefWidth="25.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
@@ -133,7 +161,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Slider fx:id="PenWidthSlider" max="50.0" min="1.0" onMouseDragged="#OnPenWidthSliderSet" onMouseReleased="#OnPenWidthSliderSet" prefHeight="20.0" prefWidth="160.0" value="3.0" />
+                  <Slider fx:id="PenWidthSlider" max="50.0" min="1.0" onMouseDragged="#OnPenWidthSliderSet" onMouseReleased="#OnPenWidthSliderSet" prefHeight="18.0" prefWidth="169.0" value="3.0" />
                </children>
             </HBox>
          </children>
@@ -141,7 +169,7 @@
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="102.0" prefWidth="160.0">
+      <VBox alignment="CENTER" prefHeight="148.0" prefWidth="190.0">
          <children>
             <GridPane alignment="CENTER">
               <columnConstraints>
@@ -155,41 +183,41 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button id="1" mnemonicParsing="false" onAction="#B1Clicked" prefHeight="30.0" prefWidth="82.0">
+                  <Button id="1" mnemonicParsing="false" onAction="#B1Clicked" prefHeight="30.0" prefWidth="60.0">
                      <graphic>
-                        <ImageView fx:id="b1" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="b1" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic></Button>
-                  <Button id="1.5" mnemonicParsing="false" onAction="#B2Clicked" prefHeight="30.0" prefWidth="89.0" GridPane.columnIndex="1">
+                  <Button id="1.5" mnemonicParsing="false" onAction="#B2Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="1">
                      <graphic>
-                        <ImageView fx:id="b2" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="b2" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic></Button>
-                  <Button id="2" mnemonicParsing="false" onAction="#B3Clicked" prefHeight="30.0" prefWidth="119.0" GridPane.columnIndex="2">
+                  <Button id="2" mnemonicParsing="false" onAction="#B3Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="2">
                      <graphic>
-                        <ImageView fx:id="b3" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="b3" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic></Button>
-                  <Button id="2.3" mnemonicParsing="false" onAction="#B4Clicked" prefHeight="30.0" prefWidth="129.0" GridPane.rowIndex="1">
+                  <Button id="2.3" mnemonicParsing="false" onAction="#B4Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.rowIndex="1">
                      <graphic>
-                        <ImageView fx:id="b4" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="b4" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic></Button>
-                  <Button id="2.6" mnemonicParsing="false" onAction="#B5Clicked" prefHeight="30.0" prefWidth="110.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button id="2.6" mnemonicParsing="false" onAction="#B5Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <graphic>
-                        <ImageView fx:id="b5" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="b5" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic></Button>
-                  <Button id="3" mnemonicParsing="false" onAction="#B6Clicked" prefHeight="30.0" prefWidth="72.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Button id="3" mnemonicParsing="false" onAction="#B6Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <graphic>
-                        <ImageView fx:id="b6" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="b6" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic></Button>
-                  <Button id="4" mnemonicParsing="false" onAction="#B7Clicked" prefHeight="30.0" prefWidth="143.0" GridPane.rowIndex="2">
+                  <Button id="4" mnemonicParsing="false" onAction="#B7Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.rowIndex="2">
                      <graphic>
-                        <ImageView fx:id="b7" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="b7" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic></Button>
-                  <Button id="5" mnemonicParsing="false" onAction="#B8Clicked" prefHeight="30.0" prefWidth="105.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Button id="5" mnemonicParsing="false" onAction="#B8Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <graphic>
-                        <ImageView fx:id="b8" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="b8" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic></Button>
-                  <Button id="10" mnemonicParsing="false" onAction="#B9Clicked" prefHeight="30.0" prefWidth="132.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Button id="10" mnemonicParsing="false" onAction="#B9Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <graphic>
-                        <ImageView fx:id="b9" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="b9" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic></Button>
                </children>
             </GridPane>
