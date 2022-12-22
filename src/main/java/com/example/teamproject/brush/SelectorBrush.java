@@ -136,7 +136,7 @@ public class SelectorBrush extends Brush{
      * 结束绘制 生成多边形
      */
     @Override
-    public void drawEnd() {
+    public void drawEnd(double x, double y) {
         if(isDrawing && !hasSelected){
             isDrawing = false;
             hasSelected = true;

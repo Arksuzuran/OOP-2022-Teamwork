@@ -15,7 +15,6 @@ import java.awt.image.BufferedImage;
  * @Date    2022.12.14
  **/
 public class ImageEffect {
-
     /**
      * 获取mat的反色图像（255-x）
      * @param mat 要反色处理的图像

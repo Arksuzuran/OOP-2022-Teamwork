@@ -90,8 +90,8 @@ public class CanvasController {
     }
     @FXML
     //鼠标松开 将信息传递到MainUIController
-    private void OnCanvasMouseReleased(){
-        mdc.stopDrawing();
+    private void OnCanvasMouseReleased(MouseEvent mouseEvent){
+        mdc.stopDrawing(mouseEvent.getX(), mouseEvent.getY());
     }
 
     @FXML

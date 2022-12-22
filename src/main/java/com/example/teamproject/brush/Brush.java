@@ -41,7 +41,7 @@ public abstract class Brush {
     //正在画线 画线至
     public abstract void drawTo(double x, double y);
     //结束画线
-    public abstract void drawEnd();
+    public abstract void drawEnd(double x, double y);
 
 }
 

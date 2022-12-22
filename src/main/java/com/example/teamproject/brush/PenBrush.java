@@ -34,13 +34,14 @@ public class PenBrush extends Brush{
         return Pen;
     }
     private PenBrush(){}
+
     public static SelectorBrush selectorBrush = SelectorBrush.getSelectorBrush();
     //画笔颜色 默认为黑
-    Color color = Color.BLACK;
-    double opacity = 0;
-    Boolean isSoft = false;
-    Image brushMaterial = null;
-    Paint paint = null;
+    private Color color = Color.BLACK;
+    private double opacity = 0;
+    private Boolean isSoft = false;
+    private Image brushMaterial = null;
+    private Paint paint = null;
     //当前正在操作的画笔
     private GraphicsContext nowGc = null;
 
@@ -96,8 +97,17 @@ public class PenBrush extends Brush{
         }
         else {
             Image image = new Image(url);
+
+            /*
+
+                图像处理
+
+             */
+
             nowGc.setStroke(new ImagePattern(image));
         }
+
+
 
         /*
         BufferedImage img = null;
@@ -271,7 +281,7 @@ public class PenBrush extends Brush{
     }
 
     @Override
-    public void drawEnd() {
+    public void drawEnd(double x, double y) {
         if(isDrawing){
             //如果当前有选区 那么将结果反向写回选区
             if(SelectorBrush.getSelectorBrush().hasSelected())

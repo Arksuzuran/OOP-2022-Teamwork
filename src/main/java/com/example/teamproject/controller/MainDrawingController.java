@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
@@ -224,10 +225,10 @@ public class MainDrawingController extends TimerTask {
     /**
      * 使笔刷停止划线
      */
-    public void stopDrawing(){
+    public void stopDrawing(double x, double y){
         if(isActive && activeBrush!=null){
             if(activeLayer.isVisible())
-                activeBrush.drawEnd();
+                activeBrush.drawEnd(x, y);
         }
     }
 
@@ -265,7 +266,7 @@ public class MainDrawingController extends TimerTask {
             ControllerSet.muc.sendMessage("[保存作品] 检测到路径中含有中文字符，您的作品可能并未保存成功。");
         }
         else if(auto){
-            ControllerSet.muc.sendMessage("[保存作品] 您的作品已被另存到指定路径。");
+            ControllerSet.muc.sendMessage("[保存作品] 您的作品已被保存到默认路径。");
         }
         else{
             ControllerSet.muc.sendMessage("[保存作品] 您的作品已被另存到指定路径。");

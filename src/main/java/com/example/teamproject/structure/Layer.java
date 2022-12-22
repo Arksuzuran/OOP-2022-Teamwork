@@ -86,6 +86,21 @@ public class Layer{
     }
 
 
+    /**
+     * 将sourceCanvas的内容draw到本图层的canvas上面，保证canvas尺寸一致
+     * @param sourceCanvas  内容来源的图层
+     */
+    public void updateCanvasFromSourceCanvas(Canvas sourceCanvas){
+        //获取源图层的pixelReader
+        PixelReader pixelReader = ImageFormConverter.canvasToPixelReader(sourceCanvas);
+        PixelWriter pixelWriter = gc.getPixelWriter();
+        for(int i=0; i<canvas.getWidth(); i++){
+            for (int j=0; j<canvas.getHeight(); j++){
+                Color color = pixelReader.getColor(i, j);
+                pixelWriter.setColor(i, j, color);
+            }
+        }
+    }
 
     /**
      * 利用image重新绘制effectCanvas
@@ -139,8 +154,8 @@ public class Layer{
         Color[][] colors = selectedRegion.getColorRegion();
         int offsetX = (int)selectedRegion.x, offsetY = (int)selectedRegion.y;
 
-        WritableImage oriImage = ImageFormConverter.canvasToImage(effectCanvas);
-        PixelReader pixelReader = oriImage.getPixelReader();
+//        WritableImage oriImage = ImageFormConverter.canvasToImage(effectCanvas);
+        PixelReader pixelReader = ImageFormConverter.canvasToPixelReader(effectCanvas);
 
         for(int i=0; i<selectedRegion.sizeX; i++){
             for (int j=0; j<selectedRegion.sizeY; j++){
@@ -157,6 +172,7 @@ public class Layer{
         clearMainEffectCanvas();
         mainEffectGc.drawImage(image, x, y);
     }
+
     public void clearMainEffectCanvas(){
         mainEffectGc.clearRect(0,0,mainEffectCanvas.getWidth(),mainEffectCanvas.getHeight());
     }

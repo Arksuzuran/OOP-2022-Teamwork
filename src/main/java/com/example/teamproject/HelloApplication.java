@@ -12,6 +12,7 @@ import org.opencv.core.Core;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Timer;
 
 /**

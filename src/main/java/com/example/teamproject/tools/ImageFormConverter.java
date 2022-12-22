@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 /**
- * @Description 实现Image、Mat、Canvas的互相转化，Canvas是前端对象，Mat是后端对象用于具体的图像处理
+ * @Description 工具类，实现Image、Mat、Canvas的互相转化，Canvas是前端对象，Mat是后端对象用于具体的图像处理
  * @Author  Melchoirr
  * @Date    2022.12.4
  **/
@@ -237,5 +237,11 @@ public class ImageFormConverter {
     }
     public static Image fileToImage(File file){
         return new Image(file.getAbsolutePath());
+    }
+
+    public static PixelReader canvasToPixelReader(Canvas canvas){
+        WritableImage oriImage = ImageFormConverter.canvasToImage(canvas);
+        PixelReader pixelReader = oriImage.getPixelReader();
+        return pixelReader;
     }
 }

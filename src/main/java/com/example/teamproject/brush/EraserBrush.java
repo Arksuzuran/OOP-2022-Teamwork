@@ -81,7 +81,7 @@ public class EraserBrush extends Brush{
     }
 
     @Override
-    public void drawEnd() {
+    public void drawEnd(double x, double y) {
         if(isDrawing){
             //如果当前有选区 那么将结果反向写回选区
             if(SelectorBrush.getSelectorBrush().hasSelected())
