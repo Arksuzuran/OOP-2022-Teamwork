@@ -2,10 +2,12 @@ package com.example.teamproject.controller;
 
 import com.example.teamproject.brush.Brush;
 import com.example.teamproject.brush.PenBrush;
+import com.example.teamproject.brush.ShapeBrush;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.paint.Color;
 
 /**
  * @Description 控制画笔UI
@@ -32,6 +34,11 @@ public class PenUIController {
     @FXML
     protected Label SmoothLevelLabel;
 
+    @FXML
+    protected Slider PenOpacitySlider;
+    //画笔浓度显示标签
+    @FXML
+    protected Label PenOpacityLabel;
     //绘图主控的引用
     protected MainDrawingController mdc = MainDrawingController.getMDC();
 
@@ -69,7 +76,6 @@ public class PenUIController {
             }
         }
     }
-
     @FXML
     protected void OnPenWidthSliderSet(){
         updatePenWidth();
@@ -122,6 +128,49 @@ public class PenUIController {
             SmoothLevelLabel.setText(Integer.toString(width));
         else
             SmoothLevelLabel.setText("S"+Integer.toString(width-23));
+    }
+
+    public void updatePenOpacity(){
+        double penWidth = PenOpacitySlider.getValue();
+        PenOpacityLabel.setText(String.format("%.1f", penWidth));
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setOpacity(penWidth);
+            }
+        }
+    }
+
+    @FXML
+    protected void OnPenOpacitySliderSet(){
+        updatePenOpacity();
+    }
+    @FXML
+    protected void OnPenOpacityDecreaseButtonClick(){
+        PenOpacitySlider.adjustValue(PenOpacitySlider.getValue()-0.1);
+        updatePenOpacity();
+    }
+    @FXML
+    protected void OnPenOpacityIncreaseButtonClick(){
+        PenOpacitySlider.adjustValue(PenOpacitySlider.getValue()+0.1);
+        updatePenOpacity();
+    }
+
+
+    public void updateUIbyPenBrush(){
+        PenBrush penBrush = PenBrush.getPenBrush();
+        if(mdc.isActive()){
+            double penWidth = penBrush.getLineWidth();
+            double smooth = penBrush.getSmoothLevel();
+            double opacity = penBrush.getOpacity();
+            Color color = penBrush.getColor();
+
+            PenWidthLabel.setText(Integer.toString((int)penWidth));
+            PenWidthSlider.setValue(penWidth);
+            updateSmoothLevelLabel(smooth);
+            SmoothLevelSlider.setValue(smooth);
+            PenColorPicker.setValue(color);
+        }
     }
 
 }

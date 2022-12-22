@@ -92,12 +92,15 @@ public class EraserBrush extends Brush{
         }
     }
 
+
     public void changeSelected(boolean selected){
         this.selected = selected;
     }
-
     public void setType(boolean isCircular) {
         this.isCircular = isCircular;
+    }
+    public boolean getCircular() {
+        return isCircular;
     }
 
     /**

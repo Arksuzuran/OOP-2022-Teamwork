@@ -2,6 +2,7 @@ package com.example.teamproject.controller;
 
 import com.example.teamproject.brush.Brush;
 import com.example.teamproject.brush.BrushType;
+import com.example.teamproject.brush.PenBrush;
 import com.example.teamproject.brush.SelectorBrush;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -26,7 +27,8 @@ public class SelectorUIController {
     protected CheckBox SelectSaveCheckBox;
     @FXML
     protected CheckBox SelectLineCheckBox;
-
+    @FXML
+    protected CheckBox SelectMovableCheckBox;
     //绘图主控的引用
     protected MainDrawingController mdc = MainDrawingController.getMDC();
 
@@ -48,7 +50,7 @@ public class SelectorUIController {
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof SelectorBrush){
                 ((SelectorBrush) brush).fillSelectedRegion(color);
-                ControllerSet.muc.sendMessage("已为选区填充颜色："+color);
+                ControllerSet.muc.sendMessage("[选区笔] 已为选区填充颜色："+color);
             }
         }
     }
@@ -58,7 +60,7 @@ public class SelectorUIController {
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof SelectorBrush){
                 ((SelectorBrush) brush).fillUnselectedRegion(color);
-                ControllerSet.muc.sendMessage("已为选区外填充颜色："+color);
+                ControllerSet.muc.sendMessage("[选区笔] 已为选区外填充颜色："+color);
             }
         }
     }
@@ -150,6 +152,32 @@ public class SelectorUIController {
                 ((SelectorBrush) brush).setBoundFollow(hasLine);
                 ControllerSet.muc.sendMessage("[选区笔] 选区边界不跟随。现在，选区边界虚线将不再显示。");
             }
+        }
+    }
+    /**
+     * 选区不移动
+     */
+    @FXML
+    protected void OnSelectMovableCheckBoxChanged(){
+        boolean movable = SelectMovableCheckBox.isSelected();
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof SelectorBrush){
+                ((SelectorBrush) brush).setMovable(movable);
+                ControllerSet.muc.sendMessage("[选区笔] 选区设置为无法拖动。");
+            }
+        }
+    }
+    public void updateUIbySelectorBrush(){
+       SelectorBrush selectorBrush = SelectorBrush.getSelectorBrush();
+        if(mdc.isActive()){
+            boolean boundFollowing = selectorBrush.isBoundFollowing();
+            boolean regionSave = selectorBrush.isRegionSave();
+            boolean movable = selectorBrush.isMovable();
+
+            SelectLineCheckBox.setSelected(boundFollowing);
+            SelectSaveCheckBox.setSelected(regionSave);
+            SelectMovableCheckBox.setSelected(movable);
         }
     }
 }

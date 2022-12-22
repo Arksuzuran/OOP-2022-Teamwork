@@ -1,20 +1,12 @@
 package com.example.teamproject.brush;
 
-import com.example.teamproject.effect.ImageEffect;
 import com.example.teamproject.structure.SelectedRegion;
-import com.example.teamproject.tools.ImageFormConverter;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.*;
 import javafx.scene.shape.StrokeLineCap;
-import org.opencv.core.Mat;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.LinkedList;
 
 /**
@@ -36,9 +28,10 @@ public class PenBrush extends Brush{
     private PenBrush(){}
 
     public static SelectorBrush selectorBrush = SelectorBrush.getSelectorBrush();
+
     //画笔颜色 默认为黑
     private Color color = Color.BLACK;
-    private double opacity = 0;
+    private double opacity = 1;
     private Boolean isSoft = false;
     private Image brushMaterial = null;
     private Paint paint = null;
@@ -47,6 +40,7 @@ public class PenBrush extends Brush{
 
     private boolean selected = false;
 
+    //getter & setter
     public void setColor(Color color) {
         this.color = color;
         nowGc.setStroke(color);
@@ -60,6 +54,17 @@ public class PenBrush extends Brush{
     public void setLineWidth(double lineWidth) {
         this.lineWidth = lineWidth;
         nowGc.setLineWidth(lineWidth);
+    }
+    public Color getColor() {
+        return color;
+    }
+
+    public double getOpacity() {
+        return opacity;
+    }
+
+    public int getSmoothLevel() {
+        return smoothLevel;
     }
 
     /**

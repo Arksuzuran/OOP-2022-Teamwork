@@ -17,7 +17,7 @@ public class ControllerSet {
 
     public static EraserUIController eraserUIController = null;
 
-    public static ShapeController shapeController = null;
+    public static ShapeUIController shapeUIController = null;
 
     public static ProcessController processController = null;
 

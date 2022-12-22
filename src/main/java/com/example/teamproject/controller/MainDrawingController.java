@@ -169,6 +169,7 @@ public class MainDrawingController extends TimerTask {
      */
     public String getNewLayerName() {
         return "图层"+(totalLayerNum+1);
+
     }
     /**
      * 获取图层列表
@@ -187,6 +188,8 @@ public class MainDrawingController extends TimerTask {
             case PEN -> this.activeBrush = PenBrush.getPenBrush();
             case SELECTOR -> this.activeBrush = SelectorBrush.getSelectorBrush();
             case ERASER -> this.activeBrush = EraserBrush.getEraserBrush();
+            case ShapeBrush -> this.activeBrush = ShapeBrush.getShapeBrush();
+            case None -> this.activeBrush = null;
         }
         activeBrush.updateActiveLayer();
         System.out.println("set new brush: "+activeBrush);

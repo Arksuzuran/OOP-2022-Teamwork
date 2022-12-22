@@ -65,11 +65,15 @@ public class SelectorBrush extends Brush{
     private WritableImage boundImage = null;//边缘辅助线线图形
     private double posX = 0, posY = 0;//裁剪处的x与y值
     private double deltaX = 0, deltaY = 0;//拖动过程中的总偏移量
+
+
     private boolean hasSelected = false;//当前是否已经完成选区绘制
 
     private boolean boundFollowing = true;//选区边界是否跟随移动
     private boolean regionSave = true;//选区是否在鼠标松开后仍然保留
 
+
+    private boolean movable = true;//选区可以移动
 
     //上一次的坐标
     private PathPoint lastPoint;
@@ -95,7 +99,7 @@ public class SelectorBrush extends Brush{
             System.out.println("[selector] draw start.");
         }
         //已经选取完成
-        else if(!isDrawing){
+        else if(!isDrawing && movable){
             lastPoint = new PathPoint(x, y);
             isDrawing = true;
         }
@@ -117,17 +121,14 @@ public class SelectorBrush extends Brush{
             mainEffectGc.stroke();
             addPointToList(x, y);
         }
-        else if(isDrawing){
+        else if(isDrawing && movable){
             deltaX += newPoint.x - lastPoint.x;
             deltaY += newPoint.y - lastPoint.y;
             selectedRegion.setPosition(posX+deltaX, posY+deltaY);
             //更新effectCanvas
             activeLayer.updateEffectCanvas(selectedRegion, false);
             //选择线跟随
-            if(boundFollowing)
-                activeLayer.updateMainEffectCanvas(deltaX, deltaY ,boundImage);
-            else
-                activeLayer.clearMainEffectCanvas();
+            updateBoundFollowing();
         }
         lastPoint = newPoint;
     }
@@ -146,7 +147,7 @@ public class SelectorBrush extends Brush{
             PenBrush.getPenBrush().changeSelectedGc(true);
             EraserBrush.getEraserBrush().changeSelected(true);
         }
-        else if(isDrawing){
+        else if(isDrawing && movable){
             if(regionSave)
                 isDrawing = false;
             else
@@ -271,7 +272,17 @@ public class SelectorBrush extends Brush{
         hasSelected = true;
     }
 
-
+    /**
+     * 更新选区边界线的位置
+     */
+    private void updateBoundFollowing(){
+        if(hasSelected){
+            if(boundFollowing)
+                activeLayer.updateMainEffectCanvas(deltaX, deltaY ,boundImage);
+            else
+                activeLayer.clearMainEffectCanvas();
+        }
+    }
 
     public void addPointToList(double x, double y){
         pointList.add(new Point2D.Double(x, y));
@@ -321,16 +332,30 @@ public class SelectorBrush extends Brush{
     }
 
     /**
-     * 从前端UI直接接受信息
+     * getter和setter
      */
     public void setBoundFollow(boolean follow){
         boundFollowing = follow;
+        updateBoundFollowing();
     }
     public void setRegionSave(boolean save){
         regionSave = save;
         endSelecting();
     }
 
+    public boolean isBoundFollowing() {
+        return boundFollowing;
+    }
+
+    public boolean isRegionSave() {
+        return regionSave;
+    }
+    public boolean isMovable() {
+        return movable;
+    }
+    public void setMovable(boolean movable) {
+        this.movable = movable;
+    }
     /**
      * 返回该笔刷当前是否已选了一个图层 传递给前端UI 在工作时不允许切换图层
      * @return  已经选择了图层

@@ -397,7 +397,7 @@ public class MainUIController {
                 sendMessage("[重做] 已成功取回被撤销的操作。");
             }
             else{
-                sendMessage("[重做] 当前没有可取回的操作");
+                sendMessage("[重做] 当前没有可取回的操作。");
             }
         }
     }
@@ -430,7 +430,8 @@ public class MainUIController {
             //根据当前UIController里 选中的笔刷信息 来设置笔刷对象的属性
 //            updatePenColor();
 //            updatePenWidth();
-            sendMessage("[画笔] 成功选中画笔");
+            ControllerSet.penUIController.updateUIbyPenBrush();
+            sendMessage("[画笔] 当前工具切换为画笔");
         }
     }
     /**
@@ -469,7 +470,7 @@ public class MainUIController {
             if(brush instanceof PenBrush){
                 ((PenBrush) brush).setLineWidth(penWidth);
             }
-            sendMessage("[画笔] 成功调整大小");
+            sendMessage("[画笔] 成功调整画笔大小");
         }
     }
     @FXML
@@ -509,10 +510,12 @@ public class MainUIController {
         }
         BrushBox.getChildren().clear();
         BrushBox.getChildren().add(tmp);
+        ControllerSet.eraserUIController = loader.getController();
 
         if(mdc.isActive()){
             mdc.setActiveBrush(BrushType.ERASER);
-            sendMessage("[橡皮] 成功选中橡皮");
+            sendMessage("[橡皮] 当前工具切换为橡皮");
+            ControllerSet.eraserUIController.updateUIbyEraserBrush();
         }
     }
 //=================================================选区======================================================//
@@ -537,8 +540,9 @@ public class MainUIController {
         //只有主控激活的时候才能选择笔刷
         if(mdc.isActive()){
             mdc.setActiveBrush(BrushType.SELECTOR);
-            sendMessage("当前工具切换为选区笔。");
-            sendMessage("[橡皮] 成功选中选区笔");
+            ControllerSet.selectorUIController.updateUIbySelectorBrush();
+            sendMessage("[选区笔] 当前工具切换为选区笔。");
+            ControllerSet.selectorUIController.updateUIbySelectorBrush();
         }
     }
 
@@ -551,7 +555,7 @@ public class MainUIController {
             Brush brush = mdc.getActiveBrush();
             if(brush instanceof SelectorBrush){
                 ((SelectorBrush) brush).fillSelectedRegion(color);
-
+                sendMessage("[选区笔] 选区填色完成。");
             }
         }
     }
@@ -606,7 +610,7 @@ public class MainUIController {
         }
     }
 
-    //==========================图形=========================
+    //=================================图形=============================
     @FXML
     protected void onShapeBrushButtonClick(){
         IconController.change(4, this);
@@ -622,9 +626,23 @@ public class MainUIController {
         }
         BrushBox.getChildren().clear();
         BrushBox.getChildren().add(tmp);
-        ControllerSet.shapeController = loader.getController();
+        ControllerSet.shapeUIController = loader.getController();
+
+        //只有主控激活的时候才能选择笔刷
+        if(mdc.isActive()){
+            //存在选区的时候不允许使用图形笔
+            if(!SelectorBrush.getSelectorBrush().hasSelected()){
+                mdc.setActiveBrush(BrushType.ShapeBrush);
+                sendMessage("当前工具切换为图形笔。");
+                ControllerSet.shapeUIController.updateUIbyShapeBrush();
+            }
+            else{
+                sendMessage("目前暂不支持在选区中使用图形笔，请先确认选区。");
+            }
+        }
     }
 
+    //=================================图像处理=================================
     @FXML
     protected void onImageProcessButtonClick(){
         IconController.change(5, this);

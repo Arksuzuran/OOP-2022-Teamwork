@@ -1,47 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.ShapeController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="140.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.ShapeUIController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="形状选择" />
-      <HBox VBox.vgrow="ALWAYS">
+      <HBox prefHeight="0.0" prefWidth="140.0">
          <children>
             <Button mnemonicParsing="false" onAction="#onRectButtonClicked" text="矩形" HBox.hgrow="ALWAYS" />
             <Button mnemonicParsing="false" onAction="#onCircleButtonClicked" text="圆形" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
-      <HBox VBox.vgrow="ALWAYS">
+      <HBox prefHeight="13.0" prefWidth="140.0" VBox.vgrow="ALWAYS">
          <children>
             <Button mnemonicParsing="false" onAction="#onOvalButtonClicked" text="椭圆" HBox.hgrow="ALWAYS" />
             <Button mnemonicParsing="false" onAction="#onLineButtonClicked" text="直线" HBox.hgrow="ALWAYS" />
          </children>
-      </HBox>
-      <HBox VBox.vgrow="ALWAYS">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="内部填充" HBox.hgrow="ALWAYS" />
-            <RadioButton fx:id="FillRadioButton" mnemonicParsing="false">
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </RadioButton>
-         </children>
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets />
          </VBox.margin>
       </HBox>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="颜色">
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets />
          </VBox.margin>
       </Text>
-      <ColorPicker fx:id="ShapeColorPicker" />
+      <ColorPicker fx:id="ShapeColorPicker" onAction="#OnShapeColorPickerSet">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></ColorPicker>
+      <HBox prefHeight="0.0" prefWidth="140.0" VBox.vgrow="ALWAYS">
+         <children>
+            <CheckBox fx:id="FillShapeCheckBox" mnemonicParsing="false" onAction="#OnFillShapeCheckBoxSet" text="填充图形" />
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <VBox prefHeight="40.0" prefWidth="100.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="140.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="画笔大小">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#OnPenWidthDecreaseButtonClick" prefWidth="25.0" text="-" />
+                  <Label fx:id="PenWidthLabel" alignment="CENTER" prefWidth="19.0" text="3" />
+                  <Button mnemonicParsing="false" onAction="#OnPenWidthIncreaseButtonClick" prefWidth="25.0" text="+" />
+               </children>
+            </HBox>
+            <Slider fx:id="PenWidthSlider" max="20.0" onMouseDragged="#OnPenWidthSliderSet" onMouseReleased="#OnPenWidthSliderSet" value="3.0" />
+         </children>
+      </VBox>
+      <VBox prefHeight="40.0" prefWidth="100.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="140.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="画笔浓度">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#OnPenOpacityDecreaseButtonClick" prefWidth="25.0" text="-" />
+                  <Label fx:id="PenOpacityLabel" alignment="CENTER" prefWidth="19.0" text="1" />
+                  <Button mnemonicParsing="false" onAction="#OnPenOpacityIncreaseButtonClick" prefWidth="25.0" text="+" />
+               </children>
+            </HBox>
+            <Slider fx:id="PenOpacitySlider" max="1.0" onMouseDragged="#OnPenOpacitySliderSet" onMouseReleased="#OnPenOpacitySliderSet" value="1.0" />
+         </children>
+      </VBox>
    </children>
 </VBox>

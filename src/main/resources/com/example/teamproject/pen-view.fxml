@@ -20,7 +20,7 @@
             <Insets left="2.0" top="2.0" />
          </VBox.margin>
       </ColorPicker>
-      <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="238.0">
+      <VBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="238.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -55,7 +55,7 @@
             </HBox>
          </children>
          <VBox.margin>
-            <Insets bottom="10.0" top="20.0" />
+            <Insets bottom="5.0" top="10.0" />
          </VBox.margin>
       </VBox>
       <VBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="238.0">
@@ -93,8 +93,25 @@
             </HBox>
          </children>
          <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
+            <Insets bottom="5.0" />
          </VBox.margin>
+      </VBox>
+      <VBox prefHeight="40.0" prefWidth="100.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="140.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="画笔浓度">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#OnPenOpacityDecreaseButtonClick" prefWidth="25.0" text="-" />
+                  <Label fx:id="PenOpacityLabel" alignment="CENTER" prefWidth="19.0" text="1" />
+                  <Button mnemonicParsing="false" onAction="#OnPenOpacityIncreaseButtonClick" prefWidth="25.0" text="+" />
+               </children>
+            </HBox>
+            <Slider fx:id="PenOpacitySlider" max="1.0" onMouseDragged="#OnPenOpacitySliderSet" onMouseReleased="#OnPenOpacitySliderSet" value="1.0" />
+         </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="102.0" prefWidth="160.0">
          <children>

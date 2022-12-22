@@ -63,7 +63,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" selected="true" text="选区可拖拽" />
+            <CheckBox fx:id="SelectMovableCheckBox" mnemonicParsing="false" onAction="#OnSelectMovableCheckBoxChanged" selected="true" text="选区可拖拽" />
          </children>
          <VBox.margin>
             <Insets left="5.0" />

@@ -27,8 +27,8 @@ public abstract class Brush {
     //当前笔刷是否正在运动
     protected Boolean isDrawing = false;
 
-    //画笔粗细 默认为1
-    double lineWidth = 1;
+    //画笔粗细 默认为3
+    double lineWidth = 3;
 
     //画笔移动到新的图层
     public void updateActiveLayer(){
@@ -43,6 +43,9 @@ public abstract class Brush {
     //结束画线
     public abstract void drawEnd(double x, double y);
 
+    public double getLineWidth(){
+        return lineWidth;
+    }
 }
 
 

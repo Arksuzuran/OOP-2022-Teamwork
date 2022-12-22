@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.paint.Color;
 
 /**
  * @Description 控制橡皮的UI
@@ -74,6 +75,18 @@ public class EraserUIController {
                 else
                     ControllerSet.muc.sendMessage("[橡皮] 橡皮切换为方形擦除");
             }
+        }
+    }
+
+    public void updateUIbyEraserBrush(){
+        EraserBrush eraserBrush = EraserBrush.getEraserBrush();
+        if(mdc.isActive()){
+            double penWidth = eraserBrush.getLineWidth();
+            boolean isCircular = eraserBrush.getCircular();
+
+            PenWidthLabel.setText(Integer.toString((int)penWidth));
+            PenWidthSlider.setValue(penWidth);
+            CircularCheckBox.setSelected(isCircular);
         }
     }
 }
