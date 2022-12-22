@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -13,13 +19,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="160.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.EraserUIController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="246.0" prefWidth="215.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.EraserUIController">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="238.0">
             <children>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                <HBox alignment="CENTER" prefHeight="51.0" prefWidth="199.0">
                     <children>
-                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="橡皮大小">
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="橡皮大小" wrappingWidth="72.0">
                             <HBox.margin>
                                 <Insets left="5.0" right="30.0" />
                             </HBox.margin>
@@ -27,16 +33,31 @@
                                 <Font size="13.0" />
                             </font>
                         </Text>
-                        <Button mnemonicParsing="false" onAction="#OnPenWidthDecreaseButtonClick" prefWidth="25.0" text="-">
+                        <Button id="-" contentDisplay="RIGHT" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#OnPenWidthDecreaseButtonClick" prefHeight="32.0" prefWidth="20.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                             <HBox.margin>
                                 <Insets left="5.0" right="5.0" />
                             </HBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="https://img.icons8.com/ios-glyphs/90/null/minus-2-math.png" />
+                         </image>
+                     </ImageView>
+                     </graphic>
                         </Button>
-                        <Label fx:id="PenWidthLabel" text="3" />
-                        <Button mnemonicParsing="false" onAction="#OnPenWidthIncreaseButtonClick" prefWidth="25.0" text="+">
+                        <Label fx:id="PenWidthLabel" alignment="TOP_CENTER" contentDisplay="RIGHT" prefHeight="20.0" prefWidth="19.0" text="3" textAlignment="CENTER" />
+                        <Button id="+" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#OnPenWidthIncreaseButtonClick" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                             <HBox.margin>
                                 <Insets left="5.0" right="5.0" />
                             </HBox.margin>
+                            
+                     <graphic>
+                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                 <Image url="https://img.icons8.com/fluency-systems-filled/96/null/plus-2-math.png" />
+                             </image>
+                         </ImageView>
+                     </graphic>
                         </Button>
                     </children>
                     <VBox.margin>
@@ -45,7 +66,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Slider fx:id="PenWidthSlider" max="50.0" min="1.0" onMouseDragged="#OnPenWidthSliderSet" onMouseReleased="#OnPenWidthSliderSet" prefHeight="14.0" prefWidth="155.0" value="3.0" />
+                        <Slider fx:id="PenWidthSlider" max="50.0" min="1.0" onMouseDragged="#OnPenWidthSliderSet" onMouseReleased="#OnPenWidthSliderSet" prefHeight="45.0" prefWidth="155.0" value="3.0" />
                     </children>
                 </HBox>
             </children>
@@ -53,14 +74,14 @@
                 <Insets bottom="10.0" top="10.0" />
             </VBox.margin>
         </VBox>
-      <CheckBox fx:id="CircularCheckBox" mnemonicParsing="false" onAction="#OnCircularCheckBoxChanged" selected="true" text="圆形笔头">
+      <CheckBox fx:id="CircularCheckBox" mnemonicParsing="false" onAction="#OnCircularCheckBoxChanged" prefHeight="39.0" prefWidth="88.0" selected="true" text="圆形笔头">
          <VBox.margin>
             <Insets left="10.0" />
          </VBox.margin>
       </CheckBox>
         <VBox alignment="CENTER" prefHeight="102.0" prefWidth="160.0">
             <children>
-                <GridPane alignment="CENTER">
+                <GridPane alignment="CENTER" prefHeight="90.0" prefWidth="205.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -81,6 +102,15 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="4" GridPane.rowIndex="2" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="5" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="10" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button id="1" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" />
+                  <Button id="1.5" mnemonicParsing="false" prefHeight="30.0" prefWidth="81.0" GridPane.columnIndex="1" />
+                  <Button id="2" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" GridPane.columnIndex="2" />
+                  <Button id="2.3" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" GridPane.rowIndex="1" />
+                  <Button id="2.6" mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button id="3" mnemonicParsing="false" prefHeight="30.0" prefWidth="106.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button id="4" mnemonicParsing="false" prefHeight="30.0" prefWidth="107.0" GridPane.rowIndex="2" />
+                  <Button id="5" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="97.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button id="10" mnemonicParsing="false" prefHeight="30.0" prefWidth="114.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                     </children>
                 </GridPane>
             </children>

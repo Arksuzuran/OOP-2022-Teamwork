@@ -155,15 +155,15 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="CENTER" wrappingWidth="59.79638671875" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1.5" textAlignment="CENTER" wrappingWidth="62.20361328125" GridPane.columnIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2" textAlignment="CENTER" wrappingWidth="61.79638671875" GridPane.columnIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2.3" textAlignment="CENTER" wrappingWidth="58.20361328125" GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2.6" textAlignment="CENTER" wrappingWidth="60.20361328125" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="3" textAlignment="CENTER" wrappingWidth="61.79638671875" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="4" textAlignment="CENTER" wrappingWidth="61.79638671875" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="5" textAlignment="CENTER" wrappingWidth="62.79638671875" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="10" textAlignment="CENTER" wrappingWidth="60.5927734375" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button id="1" mnemonicParsing="false" prefHeight="30.0" prefWidth="82.0" />
+                  <Button id="1.5" mnemonicParsing="false" prefHeight="30.0" prefWidth="89.0" GridPane.columnIndex="1" />
+                  <Button id="2" mnemonicParsing="false" prefHeight="30.0" prefWidth="119.0" GridPane.columnIndex="2" />
+                  <Button id="2.3" mnemonicParsing="false" prefHeight="30.0" prefWidth="129.0" GridPane.rowIndex="1" />
+                  <Button id="2.6" mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button id="3" mnemonicParsing="false" prefHeight="30.0" prefWidth="72.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button id="4" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.0" GridPane.rowIndex="2" />
+                  <Button id="5" mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button id="10" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>
