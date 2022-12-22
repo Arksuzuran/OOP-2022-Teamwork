@@ -518,6 +518,9 @@ public class MainUIController {
         BrushBox.getChildren().clear();
         BrushBox.getChildren().add(tmp);
 
+        EraserUIController eraserUIController = loader.getController();
+        eraserUIController.init(0);
+
         if(mdc.isActive()){
             mdc.setActiveBrush(BrushType.ERASER);
             sendMessage("[橡皮] 成功选中橡皮");
