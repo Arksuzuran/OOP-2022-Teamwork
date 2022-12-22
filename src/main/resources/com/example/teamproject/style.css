@@ -1,18 +1,27 @@
 #fuck:selected{
     -fx-background-color: #d3d3d3;
 }
-#button1 {
+.button {
     -fx-background-color: #d3d3d3;
 }
 
-#button1:focused {
-    -fx-background-color: #d3d3d3;
+.button:hover {
+    -fx-background-color: #a9a9a9;
 }
 
-#Mid{
-    -fx-background-image: url("https://img.51miz.com/Element/00/64/94/27/0de61e46_E649427_d85fbb9g.jpg");
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: 300px;
-    -fx-background-position: bottom right;
+/*root类选择器给所有的元素设置样式*/
+.root {
+    -fx-font-family: "微软雅黑";
+    -fx-font-size: 12px;
+    -fx-background-image: url("https://tenfei04.cfp.cn/creative/vcg/veer/612/veer-127791708.jpg");
+    -fx-background-size: stretch stretch;
+    -fx-background-position: center center;
 }
+/*id选择器设置Label标题的样式*/
+#lblTitle {
+    -fx-font-size: 20px;
+    -fx-font-weight: bolder;
+    -fx-text-fill: #696969;
+}
+
 
