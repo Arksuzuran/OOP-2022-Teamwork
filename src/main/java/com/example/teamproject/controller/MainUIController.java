@@ -39,7 +39,6 @@ public class MainUIController {
     public ImageView b3;
     public ImageView b4;
     public ImageView b5;
-    public ImageView b6;
 
     @FXML
     protected Label welcomeText;
@@ -616,7 +615,7 @@ public class MainUIController {
 
     @FXML
     protected void onImageProcessButtonClick(){
-//        IconController.change(6, this);
+        IconController.change(5, this);
         fillRegion();
     }
 
