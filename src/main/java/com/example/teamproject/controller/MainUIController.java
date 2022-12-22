@@ -88,12 +88,17 @@ public class MainUIController {
     protected CheckBox SelectLineCheckBox;
 
 
+    public ScrollPane getDrawingScrollPane() {
+        return DrawingScrollPane;
+    }
+
     /**
      * 画图层各部分的引用 在创建新画布后必须对此进行更新！否则后端无法工作！
      */
     //绘图区
     @FXML
     protected ScrollPane DrawingScrollPane;
+
     protected Canvas mainEffectCanvas = null;
     protected Pane mainDrawingPane = null;
     protected CanvasController canvasController = null;
@@ -516,6 +521,24 @@ public class MainUIController {
             sendMessage("[橡皮] 成功选中橡皮");
         }
     }
+    @FXML
+    protected void onMoverButtonClick(){
+        IconController.change(3, this);
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("Mover-view.fxml"));
+        VBox tmp = null;
+        try {
+            tmp = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BrushBox.getChildren().clear();
+        BrushBox.getChildren().add(tmp);
+
+        if(mdc.isActive()){
+            mdc.setActiveBrush(BrushType.MOVEBRUSH);
+            sendMessage("[移动] 成功选中移动");
+        }
+    }
 //=================================================选区======================================================//
     /**
      * 选择选区笔的按钮
@@ -610,7 +633,7 @@ public class MainUIController {
     //==========================图形=========================
     @FXML
     protected void onShapeBrushButtonClick(){
-        IconController.change(4, this);
+      //  IconController.change(4, this);
         fillRegion();
     }
 

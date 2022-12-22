@@ -186,6 +186,7 @@ public class MainDrawingController extends TimerTask {
             case PEN -> this.activeBrush = PenBrush.getPenBrush();
             case SELECTOR -> this.activeBrush = SelectorBrush.getSelectorBrush();
             case ERASER -> this.activeBrush = EraserBrush.getEraserBrush();
+            case MOVEBRUSH -> this.activeBrush = MoveBrush.getMoveBrush();
         }
         activeBrush.updateActiveLayer();
         System.out.println("set new brush: "+activeBrush);
