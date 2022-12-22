@@ -611,12 +611,36 @@ public class MainUIController {
     protected void onShapeBrushButtonClick(){
         IconController.change(4, this);
         fillRegion();
+
+        //更新UI
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("shape-view.fxml"));
+        VBox tmp = null;
+        try {
+            tmp = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BrushBox.getChildren().clear();
+        BrushBox.getChildren().add(tmp);
+        ControllerSet.shapeController = loader.getController();
     }
 
     @FXML
     protected void onImageProcessButtonClick(){
         IconController.change(5, this);
         fillRegion();
+
+        //更新UI
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("process-view.fxml"));
+        VBox tmp = null;
+        try {
+            tmp = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BrushBox.getChildren().clear();
+        BrushBox.getChildren().add(tmp);
+        ControllerSet.processController = loader.getController();
     }
 
     @FXML
