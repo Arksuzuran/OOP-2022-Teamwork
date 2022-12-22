@@ -39,6 +39,7 @@ public class MainUIController {
     public ImageView b3;
     public ImageView b4;
     public ImageView b5;
+    public ImageView b7;
 
     @FXML
     protected Label welcomeText;
@@ -522,21 +523,22 @@ public class MainUIController {
     }
     @FXML
     protected void onMoverButtonClick(){
-        IconController.change(3, this);
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("Mover-view.fxml"));
-        VBox tmp = null;
-        try {
-            tmp = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        BrushBox.getChildren().clear();
-        BrushBox.getChildren().add(tmp);
+        IconController.change(7, this);
 
-        if(mdc.isActive()){
-            mdc.setActiveBrush(BrushType.MOVEBRUSH);
-            sendMessage("[移动] 成功选中移动");
-        }
+//        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("mover-view.fxml"));
+//        VBox tmp = null;
+//        try {
+//            tmp = loader.load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        BrushBox.getChildren().clear();
+//        BrushBox.getChildren().add(tmp);
+//
+//        if(mdc.isActive()){
+//            mdc.setActiveBrush(BrushType.MOVEBRUSH);
+//            sendMessage("[移动] 成功选中移动");
+//        }
     }
 //=================================================选区======================================================//
     /**
@@ -632,7 +634,7 @@ public class MainUIController {
     //==========================图形=========================
     @FXML
     protected void onShapeBrushButtonClick(){
-      //  IconController.change(4, this);
+        IconController.change(4, this);
         fillRegion();
 
         //更新UI

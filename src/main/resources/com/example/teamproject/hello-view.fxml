@@ -117,6 +117,15 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Button id="图像" mnemonicParsing="false" onAction="#onMoverButtonClick" prefHeight="32.0" prefWidth="40.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                     <graphic>
+                        <ImageView fx:id="b7" fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="https://img.icons8.com/ios-filled/50/null/move.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
                <HBox.margin>
                   <Insets right="10.0" />

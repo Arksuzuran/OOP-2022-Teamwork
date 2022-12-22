@@ -27,7 +27,7 @@ public class NewWorkUIController {
     public void init(Stage stage){
         this.stage = stage;
         NewName.setText("untitled");
-        NewHeight.setText("900");
+        NewHeight.setText("500");
         NewWidth.setText("700");
     }
 
