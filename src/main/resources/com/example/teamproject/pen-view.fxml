@@ -21,13 +21,22 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="283.0" prefWidth="183.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.PenUIController">
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="283.0" prefWidth="183.0" style="-fx-border-color: lightgrey; -fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.PenUIController">
    <children>
-      <ColorPicker fx:id="PenColorPicker" onAction="#OnPenColorPickerSet" prefHeight="30.0" prefWidth="100.0">
-         <VBox.margin>
-            <Insets left="2.0" top="2.0" />
-         </VBox.margin>
-      </ColorPicker>
+      <HBox prefHeight="46.0" prefWidth="180.0">
+         <children>
+            <ImageView fitHeight="38.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="https://img.icons8.com/ios-filled/100/null/paint-palette.png" />
+               </image>
+            </ImageView>
+            <ColorPicker fx:id="PenColorPicker" onAction="#OnPenColorPickerSet" prefHeight="38.0" prefWidth="158.0" style="-fx-background-color: darkgray;">
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </ColorPicker>
+         </children>
+      </HBox>
       <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="238.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -72,7 +81,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Slider fx:id="SmoothLevelSlider" max="30.0" min="1.0" onMouseDragged="#OnSmoothLevelSliderSet" onMouseReleased="#OnSmoothLevelSliderSet" prefHeight="18.0" prefWidth="147.0" style="-fx-background-color: transparent;" value="1.0" />
+                  <Slider fx:id="SmoothLevelSlider" max="30.0" min="1.0" onMouseDragged="#OnSmoothLevelSliderSet" onMouseReleased="#OnSmoothLevelSliderSet" prefHeight="20.0" prefWidth="160.0" style="-fx-background-color: transparent;" value="1.0" />
                </children>
             </HBox>
          </children>
@@ -124,7 +133,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Slider fx:id="PenWidthSlider" max="50.0" min="1.0" onMouseDragged="#OnPenWidthSliderSet" onMouseReleased="#OnPenWidthSliderSet" prefHeight="14.0" prefWidth="155.0" value="3.0" />
+                  <Slider fx:id="PenWidthSlider" max="50.0" min="1.0" onMouseDragged="#OnPenWidthSliderSet" onMouseReleased="#OnPenWidthSliderSet" prefHeight="20.0" prefWidth="160.0" value="3.0" />
                </children>
             </HBox>
          </children>
