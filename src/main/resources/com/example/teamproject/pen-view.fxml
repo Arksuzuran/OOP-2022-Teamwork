@@ -42,26 +42,27 @@
                <items>
                   <MenuButton mnemonicParsing="false" prefHeight="24.0" prefWidth="115.0" text="笔刷选择">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="1" />
-                      <MenuItem mnemonicParsing="false" text="2" />
-                        <MenuItem mnemonicParsing="false" text="3" />
-                        <MenuItem mnemonicParsing="false" text="4" />
-                        <MenuItem mnemonicParsing="false" text="5" />
-                        <MenuItem mnemonicParsing="false" text="6" />
-                        <MenuItem mnemonicParsing="false" text="7" />
-                        <MenuItem mnemonicParsing="false" text="8" />
-                        <MenuItem mnemonicParsing="false" text="9" />
-                        <MenuItem mnemonicParsing="false" text="10" />
-                        <MenuItem mnemonicParsing="false" text="11" />
-                        <MenuItem mnemonicParsing="false" text="12" />
-                        <MenuItem mnemonicParsing="false" text="13" />
-                        <MenuItem mnemonicParsing="false" text="14" />
-                        <MenuItem mnemonicParsing="false" text="15" />
-                        <MenuItem mnemonicParsing="false" text="16" />
+                      <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker1" text="默认笔刷" />
+                      <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker2" text="软笔刷" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker3" text="CARPET" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker4" text="CLOUD" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker5" text="DIRTY1" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker6" text="DIRTY2" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker7" text="FABRIC" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker8" text="FUZY" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker9" text="GLASS" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker10" text="GRID" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker11" text="LEAVES" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker12" text="METAL" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker13" text="PAPER" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker14" text="SPOT" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker15" text="WAVE" />
+                        <MenuItem mnemonicParsing="false" onAction="#BrushMaterialClicker16" text="WOOD" />
                     </items>
                   </MenuButton>
                </items>
             </SplitPane>
+            <Button layoutX="124.0" layoutY="2.0" mnemonicParsing="false" onAction="#OnImportMaterialButtonClicked" text="导入" />
          </children></AnchorPane>
       <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="238.0">
          <children>

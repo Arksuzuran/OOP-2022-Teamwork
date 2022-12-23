@@ -2,11 +2,13 @@ package com.example.teamproject.controller;
 
 import javafx.scene.image.Image;
 
+import java.io.File;
 import java.util.Objects;
 
 public class IconController {
+    public static Image n1 = new Image(new File("icons/1.png").getAbsolutePath());
 
-    public static Image n1 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/1.png")).toString());
+    //public static Image n1 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/1.png")).toString());
     public static Image n2 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/2.png")).toString());
     public static Image n3 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/3.png")).toString());
     public static Image n4 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/4.png")).toString());

@@ -68,6 +68,22 @@ public class Open {
     }
 
     /**
+     * 打开任意格式的文件
+     * @return  文件的file
+     */
+    public static File getInputBMPFile(){
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png"),
+                new FileChooser.ExtensionFilter("BMP", "*.bmp"));
+        File file = fileChooser.showOpenDialog(stage);
+        return file;
+    }
+    /**
      * 从指定文件获取Image对象并放入选区
      * @param file file
      * @return  生成的选区
