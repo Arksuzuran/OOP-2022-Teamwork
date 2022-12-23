@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.input.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -88,6 +89,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Label fx:id="SmoothLevelLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="22.0" text="1" />
                   <Button id="+" mnemonicParsing="false" onAction="#OnSmoothIncreaseButtonClick" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
@@ -101,6 +105,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
                <VBox.margin>
@@ -140,6 +147,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Label fx:id="PenWidthLabel" alignment="CENTER" prefHeight="20.0" prefWidth="23.0" text="3" />
                   <Button id="+" mnemonicParsing="false" onAction="#OnPenWidthIncreaseButtonClick" prefWidth="25.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
@@ -153,6 +163,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
                <VBox.margin>
@@ -186,39 +199,66 @@
                   <Button id="1" mnemonicParsing="false" onAction="#B1Clicked" prefHeight="30.0" prefWidth="60.0">
                      <graphic>
                         <ImageView fx:id="b1" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic></Button>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button id="1.5" mnemonicParsing="false" onAction="#B2Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="1">
                      <graphic>
                         <ImageView fx:id="b2" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic></Button>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button id="2" mnemonicParsing="false" onAction="#B3Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="2">
                      <graphic>
                         <ImageView fx:id="b3" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic></Button>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button id="2.3" mnemonicParsing="false" onAction="#B4Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.rowIndex="1">
                      <graphic>
                         <ImageView fx:id="b4" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic></Button>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button id="2.6" mnemonicParsing="false" onAction="#B5Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <graphic>
                         <ImageView fx:id="b5" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic></Button>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button id="3" mnemonicParsing="false" onAction="#B6Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <graphic>
                         <ImageView fx:id="b6" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic></Button>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button id="4" mnemonicParsing="false" onAction="#B7Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.rowIndex="2">
                      <graphic>
                         <ImageView fx:id="b7" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic></Button>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button id="5" mnemonicParsing="false" onAction="#B8Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <graphic>
                         <ImageView fx:id="b8" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic></Button>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button id="10" mnemonicParsing="false" onAction="#B9Clicked" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <graphic>
                         <ImageView fx:id="b9" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic></Button>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children>
             </GridPane>
          </children>

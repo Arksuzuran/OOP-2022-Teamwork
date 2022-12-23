@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -68,6 +69,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="选区" mnemonicParsing="false" onAction="#onSelectorButtonClick" prefHeight="32.0" prefWidth="40.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                      <VBox.margin>
@@ -80,6 +84,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="eraser" mnemonicParsing="false" onAction="#onEraserBrushButtonClick" prefHeight="32.0" prefWidth="40.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                      <VBox.margin>
@@ -92,6 +99,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="图形" mnemonicParsing="false" onAction="#onShapeBrushButtonClick" prefHeight="32.0" prefWidth="40.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                      <VBox.margin>
@@ -104,6 +114,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="图像" mnemonicParsing="false" onAction="#onImageProcessButtonClick" prefHeight="32.0" prefWidth="40.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                      <VBox.margin>
@@ -116,6 +129,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button id="图像" mnemonicParsing="false" onAction="#onMoverButtonClick" prefHeight="32.0" prefWidth="40.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                      <graphic>
@@ -125,6 +141,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
                <HBox.margin>
@@ -199,7 +218,7 @@
                               <Button fx:id="NewLayerButton" mnemonicParsing="false" onAction="#onNewLayerButtonClick" text="新建图层" />
                            </children>
                         </HBox>
-                        <ScrollPane prefHeight="478.0" prefWidth="193.0" VBox.vgrow="ALWAYS">
+                        <ScrollPane opacity="0.74" prefHeight="478.0" prefWidth="193.0" style="-fx-background-color: darkgrey; -fx-border-color: darkgrey;" VBox.vgrow="ALWAYS">
                            <content>
                               <VBox fx:id="LayerBox" style="-fx-background-color: darkgrey; -fx-border-color: darkgrey;" />
                            </content>
