@@ -23,7 +23,7 @@ public class Layer{
     private MainDrawingController mdc = MainDrawingController.getMDC();
 
     //该layer在UI中的控制类
-    protected LayerUIController layerUIController;
+    public LayerUIController layerUIController;
     //最顶层的效果画布
     final protected Canvas mainEffectCanvas;
     final protected GraphicsContext mainEffectGc;

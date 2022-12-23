@@ -9,6 +9,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -75,6 +78,13 @@ public class MainDrawingController extends TimerTask {
         return MainDrawingController;
     }
     private MainDrawingController(){}
+
+    public void refreshLayers(){
+        for(Layer l : layerList){
+            l.layerUIController.getLayerPane().setBackground(new Background(new BackgroundFill(Color.gray(0.9), null, null)));
+        }
+        activeLayer.layerUIController.getLayerPane().setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+    }
 
 
     /**
@@ -188,6 +198,7 @@ public class MainDrawingController extends TimerTask {
             case PEN -> this.activeBrush = PenBrush.getPenBrush();
             case SELECTOR -> this.activeBrush = SelectorBrush.getSelectorBrush();
             case ERASER -> this.activeBrush = EraserBrush.getEraserBrush();
+            case MOVEBRUSH -> this.activeBrush = MoveBrush.getMoveBrush();
             case ShapeBrush -> this.activeBrush = ShapeBrush.getShapeBrush();
             case None -> this.activeBrush = null;
         }

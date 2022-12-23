@@ -6,7 +6,10 @@ import com.example.teamproject.structure.Layer;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 
@@ -51,11 +54,14 @@ public class LayerUIController {
     @FXML
     public void OnLayerSelectButtonClick(){
         //选区笔不工作时才允许切换图层
-        if(!SelectorBrush.getSelectorBrush().hasSelected())
+        if(!SelectorBrush.getSelectorBrush().hasSelected()) {
             mdc.setActiveLayer(layer);
+            mdc.refreshLayers();
+        }
         else{
             ControllerSet.muc.sendMessage("[切换图层] 您不能在已有选区的情况下切换图层，请先确认选区。");
         }
+
     }
     @FXML
     public void OnLayerDeleteButtonClick(){

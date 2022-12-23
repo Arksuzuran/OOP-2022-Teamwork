@@ -2,11 +2,15 @@ package com.example.teamproject.controller;
 
 import com.example.teamproject.brush.Brush;
 import com.example.teamproject.brush.PenBrush;
+import javafx.event.ActionEvent;
 import com.example.teamproject.brush.ShapeBrush;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
+
+import javax.swing.*;
 import javafx.scene.paint.Color;
 
 /**
@@ -16,6 +20,15 @@ import javafx.scene.paint.Color;
  **/
 public class PenUIController {
 
+    public ImageView b1;
+    public ImageView b2;
+    public ImageView b3;
+    public ImageView b4;
+    public ImageView b5;
+    public ImageView b6;
+    public ImageView b7;
+    public ImageView b8;
+    public ImageView b9;
 
     @FXML
     protected ColorPicker PenColorPicker;//画笔的选色器
@@ -41,6 +54,38 @@ public class PenUIController {
     protected Label PenOpacityLabel;
     //绘图主控的引用
     protected MainDrawingController mdc = MainDrawingController.getMDC();
+
+
+    public void init(int op){
+        b1.setImage(IconController.b11);
+        b2.setImage(IconController.b22);
+        b3.setImage(IconController.b33);
+        b4.setImage(IconController.b44);
+        b5.setImage(IconController.b55);
+        b6.setImage(IconController.b66);
+        b7.setImage(IconController.b77);
+        b8.setImage(IconController.b88);
+        b9.setImage(IconController.b99);
+
+        if(op == 1)
+            b1.setImage(IconController.b1);
+        if(op == 2)
+            b2.setImage(IconController.b2);
+        if(op == 3)
+            b3.setImage(IconController.b3);
+        if(op == 4)
+            b4.setImage(IconController.b4);
+        if(op == 5)
+            b5.setImage(IconController.b5);
+        if(op == 6)
+            b6.setImage(IconController.b6);
+        if(op == 7)
+            b7.setImage(IconController.b7);
+        if(op == 8)
+            b8.setImage(IconController.b8);
+        if(op == 9)
+            b9.setImage(IconController.b9);
+    }
 
 
     /**
@@ -76,6 +121,7 @@ public class PenUIController {
             }
         }
     }
+
     @FXML
     protected void OnPenWidthSliderSet(){
         updatePenWidth();
@@ -171,6 +217,69 @@ public class PenUIController {
             SmoothLevelSlider.setValue(smooth);
             PenColorPicker.setValue(color);
         }
+    }
+
+    @FXML
+    void B1Clicked(ActionEvent event) {
+        init(1);
+        PenWidthSlider.setValue(5);
+        updatePenWidth();
+    }
+
+    @FXML
+    void B2Clicked(ActionEvent event) {
+        init(2);
+        PenWidthSlider.setValue(10);
+        updatePenWidth();
+    }
+
+    @FXML
+    void B3Clicked(ActionEvent event) {
+        init(3);
+        PenWidthSlider.setValue(15);
+        updatePenWidth();
+    }
+
+    @FXML
+    void B4Clicked(ActionEvent event) {
+        init(4);
+        PenWidthSlider.setValue(20);
+        updatePenWidth();
+    }
+
+    @FXML
+    void B5Clicked(ActionEvent event) {
+        init(5);
+        PenWidthSlider.setValue(25);
+        updatePenWidth();
+    }
+
+    @FXML
+    void B6Clicked(ActionEvent event) {
+        init(6);
+        PenWidthSlider.setValue(30);
+        updatePenWidth();
+    }
+
+    @FXML
+    void B7Clicked(ActionEvent event) {
+        init(7);
+        PenWidthSlider.setValue(35);
+        updatePenWidth();
+    }
+
+    @FXML
+    void B8Clicked(ActionEvent event) {
+        init(8);
+        PenWidthSlider.setValue(40);
+        updatePenWidth();
+    }
+
+    @FXML
+    void B9Clicked(ActionEvent event) {
+        init(9);
+        PenWidthSlider.setValue(45);
+        updatePenWidth();
     }
 
 }

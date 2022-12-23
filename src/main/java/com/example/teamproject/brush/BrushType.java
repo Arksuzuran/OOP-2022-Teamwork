@@ -6,4 +6,5 @@ public enum BrushType {
     SELECTOR,
     ERASER,
     ShapeBrush,
+    MOVEBRUSH,
 }

@@ -1,5 +1,6 @@
 package com.example.teamproject;
 
+import com.example.teamproject.controller.IconController;
 import com.example.teamproject.controller.MainDrawingController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -30,11 +31,16 @@ public class HelloApplication extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 
-        Scene scene = new Scene(fxmlLoader.load(), 1250, 900);
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
 
         stage.setTitle("haSAIki");
 
         stage.setScene(scene);
+
+        stage.setMinHeight(700);
+        stage.setMinWidth(1000);
+
+        stage.getIcons().add(IconController.title);
 
         stage.show();
 

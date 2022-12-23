@@ -33,12 +33,15 @@ import java.io.IOException;
  **/
 public class MainUIController {
 
+    private VBox laji = null;
+
     //按钮图标
     public ImageView b1;
     public ImageView b2;
     public ImageView b3;
     public ImageView b4;
     public ImageView b5;
+    public ImageView b7;
 
     @FXML
     protected Label welcomeText;
@@ -87,12 +90,17 @@ public class MainUIController {
     protected CheckBox SelectLineCheckBox;
 
 
+    public ScrollPane getDrawingScrollPane() {
+        return DrawingScrollPane;
+    }
+
     /**
      * 画图层各部分的引用 在创建新画布后必须对此进行更新！否则后端无法工作！
      */
     //绘图区
     @FXML
     protected ScrollPane DrawingScrollPane;
+
     protected Canvas mainEffectCanvas = null;
     protected Pane mainDrawingPane = null;
     protected CanvasController canvasController = null;
@@ -108,6 +116,8 @@ public class MainUIController {
 
     {
         ControllerSet.muc = this;
+        laji = LoaderController.v1;
+//        onPenBrushButtonClick();
     }
 
     //============================================创建新作品==============================================//
@@ -413,16 +423,21 @@ public class MainUIController {
     protected void onPenBrushButtonClick(){
         IconController.change(1, this);
         //更新UI
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("pen-view.fxml"));
-        VBox tmp = null;
-        try {
-            tmp = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("pen-view.fxml"));
+//        VBox tmp = null;
+//        try {
+//            tmp = loader.load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        BrushBox.getChildren().clear();
+//        BrushBox.getChildren().add(tmp);
+//        ControllerSet.penUIController = loader.getController();
         BrushBox.getChildren().clear();
-        BrushBox.getChildren().add(tmp);
-        ControllerSet.penUIController = loader.getController();
+        BrushBox.getChildren().add(LoaderController.v1);
+        ControllerSet.penUIController = LoaderController.loader1.getController();
+
+        ControllerSet.penUIController.init(0);
 
         //只有主控激活时才能选择笔刷
         if(mdc.isActive()){
@@ -501,21 +516,34 @@ public class MainUIController {
     @FXML
     protected void onEraserBrushButtonClick(){
         IconController.change(3, this);
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("eraser-view.fxml"));
-        VBox tmp = null;
-        try {
-            tmp = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("eraser-view.fxml"));
+//        VBox tmp = null;
+//        try {
+//            tmp = loader.load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         BrushBox.getChildren().clear();
-        BrushBox.getChildren().add(tmp);
-        ControllerSet.eraserUIController = loader.getController();
+        BrushBox.getChildren().add(LoaderController.v3);
+
+        EraserUIController eraserUIController = LoaderController.loader3.getController();
+        eraserUIController.init(0);
+        ControllerSet.eraserUIController = eraserUIController;
 
         if(mdc.isActive()){
             mdc.setActiveBrush(BrushType.ERASER);
             sendMessage("[橡皮] 当前工具切换为橡皮");
             ControllerSet.eraserUIController.updateUIbyEraserBrush();
+        }
+    }
+    @FXML
+    protected void onMoverButtonClick(){
+        IconController.change(7, this);
+        BrushBox.getChildren().clear();
+
+        if(mdc.isActive()){
+            mdc.setActiveBrush(BrushType.MOVEBRUSH);
+            sendMessage("[移动] 成功选中移动");
         }
     }
 //=================================================选区======================================================//
@@ -526,16 +554,16 @@ public class MainUIController {
     protected void onSelectorButtonClick(){
         IconController.change(2, this);
         //更新UI
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("selector-view.fxml"));
-        VBox tmp = null;
-        try {
-            tmp = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("selector-view.fxml"));
+//        VBox tmp = null;
+//        try {
+//            tmp = loader.load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         BrushBox.getChildren().clear();
-        BrushBox.getChildren().add(tmp);
-        ControllerSet.selectorUIController = loader.getController();
+        BrushBox.getChildren().add(LoaderController.v2);
+        ControllerSet.selectorUIController = LoaderController.loader2.getController();
 
         //只有主控激活的时候才能选择笔刷
         if(mdc.isActive()){
@@ -617,16 +645,16 @@ public class MainUIController {
         fillRegion();
 
         //更新UI
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("shape-view.fxml"));
-        VBox tmp = null;
-        try {
-            tmp = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("shape-view.fxml"));
+//        VBox tmp = null;
+//        try {
+//            tmp = loader.load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         BrushBox.getChildren().clear();
-        BrushBox.getChildren().add(tmp);
-        ControllerSet.shapeUIController = loader.getController();
+        BrushBox.getChildren().add(LoaderController.v4);
+        ControllerSet.shapeUIController = LoaderController.loader4.getController();
 
         //只有主控激活的时候才能选择笔刷
         if(mdc.isActive()){
@@ -642,23 +670,22 @@ public class MainUIController {
         }
     }
 
-    //=================================图像处理=================================
     @FXML
     protected void onImageProcessButtonClick(){
         IconController.change(5, this);
         fillRegion();
 
         //更新UI
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("process-view.fxml"));
-        VBox tmp = null;
-        try {
-            tmp = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("process-view.fxml"));
+//        VBox tmp = null;
+//        try {
+//            tmp = loader.load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         BrushBox.getChildren().clear();
-        BrushBox.getChildren().add(tmp);
-        ControllerSet.processController = loader.getController();
+        BrushBox.getChildren().add(LoaderController.v5);
+        ControllerSet.processController = LoaderController.loader5.getController();
     }
 
     @FXML
