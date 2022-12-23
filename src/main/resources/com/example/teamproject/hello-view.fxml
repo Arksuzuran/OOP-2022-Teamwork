@@ -26,7 +26,7 @@
 
 <VBox alignment="TOP_CENTER" minHeight="450.0" minWidth="600.0" prefHeight="900.0" prefWidth="1250.0" spacing="20.0" style="-fx-background-color: #d3d3d3;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.MainUIController">
    <children>
-      <MenuBar VBox.vgrow="NEVER">
+      <MenuBar style="-fx-background-color: ghostwhite; -fx-border-color: ghostwhite;" VBox.vgrow="NEVER">
         <menus>
           <Menu mnemonicParsing="false" text="文件">
             <items>
@@ -148,7 +148,7 @@
                                     <Label fx:id="PenWidthLabel" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="335.0" text="5" />
                                  </children>
                               </HBox>
-                              <Slider fx:id="PenWidthSlider" min="1.0" onMouseDragged="#OnPenWidthSliderSet" onMouseReleased="#OnPenWidthSliderSet" prefHeight="14.0" prefWidth="83.0" value="5.0" />
+                              <Slider fx:id="PenWidthSlider" min="1.0" onMouseDragged="#OnPenWidthSliderSet" onMouseReleased="#OnPenWidthSliderSet" prefHeight="18.0" prefWidth="185.0" value="5.0" />
                               <HBox prefHeight="23.0" prefWidth="117.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="抖动修正" wrappingWidth="85.33334350585938" />
@@ -157,7 +157,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <Slider fx:id="SmoothLevelSlider" max="4.0" min="1.0" onMouseDragged="#OnSmoothLevelSliderSet" onMouseReleased="#OnSmoothLevelSliderSet" prefHeight="14.0" prefWidth="83.0" value="1.0">
+                        <Slider fx:id="SmoothLevelSlider" max="4.0" min="1.0" onMouseDragged="#OnSmoothLevelSliderSet" onMouseReleased="#OnSmoothLevelSliderSet" prefHeight="18.0" prefWidth="158.0" value="1.0">
                            <VBox.margin>
                               <Insets bottom="30.0" />
                            </VBox.margin>
@@ -189,16 +189,16 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <VBox prefHeight="545.0" prefWidth="180.0" VBox.vgrow="ALWAYS">
+                  <VBox prefHeight="529.0" prefWidth="191.0" VBox.vgrow="ALWAYS">
                      <children>
                         <HBox prefHeight="26.0" prefWidth="180.0">
                            <children>
                               <Button fx:id="NewLayerButton" mnemonicParsing="false" onAction="#onNewLayerButtonClick" text="新建图层" />
                            </children>
                         </HBox>
-                        <ScrollPane VBox.vgrow="ALWAYS">
+                        <ScrollPane prefHeight="459.0" prefWidth="169.0" style="-fx-background-color: darkgrey; -fx-border-color: gainsboro;" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox fx:id="LayerBox" prefHeight="243.0" />
+                              <VBox fx:id="LayerBox" prefHeight="476.0" prefWidth="181.0" style="-fx-background-color: gainsboro;" />
                            </content>
                         </ScrollPane>
                      </children>
@@ -208,10 +208,16 @@
                   </VBox>
                </children>
             </VBox>
-            <ScrollPane fx:id="DrawingScrollPane" HBox.hgrow="ALWAYS">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin></ScrollPane>
+            
+            <AnchorPane prefHeight="783.0" prefWidth="979.0" style="-fx-background-color: darkgrey;" HBox.hgrow="ALWAYS">
+               <children>
+                  <ScrollPane fx:id="DrawingScrollPane" layoutX="-108.0" layoutY="99.0" prefHeight="658.0" prefWidth="798.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" VBox.vgrow="NEVER">

@@ -22,7 +22,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="332.0" prefWidth="192.0" style="-fx-border-color: lightgrey; -fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.PenUIController">
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="311.0" prefWidth="181.0" style="-fx-border-color: lightgrey; -fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.PenUIController">
    <children>
       <HBox prefHeight="46.0" prefWidth="180.0">
          <children>
@@ -69,7 +69,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="抖动修正">
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="抖动修正" wrappingWidth="53.0">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -77,9 +77,9 @@
                         <Font size="13.0" />
                      </font>
                   </Text>
-                  <Button id="-" mnemonicParsing="false" onAction="#OnSmoothDecreaseButtonClick" prefWidth="25.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                  <Button id="-" mnemonicParsing="false" onAction="#OnSmoothDecreaseButtonClick" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                      <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
+                        <Insets right="-5.0" />
                      </HBox.margin>
                      <graphic>
                         <ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true">
@@ -90,9 +90,9 @@
                      </graphic>
                   </Button>
                   <Label fx:id="SmoothLevelLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="22.0" text="1" />
-                  <Button id="+" mnemonicParsing="false" onAction="#OnSmoothIncreaseButtonClick" prefWidth="25.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                  <Button id="+" mnemonicParsing="false" onAction="#OnSmoothIncreaseButtonClick" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                      <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
+                        <Insets right="-10.0" />
                      </HBox.margin>
                      <graphic>
                         <ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true">
@@ -131,10 +131,10 @@
                   </Text>
                   <Button id="-" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#OnPenWidthDecreaseButtonClick" prefWidth="25.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                      <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
+                        <Insets right="-5.0" />
                      </HBox.margin>
                      <graphic>
-                        <ImageView fitHeight="20" fitWidth="20" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="https://img.icons8.com/ios-glyphs/90/null/minus-2-math.png" />
                            </image>
@@ -144,7 +144,7 @@
                   <Label fx:id="PenWidthLabel" alignment="CENTER" prefHeight="20.0" prefWidth="23.0" text="3" />
                   <Button id="+" mnemonicParsing="false" onAction="#OnPenWidthIncreaseButtonClick" prefWidth="25.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                      <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
+                        <Insets right="-10.0" />
                      </HBox.margin>
                      <graphic>
                         <ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true">

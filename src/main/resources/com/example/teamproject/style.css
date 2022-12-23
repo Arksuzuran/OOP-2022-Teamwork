@@ -13,10 +13,11 @@
 .root {
     -fx-font-family: "微软雅黑";
     -fx-font-size: 12px;
-    -fx-background-image: url("https://tenfei04.cfp.cn/creative/vcg/veer/612/veer-127791708.jpg");
+    -fx-background-image: url("https://alifei03.cfp.cn/creative/vcg/veer/612/veer-146556142.jpg");
     -fx-background-size: stretch stretch;
     -fx-background-position: center center;
 }
+
 /*id选择器设置Label标题的样式*/
 #lblTitle {
     -fx-font-size: 20px;
