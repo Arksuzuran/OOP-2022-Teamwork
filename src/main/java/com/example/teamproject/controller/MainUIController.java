@@ -117,6 +117,7 @@ public class MainUIController {
     {
         ControllerSet.muc = this;
         laji = LoaderController.v1;
+//        onPenBrushButtonClick();
     }
 
     //============================================创建新作品==============================================//

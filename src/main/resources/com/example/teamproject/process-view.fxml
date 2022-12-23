@@ -12,9 +12,15 @@
    <children>
       <HBox VBox.vgrow="ALWAYS">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="饱和度     " HBox.hgrow="ALWAYS" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="饱和度     " HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Text>
             <Slider fx:id="SaturationSlider" onMouseDragged="#OnSaturationSliderDragged" HBox.hgrow="ALWAYS" />
          </children>
+         <VBox.margin>
+            <Insets top="30.0" />
+         </VBox.margin>
       </HBox>
       <HBox>
          <children>
@@ -22,7 +28,7 @@
             <Slider fx:id="ContrastSlider" onMouseDragged="#OnContrastSliderDragged" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets top="40.0" />
          </VBox.margin>
       </HBox>
       <HBox>
@@ -31,7 +37,7 @@
             <Slider fx:id="GammaSlider" onMouseDragged="#OnGammaSliderDragged" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets top="40.0" />
          </VBox.margin>
       </HBox>
       <HBox>
@@ -40,7 +46,7 @@
             <Slider fx:id="ColorSlider" onMouseDragged="#OnColorSliderDragged" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets top="40.0" />
          </VBox.margin>
       </HBox>
       <HBox>
@@ -49,7 +55,7 @@
             <Slider fx:id="BlurSlider" onMouseDragged="#OnBlurSliderDragged" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets top="40.0" />
          </VBox.margin>
       </HBox>
    </children>

@@ -80,9 +80,9 @@ public class MainDrawingController extends TimerTask {
 
     public void refreshLayers(){
         for(Layer l : layerList){
-            l.layerUIController.getLayerPane().setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
+            l.layerUIController.getLayerPane().setBackground(new Background(new BackgroundFill(Color.gray(0.9), null, null)));
         }
-        activeLayer.layerUIController.getLayerPane().setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, null, null)));
+        activeLayer.layerUIController.getLayerPane().setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
     }
 
 

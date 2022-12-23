@@ -1,5 +1,6 @@
 package com.example.teamproject;
 
+import com.example.teamproject.controller.IconController;
 import com.example.teamproject.controller.MainDrawingController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -35,8 +36,10 @@ public class HelloApplication extends Application {
 
         stage.setScene(scene);
 
-        stage.setMinHeight(400);
-        stage.setMinWidth(500);
+        stage.setMinHeight(700);
+        stage.setMinWidth(1000);
+
+        stage.getIcons().add(IconController.title);
 
         stage.show();
 

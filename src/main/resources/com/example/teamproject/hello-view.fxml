@@ -220,7 +220,7 @@
                         </HBox>
                         <ScrollPane opacity="0.74" prefHeight="478.0" prefWidth="193.0" style="-fx-background-color: darkgrey; -fx-border-color: darkgrey;" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox fx:id="LayerBox" style="-fx-background-color: darkgrey; -fx-border-color: darkgrey;" />
+                              <VBox fx:id="LayerBox" style="-fx-background-color: #e6e6e6;" />
                            </content>
                         </ScrollPane>
                      </children>

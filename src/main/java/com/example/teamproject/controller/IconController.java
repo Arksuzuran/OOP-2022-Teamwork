@@ -40,6 +40,8 @@ public class IconController {
     public static Image b88 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b88.png")).toString());
     public static Image b99 = new Image(Objects.requireNonNull(IconController.class.getResource("icons/b99.png")).toString());
 
+    public static Image title = new Image(Objects.requireNonNull(IconController.class.getResource("icons/title.png")).toString());
+
     public static void change(int index, MainUIController m){
         m.b1.setImage(i1);
         m.b2.setImage(i2);
