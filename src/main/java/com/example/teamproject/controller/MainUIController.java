@@ -5,9 +5,11 @@ import com.example.teamproject.brush.Brush;
 import com.example.teamproject.brush.BrushType;
 import com.example.teamproject.brush.PenBrush;
 import com.example.teamproject.brush.SelectorBrush;
+import com.example.teamproject.effect.ImageEffect;
 import com.example.teamproject.io.Open;
 import com.example.teamproject.io.Save;
 import com.example.teamproject.structure.Layer;
+import com.example.teamproject.tools.ImageFormConverter;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -672,9 +674,11 @@ public class MainUIController {
 
     @FXML
     protected void onImageProcessButtonClick(){
+        ImageEffect.originalCopy = ImageFormConverter.imageToMat(ImageFormConverter.canvasToImage(MainDrawingController.getMDC().getActiveLayer().getCanvas()));
+
         IconController.change(5, this);
         fillRegion();
-
+        //设定为中心值
         //更新UI
 //        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("process-view.fxml"));
 //        VBox tmp = null;
@@ -687,6 +691,7 @@ public class MainUIController {
         BrushBox.getChildren().clear();
         BrushBox.getChildren().add(LoaderController.v5);
         ControllerSet.processController = LoaderController.loader5.getController();
+
     }
 
     @FXML

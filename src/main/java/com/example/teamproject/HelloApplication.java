@@ -40,7 +40,7 @@ public class HelloApplication extends Application {
         stage.show();
 
         Timer t = new Timer();
-        t.scheduleAtFixedRate(MainDrawingController.getMDC(),1000*60, 1000*60);
+        t.scheduleAtFixedRate(MainDrawingController.getMDC(),1000*60, 1000*10);
     }
     public static void main(String[] args) {
         launch();

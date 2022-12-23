@@ -432,9 +432,9 @@ public class PenBrush extends Brush{
     private RadialGradient createSoftBrushGradient(Color primaryColor, double radius) {
         return new RadialGradient(
                 0, 0,
-                0, 0,
+                0.5, 0.5,
                 radius,
-                true,
+                false,
                 CycleMethod.NO_CYCLE,
                 new Stop(0, primaryColor),
                 new Stop(1, Color.TRANSPARENT)

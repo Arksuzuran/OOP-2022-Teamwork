@@ -10,8 +10,8 @@ import org.opencv.core.Mat;
 public class ContrastEffect implements Effect{
 
     /*
-        contrast: 1.0 - 3.0
-        brightness: 0 - 100
+        contrast: 0 - 3.0 middle: 1
+        brightness: -100 - 100
     */
     @Override
     public Mat process(Mat mat, double contrast, double brightness, double t3) {

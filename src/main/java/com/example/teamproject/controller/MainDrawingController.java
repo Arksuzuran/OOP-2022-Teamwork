@@ -2,6 +2,7 @@ package com.example.teamproject.controller;
 
 import com.example.teamproject.brush.*;
 import com.example.teamproject.effect.Effect;
+import com.example.teamproject.effect.ImageEffect;
 import com.example.teamproject.io.Save;
 import com.example.teamproject.structure.Layer;
 import com.example.teamproject.tools.ImageFormConverter;
@@ -258,9 +259,8 @@ public class MainDrawingController extends TimerTask {
      * @param t3    可能的参数3
      */
     public void implementLayerEffect(Effect effect, double t1, double t2, double t3){
-        Image oriImage = ImageFormConverter.canvasToImage(activeLayer.getCanvas());
-        Mat oriMat = ImageFormConverter.imageToMat(oriImage);
-        Mat reMat = effect.process(oriMat, t1, t2, t3);
+
+        Mat reMat = effect.process(ImageEffect.originalCopy, t1, t2, t3);
         Image reImage = ImageFormConverter.matToImage(reMat);
         activeLayer.getCanvas().getGraphicsContext2D().drawImage(reImage, 0, 0);
     }

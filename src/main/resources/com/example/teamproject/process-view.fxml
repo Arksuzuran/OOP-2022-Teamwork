@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: lightgrey; -fx-border-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.ProcessController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: lightgrey; -fx-border-color: lightgrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.ProcessController">
    <children>
       <HBox VBox.vgrow="ALWAYS">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="饱和度     " HBox.hgrow="ALWAYS">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="亮度        " HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin></Text>
-            <Slider fx:id="SaturationSlider" onMouseDragged="#OnSaturationSliderDragged" HBox.hgrow="ALWAYS" />
+            <Slider fx:id="BrightnessSlider" blockIncrement="1.0" min="-100.0" onMouseDragged="#OnBrightnessSliderDragged" onMouseReleased="#OnBrightnessSliderReleased" showTickLabels="true" showTickMarks="true" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets top="30.0" />
@@ -23,38 +23,57 @@
       <HBox>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="对比度     " HBox.hgrow="ALWAYS" />
-            <Slider fx:id="ContrastSlider" max="3.0" min="1.0" onMouseDragged="#OnContrastSliderDragged" value="1.0" HBox.hgrow="ALWAYS" />
+            <Slider fx:id="ContrastSlider" max="3.0" onMouseDragged="#OnContrastSliderDragged" onMouseReleased="#OnContrastSliderReleased" showTickLabels="true" showTickMarks="true" value="1.0" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
-            <Insets top="40.0" />
+            <Insets top="10.0" />
          </VBox.margin>
       </HBox>
       <HBox>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="伽马校正  " HBox.hgrow="ALWAYS" />
-            <Slider fx:id="GammaSlider" max="1.0" onMouseDragged="#OnGammaSliderDragged" HBox.hgrow="ALWAYS" />
+            <Slider fx:id="GammaSlider" max="3.0" onMouseDragged="#OnGammaSliderDragged" onMouseReleased="#OnGammaSliderReleased" showTickLabels="true" showTickMarks="true" value="1.0" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
-            <Insets top="40.0" />
+            <Insets top="10.0" />
          </VBox.margin>
       </HBox>
       <HBox>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="色彩调整  " HBox.hgrow="ALWAYS" />
-            <Slider fx:id="ColorSlider" max="255.0" onMouseDragged="#OnColorSliderDragged" HBox.hgrow="ALWAYS" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="R             " HBox.hgrow="ALWAYS" />
+            <Slider fx:id="RedSlider" max="3.0" onMouseDragged="#OnRedSliderDragged" onMouseReleased="#OnRedSliderReleased" showTickLabels="true" showTickMarks="true" value="1.0" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
-            <Insets top="40.0" />
+            <Insets top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="G             " HBox.hgrow="ALWAYS" />
+            <Slider fx:id="GreenSlider" max="3.0" onMouseDragged="#OnGreenSliderDragged" onMouseReleased="#OnGreenSliderReleased" showTickLabels="true" showTickMarks="true" value="1.0" HBox.hgrow="ALWAYS" />
+         </children>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="B             " HBox.hgrow="ALWAYS" />
+            <Slider fx:id="BlueSlider" max="3.0" onMouseDragged="#OnBlueSliderDragged" onMouseReleased="#OnBlueSliderReleased" showTickLabels="true" showTickMarks="true" value="1.0" HBox.hgrow="ALWAYS" />
+         </children>
+         <VBox.margin>
+            <Insets top="10.0" />
          </VBox.margin>
       </HBox>
       <HBox>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="模糊         " HBox.hgrow="ALWAYS" />
-            <Slider fx:id="BlurSlider" max="14.0" onMouseDragged="#OnBlurSliderDragged" HBox.hgrow="ALWAYS" />
+            <Slider fx:id="BlurSlider" max="14.0" onMouseDragged="#OnBlurSliderDragged" onMouseReleased="#OnBlurSliderReleased" showTickLabels="true" showTickMarks="true" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
-            <Insets top="40.0" />
+            <Insets top="10.0" />
          </VBox.margin>
       </HBox>
+      <Button mnemonicParsing="false" onMouseClicked="#OnConfigClicked" text="确认修改" />
    </children>
 </VBox>

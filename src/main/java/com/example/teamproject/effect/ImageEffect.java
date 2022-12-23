@@ -21,6 +21,7 @@ public class ImageEffect {
      * @return 反色处理完成的图像
      */
     static SelectedRegion selectedRegion = SelectorBrush.getSelectorBrush().getSelectedRegion();
+    public static Mat originalCopy = null;
     public static Mat reverseColorMat(Mat mat){
         Mat dst = new Mat(mat.size(), mat.type());
 
@@ -49,19 +50,7 @@ public class ImageEffect {
     }
     public static Mat contrastControl(Mat mat, double contrast, int brightness){
         Mat dst = new Mat(mat.size(), mat.type());
-        byte[] matData = new byte[(int) (mat.total() * mat.channels())];
-        mat.get(0, 0, matData);
-        byte[] dstData = new byte[(int) (dst.total() * dst.channels())];
-        for (int y = 0; y < mat.rows(); y++) {
-            for (int x = 0; x < mat.cols(); x++) {
-                for (int c = 0; c < mat.channels(); c++) {
-                    double pixelValue = matData[(y * mat.cols() + x) * mat.channels() + c];
-                    pixelValue = pixelValue < 0 ? pixelValue + 256 : pixelValue;
-                    dstData[(y * mat.cols() + x) * mat.channels() + c] = saturate(contrast * pixelValue + brightness);
-                }
-            }
-        }
-        dst.put(0, 0, dstData);
+        mat.convertTo(dst, -1, contrast, brightness);
         return dst;
     }
     public static Mat hueControl(Mat mat, double red, double green, double blue){
@@ -74,53 +63,22 @@ public class ImageEffect {
                 for (int c = 0; c < mat.channels(); c++) {
                     double pixelValue = matData[(y * mat.cols() + x) * mat.channels() + c];
                     pixelValue = pixelValue < 0 ? pixelValue + 256 : pixelValue;
-                    double val = 0.0;
                     if(c == 0){
-                        val = blue;
+                        pixelValue *= blue;
                     }
                     if(c == 1){
-                        val = green;
+                        pixelValue *= green;
                     }
                     if(c == 2){
-                        val = red;
+                        pixelValue *= red;
                     }
-                    dstData[(y * mat.cols() + x) * mat.channels() + c] = (byte) val;
+                    dstData[(y * mat.cols() + x) * mat.channels() + c] = (byte) pixelValue;
                 }
             }
         }
         dst.put(0, 0, dstData);
         return dst;
     }
-    /*
-    public static Mat brushSetColor(BufferedImage bufferedImage, Color color){
-        Mat dst = new Mat(mat.size(), mat.type());
-        byte[] matData = new byte[(int) (mat.total() * mat.channels())];
-        mat.get(0, 0, matData);
-        byte[] dstData = new byte[(int) (dst.total() * dst.channels())];
-        for (int y = 0; y < mat.rows(); y++) {
-            for (int x = 0; x < mat.cols(); x++) {
-
-                for (int c = 0; c < mat.channels(); c++) {
-                    double pixelValue = matData[(y * mat.cols() + x) * mat.channels() + c];
-                    pixelValue = pixelValue < 0 ? pixelValue + 256 : pixelValue;
-                    double val = 0;
-                    if(c == 0){
-                        val = color.getRed();
-                    }
-                    if(c == 1){
-                        val = color.getGreen() ;
-                    }
-                    if(c == 2){
-                        val = color.getBlue() ;
-                    }
-                    dstData[(y * mat.cols() + x) * mat.channels() + c] = (byte) val;
-                }
-            }
-        }
-        dst.put(0, 0, dstData);
-        return dst;
-    }
-    */
 
     /*
     非线性地处理亮度，让图片不会过暗或者过曝
