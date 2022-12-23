@@ -33,6 +33,8 @@ import java.io.IOException;
  **/
 public class MainUIController {
 
+    private VBox laji = null;
+
     //按钮图标
     public ImageView b1;
     public ImageView b2;
@@ -114,6 +116,7 @@ public class MainUIController {
 
     {
         ControllerSet.muc = this;
+        laji = LoaderController.v1;
     }
 
     //============================================创建新作品==============================================//
@@ -419,16 +422,19 @@ public class MainUIController {
     protected void onPenBrushButtonClick(){
         IconController.change(1, this);
         //更新UI
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("pen-view.fxml"));
-        VBox tmp = null;
-        try {
-            tmp = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("pen-view.fxml"));
+//        VBox tmp = null;
+//        try {
+//            tmp = loader.load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        BrushBox.getChildren().clear();
+//        BrushBox.getChildren().add(tmp);
+//        ControllerSet.penUIController = loader.getController();
         BrushBox.getChildren().clear();
-        BrushBox.getChildren().add(tmp);
-        ControllerSet.penUIController = loader.getController();
+        BrushBox.getChildren().add(LoaderController.v1);
+        ControllerSet.penUIController = LoaderController.loader1.getController();
 
         ControllerSet.penUIController.init(0);
 
@@ -508,17 +514,17 @@ public class MainUIController {
     @FXML
     protected void onEraserBrushButtonClick(){
         IconController.change(3, this);
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("eraser-view.fxml"));
-        VBox tmp = null;
-        try {
-            tmp = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("eraser-view.fxml"));
+//        VBox tmp = null;
+//        try {
+//            tmp = loader.load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         BrushBox.getChildren().clear();
-        BrushBox.getChildren().add(tmp);
+        BrushBox.getChildren().add(LoaderController.v3);
 
-        EraserUIController eraserUIController = loader.getController();
+        EraserUIController eraserUIController = LoaderController.loader3.getController();
         eraserUIController.init(0);
 
         if(mdc.isActive()){
@@ -544,16 +550,16 @@ public class MainUIController {
     protected void onSelectorButtonClick(){
         IconController.change(2, this);
         //更新UI
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("selector-view.fxml"));
-        VBox tmp = null;
-        try {
-            tmp = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("selector-view.fxml"));
+//        VBox tmp = null;
+//        try {
+//            tmp = loader.load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         BrushBox.getChildren().clear();
-        BrushBox.getChildren().add(tmp);
-        ControllerSet.selectorUIController = loader.getController();
+        BrushBox.getChildren().add(LoaderController.v2);
+        ControllerSet.selectorUIController = LoaderController.loader2.getController();
 
         //只有主控激活的时候才能选择笔刷
         if(mdc.isActive()){
@@ -634,16 +640,16 @@ public class MainUIController {
         fillRegion();
 
         //更新UI
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("shape-view.fxml"));
-        VBox tmp = null;
-        try {
-            tmp = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("shape-view.fxml"));
+//        VBox tmp = null;
+//        try {
+//            tmp = loader.load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         BrushBox.getChildren().clear();
-        BrushBox.getChildren().add(tmp);
-        ControllerSet.shapeController = loader.getController();
+        BrushBox.getChildren().add(LoaderController.v4);
+        ControllerSet.shapeController = LoaderController.loader4.getController();
     }
 
     @FXML
@@ -652,16 +658,16 @@ public class MainUIController {
         fillRegion();
 
         //更新UI
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("process-view.fxml"));
-        VBox tmp = null;
-        try {
-            tmp = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("process-view.fxml"));
+//        VBox tmp = null;
+//        try {
+//            tmp = loader.load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         BrushBox.getChildren().clear();
-        BrushBox.getChildren().add(tmp);
-        ControllerSet.processController = loader.getController();
+        BrushBox.getChildren().add(LoaderController.v5);
+        ControllerSet.processController = LoaderController.loader5.getController();
     }
 
     @FXML
