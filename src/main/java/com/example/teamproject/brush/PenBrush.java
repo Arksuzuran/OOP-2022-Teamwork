@@ -102,18 +102,8 @@ public class PenBrush extends Brush{
         }
         else {
             Image image = new Image(url);
-
-            /*
-
-                图像处理
-
-             */
-
             nowGc.setStroke(new ImagePattern(image));
         }
-
-
-
         /*
         BufferedImage img = null;
         try {

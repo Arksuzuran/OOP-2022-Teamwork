@@ -123,6 +123,7 @@ public class ShapeBrush extends Brush{
         if(isDrawing){
             isDrawing = false;
             drawShape(x, y, canvas, gc);
+            activeLayer.saveOp();
         }
     }
 

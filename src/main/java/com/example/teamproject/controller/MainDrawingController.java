@@ -1,6 +1,7 @@
 package com.example.teamproject.controller;
 
 import com.example.teamproject.brush.*;
+import com.example.teamproject.effect.Effect;
 import com.example.teamproject.io.Save;
 import com.example.teamproject.structure.Layer;
 import com.example.teamproject.tools.ImageFormConverter;
@@ -12,6 +13,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
+import org.opencv.core.Mat;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -202,8 +204,10 @@ public class MainDrawingController extends TimerTask {
             case ShapeBrush -> this.activeBrush = ShapeBrush.getShapeBrush();
             case None -> this.activeBrush = null;
         }
-        activeBrush.updateActiveLayer();
-        System.out.println("set new brush: "+activeBrush);
+        if(activeBrush!=null){
+            activeBrush.updateActiveLayer();
+            System.out.println("set new brush: "+activeBrush);
+        }
     }
     public Brush getActiveBrush(){
         return activeBrush;
@@ -244,6 +248,21 @@ public class MainDrawingController extends TimerTask {
             if(activeLayer.isVisible())
                 activeBrush.drawEnd(x, y);
         }
+    }
+
+    /**
+     * 以指定的effect处理当前图层
+     * @param effect    指定的effect
+     * @param t1    参数1
+     * @param t2    可能的参数2
+     * @param t3    可能的参数3
+     */
+    public void implementLayerEffect(Effect effect, double t1, double t2, double t3){
+        Image oriImage = ImageFormConverter.canvasToImage(activeLayer.getCanvas());
+        Mat oriMat = ImageFormConverter.imageToMat(oriImage);
+        Mat reMat = effect.process(oriMat, t1, t2, t3);
+        Image reImage = ImageFormConverter.matToImage(reMat);
+        activeLayer.getCanvas().getGraphicsContext2D().drawImage(reImage, 0, 0);
     }
 
     /**

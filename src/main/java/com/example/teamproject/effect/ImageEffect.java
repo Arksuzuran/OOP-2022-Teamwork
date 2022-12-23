@@ -54,9 +54,6 @@ public class ImageEffect {
         byte[] dstData = new byte[(int) (dst.total() * dst.channels())];
         for (int y = 0; y < mat.rows(); y++) {
             for (int x = 0; x < mat.cols(); x++) {
-                if(!selectedRegion.pointInRegionRelative(x, y)){//如果出现问题就只能删掉了
-                    continue;
-                }
                 for (int c = 0; c < mat.channels(); c++) {
                     double pixelValue = matData[(y * mat.cols() + x) * mat.channels() + c];
                     pixelValue = pixelValue < 0 ? pixelValue + 256 : pixelValue;
@@ -74,9 +71,6 @@ public class ImageEffect {
         byte[] dstData = new byte[(int) (dst.total() * dst.channels())];
         for (int y = 0; y < mat.rows(); y++) {
             for (int x = 0; x < mat.cols(); x++) {
-                if(!selectedRegion.pointInRegionRelative(x, y)){
-                    continue;
-                }
                 for (int c = 0; c < mat.channels(); c++) {
                     double pixelValue = matData[(y * mat.cols() + x) * mat.channels() + c];
                     pixelValue = pixelValue < 0 ? pixelValue + 256 : pixelValue;

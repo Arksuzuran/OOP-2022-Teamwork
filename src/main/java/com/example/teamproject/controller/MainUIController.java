@@ -638,7 +638,7 @@ public class MainUIController {
         }
     }
 
-    //=================================图形=============================
+    //============================图形==============================
     @FXML
     protected void onShapeBrushButtonClick(){
         IconController.change(4, this);
@@ -683,6 +683,7 @@ public class MainUIController {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+
         BrushBox.getChildren().clear();
         BrushBox.getChildren().add(LoaderController.v5);
         ControllerSet.processController = LoaderController.loader5.getController();
