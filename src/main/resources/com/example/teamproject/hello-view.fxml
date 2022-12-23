@@ -26,7 +26,7 @@
 
 <VBox alignment="TOP_CENTER" minHeight="450.0" minWidth="600.0" prefHeight="900.0" prefWidth="1250.0" spacing="20.0" style="-fx-background-color: #d3d3d3;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.MainUIController">
    <children>
-      <MenuBar VBox.vgrow="NEVER">
+      <MenuBar style="-fx-background-color: ghostwhite;" VBox.vgrow="NEVER">
         <menus>
           <Menu mnemonicParsing="false" text="文件">
             <items>
@@ -137,54 +137,54 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <ColorPicker fx:id="PenColorPicker" onAction="#OnPenColorPickerSet" prefHeight="25.0" prefWidth="100.0">
+                              <ColorPicker fx:id="PenColorPicker" onAction="#OnPenColorPickerSet" opacity="0.0" prefHeight="25.0" prefWidth="100.0">
                                  <VBox.margin>
                                     <Insets bottom="20.0" />
                                  </VBox.margin>
                               </ColorPicker>
                               <HBox alignment="TOP_CENTER" prefHeight="23.0" prefWidth="117.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="画笔粗细" wrappingWidth="85.33334350585938" />
-                                    <Label fx:id="PenWidthLabel" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="335.0" text="5" />
+                                    <Text opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="画笔粗细" wrappingWidth="85.33334350585938" />
+                                    <Label fx:id="PenWidthLabel" alignment="TOP_CENTER" contentDisplay="CENTER" opacity="0.0" prefHeight="15.0" prefWidth="335.0" text="5" />
                                  </children>
                               </HBox>
-                              <Slider fx:id="PenWidthSlider" min="1.0" onMouseDragged="#OnPenWidthSliderSet" onMouseReleased="#OnPenWidthSliderSet" prefHeight="14.0" prefWidth="83.0" value="5.0" />
+                              <Slider fx:id="PenWidthSlider" min="1.0" onMouseDragged="#OnPenWidthSliderSet" onMouseReleased="#OnPenWidthSliderSet" opacity="0.0" prefHeight="14.0" prefWidth="83.0" value="5.0" />
                               <HBox prefHeight="23.0" prefWidth="117.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="抖动修正" wrappingWidth="85.33334350585938" />
-                                    <Label fx:id="SmoothLevelLabel" alignment="CENTER" minWidth="16.0" prefHeight="15.0" prefWidth="335.0" text="1" />
+                                    <Text opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="抖动修正" wrappingWidth="85.33334350585938" />
+                                    <Label fx:id="SmoothLevelLabel" alignment="CENTER" minWidth="16.0" opacity="0.0" prefHeight="15.0" prefWidth="335.0" text="1" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <Slider fx:id="SmoothLevelSlider" max="4.0" min="1.0" onMouseDragged="#OnSmoothLevelSliderSet" onMouseReleased="#OnSmoothLevelSliderSet" prefHeight="14.0" prefWidth="83.0" value="1.0">
+                        <Slider fx:id="SmoothLevelSlider" max="4.0" min="1.0" onMouseDragged="#OnSmoothLevelSliderSet" onMouseReleased="#OnSmoothLevelSliderSet" opacity="0.0" prefHeight="14.0" prefWidth="83.0" value="1.0">
                            <VBox.margin>
                               <Insets bottom="30.0" />
                            </VBox.margin>
                         </Slider>
                         <VBox VBox.vgrow="ALWAYS">
                            <children>
-                              <ColorPicker fx:id="RegionColorPicker" prefHeight="25.0" prefWidth="100.0">
+                              <ColorPicker fx:id="RegionColorPicker" opacity="0.0" prefHeight="25.0" prefWidth="100.0">
                                  <VBox.margin>
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
                               </ColorPicker>
                               <HBox prefHeight="30.0" prefWidth="200.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#OnRegionFillButtonClick" text="填充">
+                                    <Button mnemonicParsing="false" onAction="#OnRegionFillButtonClick" opacity="0.0" text="填充">
                                        <HBox.margin>
                                           <Insets right="15.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#OnRegionSelectedButtonClick" text="确认选区" />
+                                    <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#OnRegionSelectedButtonClick" opacity="0.0" text="确认选区" />
                                  </children>
                               </HBox>
-                              <CheckBox fx:id="SelectSaveCheckBox" mnemonicParsing="false" onAction="#OnSelectSaveCheckBoxChanged" selected="true" text="选区状态保留">
+                              <CheckBox fx:id="SelectSaveCheckBox" mnemonicParsing="false" onAction="#OnSelectSaveCheckBoxChanged" opacity="0.0" selected="true" text="选区状态保留">
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
                               </CheckBox>
-                              <CheckBox fx:id="SelectLineCheckBox" mnemonicParsing="false" onAction="#OnSelectLineCheckBoxChanged" selected="true" text="选区框可见" />
+                              <CheckBox fx:id="SelectLineCheckBox" mnemonicParsing="false" onAction="#OnSelectLineCheckBoxChanged" opacity="0.0" selected="true" text="选区框可见" />
                            </children>
                         </VBox>
                      </children>
@@ -199,9 +199,9 @@
                               <Button fx:id="NewLayerButton" mnemonicParsing="false" onAction="#onNewLayerButtonClick" text="新建图层" />
                            </children>
                         </HBox>
-                        <ScrollPane VBox.vgrow="ALWAYS">
+                        <ScrollPane prefHeight="478.0" prefWidth="193.0" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox fx:id="LayerBox" prefHeight="243.0" />
+                              <VBox fx:id="LayerBox" prefHeight="489.0" prefWidth="189.0" style="-fx-background-color: darkgrey; -fx-border-color: darkgrey;" />
                            </content>
                         </ScrollPane>
                      </children>
@@ -211,10 +211,11 @@
                   </VBox>
                </children>
             </VBox>
-            <ScrollPane fx:id="DrawingScrollPane" HBox.hgrow="ALWAYS">
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin></ScrollPane>
+            <AnchorPane prefHeight="790.0" prefWidth="996.0" style="-fx-background-color: lightgrey; -fx-border-color: lightgrey;">
+               <children>
+                  <ScrollPane fx:id="DrawingScrollPane" prefHeight="793.0" prefWidth="979.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0" />
+               </children>
+            </AnchorPane>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" VBox.vgrow="NEVER">
