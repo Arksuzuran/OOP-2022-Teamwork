@@ -172,46 +172,64 @@ public class PenUIController {
     @FXML
     void B1Clicked(ActionEvent event) {
         init(1);
+        PenWidthSlider.setValue(5);
+        updatePenWidth();
     }
 
     @FXML
     void B2Clicked(ActionEvent event) {
         init(2);
+        PenWidthSlider.setValue(10);
+        updatePenWidth();
     }
 
     @FXML
     void B3Clicked(ActionEvent event) {
         init(3);
+        PenWidthSlider.setValue(15);
+        updatePenWidth();
     }
 
     @FXML
     void B4Clicked(ActionEvent event) {
         init(4);
+        PenWidthSlider.setValue(20);
+        updatePenWidth();
     }
 
     @FXML
     void B5Clicked(ActionEvent event) {
         init(5);
+        PenWidthSlider.setValue(25);
+        updatePenWidth();
     }
 
     @FXML
     void B6Clicked(ActionEvent event) {
         init(6);
+        PenWidthSlider.setValue(30);
+        updatePenWidth();
     }
 
     @FXML
     void B7Clicked(ActionEvent event) {
         init(7);
+        PenWidthSlider.setValue(35);
+        updatePenWidth();
     }
 
     @FXML
     void B8Clicked(ActionEvent event) {
         init(8);
+        PenWidthSlider.setValue(40);
+        updatePenWidth();
     }
 
     @FXML
     void B9Clicked(ActionEvent event) {
         init(9);
+        PenWidthSlider.setValue(45);
+        updatePenWidth();
     }
 
 }
