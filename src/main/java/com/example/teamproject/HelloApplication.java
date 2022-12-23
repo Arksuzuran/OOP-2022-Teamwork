@@ -35,6 +35,9 @@ public class HelloApplication extends Application {
 
         stage.setScene(scene);
 
+        stage.setMinHeight(400);
+        stage.setMinWidth(500);
+
         stage.show();
 
         Timer t = new Timer();

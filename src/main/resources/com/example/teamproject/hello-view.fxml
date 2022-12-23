@@ -131,9 +131,9 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </VBox>
-            <VBox alignment="TOP_CENTER" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="900.0" prefWidth="180.0">
+            <VBox alignment="TOP_CENTER" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="900.0" prefWidth="200.0">
                <children>
-                  <VBox fx:id="BrushBox" prefHeight="270.0" prefWidth="123.0">
+                  <VBox fx:id="BrushBox" prefHeight="270.0" prefWidth="150.0">
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                            <children>
@@ -201,7 +201,7 @@
                         </HBox>
                         <ScrollPane prefHeight="478.0" prefWidth="193.0" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox fx:id="LayerBox" prefHeight="489.0" prefWidth="189.0" style="-fx-background-color: darkgrey; -fx-border-color: darkgrey;" />
+                              <VBox fx:id="LayerBox" style="-fx-background-color: darkgrey; -fx-border-color: darkgrey;" />
                            </content>
                         </ScrollPane>
                      </children>
@@ -211,10 +211,13 @@
                   </VBox>
                </children>
             </VBox>
-            <AnchorPane prefHeight="790.0" prefWidth="996.0" style="-fx-background-color: lightgrey; -fx-border-color: lightgrey;">
+            <AnchorPane style="-fx-background-color: lightgrey; -fx-border-color: lightgrey;" HBox.hgrow="ALWAYS">
                <children>
                   <ScrollPane fx:id="DrawingScrollPane" prefHeight="793.0" prefWidth="979.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0" />
                </children>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
             </AnchorPane>
          </children>
       </HBox>
