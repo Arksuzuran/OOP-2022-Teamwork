@@ -5,15 +5,10 @@ import com.example.teamproject.controller.MainDrawingController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.opencv.core.Core;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Timer;
 
 /**
