@@ -8,19 +8,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teamproject.controller.ProcessController">
    <children>
       <HBox VBox.vgrow="ALWAYS">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="饱和度     " HBox.hgrow="ALWAYS" />
-            <Slider fx:id="SaturationSlider" HBox.hgrow="ALWAYS" />
+            <Slider fx:id="SaturationSlider" onMouseDragged="#OnSaturationSliderDragged" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <HBox>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="对比度     " HBox.hgrow="ALWAYS" />
-            <Slider fx:id="ContrastSlider" HBox.hgrow="ALWAYS" />
+            <Slider fx:id="ContrastSlider" onMouseDragged="#OnContrastSliderDragged" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets top="20.0" />
@@ -29,7 +28,7 @@
       <HBox>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="伽马校正  " HBox.hgrow="ALWAYS" />
-            <Slider fx:id="GammaSlider" HBox.hgrow="ALWAYS" />
+            <Slider fx:id="GammaSlider" onMouseDragged="#OnGammaSliderDragged" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets top="20.0" />
@@ -38,7 +37,7 @@
       <HBox>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="色彩调整  " HBox.hgrow="ALWAYS" />
-            <Slider fx:id="ColorSlider" HBox.hgrow="ALWAYS" />
+            <Slider fx:id="ColorSlider" onMouseDragged="#OnColorSliderDragged" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets top="20.0" />
@@ -47,7 +46,7 @@
       <HBox>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="模糊         " HBox.hgrow="ALWAYS" />
-            <Slider fx:id="BlurSlider" HBox.hgrow="ALWAYS" />
+            <Slider fx:id="BlurSlider" onMouseDragged="#OnBlurSliderDragged" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets top="20.0" />
