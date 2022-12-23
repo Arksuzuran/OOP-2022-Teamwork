@@ -2,6 +2,7 @@ package com.example.teamproject.controller;
 
 import com.example.teamproject.brush.Brush;
 import com.example.teamproject.brush.PenBrush;
+import com.example.teamproject.io.Open;
 import javafx.event.ActionEvent;
 import com.example.teamproject.brush.ShapeBrush;
 import javafx.fxml.FXML;
@@ -12,6 +13,8 @@ import javafx.scene.image.ImageView;
 
 import javax.swing.*;
 import javafx.scene.paint.Color;
+
+import java.io.File;
 
 /**
  * @Description 控制画笔UI
@@ -219,6 +222,168 @@ public class PenUIController {
         }
     }
 
+    @FXML
+    void OnImportMaterialButtonClicked(){
+        File file = Open.getInputBMPFile();
+        if (file!=null){
+            if(mdc.isActive()){
+                Brush brush = mdc.getActiveBrush();
+                if(brush instanceof PenBrush){
+                    ((PenBrush) brush).setBrushMaterial(file.getPath());
+                    ControllerSet.muc.sendMessage("[画笔] 已成功导入自定义笔刷");
+                }
+            }
+        }
+        else{
+            ControllerSet.muc.sendMessage("[打开文件] 文件未成功打开。可能是您手动取消了导入，或者文件格式不支持。");
+        }
+    }
+    @FXML
+    void BrushMaterialClicker1(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.HARD);
+                ControllerSet.muc.sendMessage("[画笔] 切换为默认笔刷");
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker2(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.SOFT);
+                ControllerSet.muc.sendMessage("[画笔] 切换为软笔刷");
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker3(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.CARPET_1);
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker4(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.CLOUD_1);
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker5(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.DIRT_1);
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker6(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.DIRT_2);
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker7(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.FABRIC_1);
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker8(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.FUZY_1);
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker9(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.GLASS_1);
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker10(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.GRID_1);
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker11(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.LEAVES_1);
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker12(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.METAL_1);
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker13(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.PAPER_1);
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker14(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.SPOT);
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker15(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.WAVE_1);
+            }
+        }
+    }
+    @FXML
+    void BrushMaterialClicker16(){
+        if(mdc.isActive()){
+            Brush brush = mdc.getActiveBrush();
+            if(brush instanceof PenBrush){
+                ((PenBrush) brush).setBrushMaterial(PenBrush.WOOD_1);
+            }
+        }
+    }
     @FXML
     void B1Clicked(ActionEvent event) {
         init(1);
