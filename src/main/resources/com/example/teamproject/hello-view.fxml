@@ -188,6 +188,9 @@
                            </children>
                         </VBox>
                      </children>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
                   </VBox>
                   <VBox prefHeight="545.0" prefWidth="180.0" VBox.vgrow="ALWAYS">
                      <children>
@@ -210,7 +213,7 @@
             </VBox>
             <ScrollPane fx:id="DrawingScrollPane" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets left="10.0" />
+                  <Insets left="20.0" />
                </HBox.margin></ScrollPane>
          </children>
       </HBox>
