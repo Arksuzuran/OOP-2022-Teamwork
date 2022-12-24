@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
 import java.io.File;
 
 /**
- * @Description 控制画笔UI
+ *  控制画笔UI
  * @Author  CZX FGL
  * @Date    2022.12.15
  **/
@@ -58,7 +58,9 @@ public class PenUIController {
     //绘图主控的引用
     protected MainDrawingController mdc = MainDrawingController.getMDC();
 
-
+    /**
+     *  初始化
+     */
     public void init(int op){
         b1.setImage(IconController.b11);
         b2.setImage(IconController.b22);
@@ -92,8 +94,7 @@ public class PenUIController {
 
 
     /**
-     * 颜色选择器被操作
-     * 画笔的颜色选择器
+     *  颜色选择器被操作，画笔的颜色选择器
      */
     public void updatePenColor(){
 
@@ -110,10 +111,8 @@ public class PenUIController {
     }
 
     /**
-     * 如果当前有作品且选中了钢笔笔刷 那么调节其粗细
-     * 更新对应UI
+     *  如果当前有作品且选中了钢笔笔刷 那么调节其粗细，更新对应UI
      */
-
     public void updatePenWidth(){
         double penWidth = PenWidthSlider.getValue();
         PenWidthLabel.setText(Integer.toString((int)penWidth));
@@ -125,6 +124,9 @@ public class PenUIController {
         }
     }
 
+    /**
+     *  设置线宽
+     */
     @FXML
     protected void OnPenWidthSliderSet(){
         updatePenWidth();
@@ -141,7 +143,10 @@ public class PenUIController {
         updatePenWidth();
     }
 
-    ///抖动修正相关
+
+    /**
+     *  抖动修正相关
+     */
     @FXML
     protected void OnSmoothLevelSliderSet(){
         updateSmoothLevel();
@@ -157,8 +162,7 @@ public class PenUIController {
         updateSmoothLevel();
     }
     /**
-     * 如果当前有作品且选中了钢笔笔刷 那么调节其抖动修正级别
-     * 更新对应UI
+     *  如果当前有作品且选中了钢笔笔刷 那么调节其抖动修正级别 更新对应UI
      */
     public void updateSmoothLevel(){
         int smoothLevel = (int)SmoothLevelSlider.getValue();
@@ -171,6 +175,10 @@ public class PenUIController {
             }
         }
     }
+
+    /**
+     *  更新光滑等级
+     */
     private void updateSmoothLevelLabel(double penWidth){
         int width = (int)penWidth;
         if(width<23)
@@ -179,6 +187,9 @@ public class PenUIController {
             SmoothLevelLabel.setText("S"+Integer.toString(width-23));
     }
 
+    /**
+     *  更新透明度
+     */
     public void updatePenOpacity(){
         double penWidth = PenOpacitySlider.getValue();
         PenOpacityLabel.setText(String.format("%.1f", penWidth));
@@ -190,6 +201,9 @@ public class PenUIController {
         }
     }
 
+    /**
+     *  透明度
+     */
     @FXML
     protected void OnPenOpacitySliderSet(){
         updatePenOpacity();
@@ -205,7 +219,9 @@ public class PenUIController {
         updatePenOpacity();
     }
 
-
+    /**
+     *  更新笔刷
+     */
     public void updateUIbyPenBrush(){
         PenBrush penBrush = PenBrush.getPenBrush();
         if(mdc.isActive()){
@@ -222,6 +238,9 @@ public class PenUIController {
         }
     }
 
+    /**
+     *  导入素材
+     */
     @FXML
     void OnImportMaterialButtonClicked(){
         File file = Open.getInputBMPFile();
@@ -238,6 +257,10 @@ public class PenUIController {
             ControllerSet.muc.sendMessage("[打开文件] 文件未成功打开。可能是您手动取消了导入，或者文件格式不支持。");
         }
     }
+
+    /**
+     *  切换笔刷
+     */
     @FXML
     void BrushMaterialClicker1(){
         if(mdc.isActive()){
@@ -384,6 +407,10 @@ public class PenUIController {
             }
         }
     }
+
+    /**
+     *  更新图标
+     */
     @FXML
     void B1Clicked(ActionEvent event) {
         init(1);

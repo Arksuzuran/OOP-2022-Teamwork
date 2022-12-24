@@ -5,6 +5,12 @@ import javafx.scene.image.Image;
 import java.io.File;
 import java.util.Objects;
 
+/**
+ * @Description 所有图标的数据类，提供了一个更新图标的方法.
+ * @author FGL
+ * @Date 2022.12.23
+ */
+
 public class IconController {
     public static Image n1 = new Image(new File("icons/1.png").getAbsolutePath());
 
@@ -44,6 +50,12 @@ public class IconController {
 
     public static Image title = new Image(Objects.requireNonNull(IconController.class.getResource("icons/title.png")).toString());
 
+
+    /**
+     *  动态更新图标.
+     * @author FGL
+     * @Date 2022.12.23
+     */
     public static void change(int index, MainUIController m){
         m.b1.setImage(i1);
         m.b2.setImage(i2);

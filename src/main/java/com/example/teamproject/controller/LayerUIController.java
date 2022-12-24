@@ -15,7 +15,7 @@ import java.io.File;
 
 
 /**
- * @Description 控制单个图层UI
+ *  控制单个图层UI
  * @Author  CZX
  * @Date    2022.12.11
  **/
@@ -40,7 +40,9 @@ public class LayerUIController {
     private MainUIController muc = null;
 
 
-    //设置对应的图层
+    /**
+     *  设置对应的图层
+     */
     public void setLayer(Layer layer){
         this.layer = layer;
     }
@@ -51,6 +53,9 @@ public class LayerUIController {
         return LayerBox;
     }
 
+    /**
+     *  选择图层
+     */
     @FXML
     public void OnLayerSelectButtonClick(){
         //选区笔不工作时才允许切换图层
@@ -63,6 +68,10 @@ public class LayerUIController {
         }
 
     }
+
+    /**
+     *  删除图层
+     */
     @FXML
     public void OnLayerDeleteButtonClick(){
         if(muc!=null){
@@ -71,7 +80,7 @@ public class LayerUIController {
     }
 
     /**
-     * 按下切换课可见与不可见按钮
+     *  按下切换课可见与不可见按钮
      */
     @FXML
     public void onVisibleCheckBoxChanged(){
@@ -79,7 +88,6 @@ public class LayerUIController {
     }
 
     /**
-     *
      * 按下导入图片按钮
      */
     @FXML
@@ -91,6 +99,10 @@ public class LayerUIController {
             ControllerSet.muc.sendMessage("[打开文件] 文件未成功打开。可能是您手动取消了导入，或者文件格式不支持。");
     }
 
+
+    /**
+     *  设置名称
+     */
     public void setLayerNameLabel(String s){
         LayerNameLabel.setText(s);
     }

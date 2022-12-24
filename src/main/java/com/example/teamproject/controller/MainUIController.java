@@ -29,7 +29,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @Description 目前主界面上常驻的UI组件的Controller
+ *  目前主界面上常驻的UI组件的Controller
  * @Author  CZX FGL
  * @Date    2022.11.30
  **/
@@ -67,7 +67,7 @@ public class MainUIController {
     @FXML
     protected ColorPicker RegionColorPicker;//选区的选色器
     /**
-     * 滑动条部分
+     *  滑动条部分
      */
     //画笔粗细滑动条
     @FXML
@@ -83,9 +83,7 @@ public class MainUIController {
     @FXML
     protected Label SmoothLevelLabel;
 
-    /**
-     * checkbox
-     */
+    //checkbox
     @FXML
     protected CheckBox SelectSaveCheckBox;
     @FXML
@@ -96,9 +94,7 @@ public class MainUIController {
         return DrawingScrollPane;
     }
 
-    /**
-     * 画图层各部分的引用 在创建新画布后必须对此进行更新！否则后端无法工作！
-     */
+    //画图层各部分的引用 在创建新画布后必须对此进行更新！否则后端无法工作！
     //绘图区
     @FXML
     protected ScrollPane DrawingScrollPane;
@@ -124,7 +120,7 @@ public class MainUIController {
 
     //============================================创建新作品==============================================//
     /**
-     * 根据当前选择的尺寸 创建新的画布 并将其加入mainDrawingPane的底部
+     *  根据当前选择的尺寸 创建新的画布 并将其加入mainDrawingPane的底部
      * @return 新画布的引用
      */
     public Canvas createNewCanvasAddingToPane(){
@@ -135,7 +131,7 @@ public class MainUIController {
         return canvas;
     }
     /**
-     * @Description 按下“新空作品”按钮时，生成新的空作品.
+     *  按下“新空作品”按钮时，生成新的空作品.
      * @Author  CZX FGL
      * @Date    2022.12.4
      */
@@ -160,12 +156,6 @@ public class MainUIController {
         }
         else{
 
-            /**
-             *
-             * 此处填充IO代码
-             * 在已存在作品的情况下新建作品 需要询问覆盖情况
-             *
-             */
         }
     }
 
@@ -189,13 +179,7 @@ public class MainUIController {
 
 
     /**
-     * 创建新作品
-     * 该方法会重置主控类
-     * 创建新作品需要4步：
-     * 1.加载画布Pane和mainEffectPane
-     * 2.创建第一个图层layer1
-     * 3.用canvas、layer1、this初始化主控类
-     * 后续优化：当前没有作品时会在画图板的位置显示其他UI
+     *  创建新作品,该方法会重置主控类,创建新作品需要4步：1.加载画布Pane和mainEffectPane,2.创建第一个图层layer1,3.用canvas、layer1、this初始化主控类
      * @param sizeX 新作品的宽度
      * @param sizeY 新作品的高度
      * @return 首个图层的引用
@@ -213,8 +197,7 @@ public class MainUIController {
     }
 
     /**
-     * 生成新的画图板区域 该方法会直接重置画图区
-     * 该方法需要前端根据自己所写的fxml更改
+     *  生成新的画图板区域 该方法会直接重置画图区 该方法需要前端根据自己所写的fxml更改
      */
     public void createNewCanvasField(){
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("canvas-view.fxml"));
@@ -254,7 +237,7 @@ public class MainUIController {
         }
     }
     /**
-     * 按下另存按钮
+     *  按下另存按钮
      */
     @FXML
     protected void OnSaveWorkButtonClick(){
@@ -274,7 +257,7 @@ public class MainUIController {
     }
 
     /**
-     * 按下修改自动保存路径的按钮
+     *  按下修改自动保存路径的按钮
      */
     @FXML
     protected void OnAutoSaveChangeButtonClick(){
@@ -296,8 +279,7 @@ public class MainUIController {
 
 //==================================================图层===========================================//
     /**
-     * 点击“新建图层按钮“
-     * 生成新图层 并添加至总控类中
+     *  点击“新建图层按钮“ 生成新图层 并添加至总控类中
      */
     @FXML
     protected void onNewLayerButtonClick() {
@@ -313,8 +295,7 @@ public class MainUIController {
     }
 
     /**
-     * 新建一个图层对象 及其对应的边栏UI 并初始化该对象
-     * 该方法需要前端同学根据自己所写的fxml更改这句话：FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("layer-view.fxml"));
+     *  新建一个图层对象 及其对应的边栏UI 并初始化该对象 该方法需要前端同学根据自己所写的fxml更改这句话：FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("layer-view.fxml"));
      * @return  返回该图层的引用
      */
     //生成新图层
@@ -354,7 +335,7 @@ public class MainUIController {
         }
     }
     /**
-     * 删除某个图层
+     *  删除某个图层
      * @param layerUIController 要删除的图层的controller
      */
     public void DeleteLayer(LayerUIController layerUIController){
@@ -385,7 +366,7 @@ public class MainUIController {
     }
 
     /**
-     * 按下撤回按钮
+     *  按下撤回按钮
      */
     @FXML
     protected void OnUndoButtonClick(){
@@ -400,7 +381,7 @@ public class MainUIController {
     }
 
     /**
-     * 按下重做按钮
+     *  按下重做按钮
      */
     @FXML
     protected void OnReDoButtonClick(){
@@ -416,9 +397,7 @@ public class MainUIController {
 
 //=============================================画笔=====================================================//
     /**
-     * 选择画笔的按钮
-     * 1.更换上新的UI
-     * 2.如果主控激活 那么选择画笔作为笔刷
+     *  选择画笔的按钮 1.更换上新的UI 2.如果主控激活 那么选择画笔作为笔刷
      */
     //选中铅笔
     @FXML
@@ -452,8 +431,7 @@ public class MainUIController {
         }
     }
     /**
-     * 颜色选择器被操作
-     * 画笔的颜色选择器
+     *  颜色选择器被操作,画笔的颜色选择器
      */
     public void updatePenColor(){
 
@@ -471,8 +449,7 @@ public class MainUIController {
     }
 
     /**
-     * 如果当前有作品且选中了钢笔笔刷 那么调节其粗细
-     * 更新对应UI
+     *  如果当前有作品且选中了钢笔笔刷 那么调节其粗细 更新对应UI
      */
     @FXML
     protected void OnPenWidthSliderSet(){
@@ -496,8 +473,7 @@ public class MainUIController {
     }
 
     /**
-     * 如果当前有作品且选中了钢笔笔刷 那么调节其抖动修正级别
-     * 更新对应UI
+     *  如果当前有作品且选中了钢笔笔刷 那么调节其抖动修正级别 更新对应UI
      */
     public void updateSmoothLevel(){
         int smoothLevel = (int)SmoothLevelSlider.getValue();
@@ -513,7 +489,7 @@ public class MainUIController {
     }
 
     /**
-     * 选择橡皮的按钮
+     *  选择橡皮的按钮
      */
     @FXML
     protected void onEraserBrushButtonClick(){
@@ -550,7 +526,7 @@ public class MainUIController {
     }
 //=================================================选区======================================================//
     /**
-     * 选择选区笔的按钮
+     *  选择选区笔的按钮
      */
     @FXML
     protected void onSelectorButtonClick(){
@@ -577,7 +553,7 @@ public class MainUIController {
     }
 
     /**
-     * 选区的颜色填充
+     *  选区的颜色填充
      */
     public void fillRegion(){
         Color color = RegionColorPicker.getValue();
@@ -591,7 +567,7 @@ public class MainUIController {
     }
 
     /**
-     * 为选区填充指定颜色
+     *  为选区填充指定颜色
      */
     @FXML
     protected void OnRegionFillButtonClick(){
@@ -600,7 +576,7 @@ public class MainUIController {
 
 
     /**
-     * 确认选区
+     *  确认选区
      */
     @FXML
     protected void OnRegionSelectedButtonClick(){
@@ -613,7 +589,7 @@ public class MainUIController {
     }
 
     /**
-     * 选区不保留（松手即确定选区）
+     *  选区不保留（松手即确定选区）
      */
     @FXML
     protected void OnSelectSaveCheckBoxChanged(){
@@ -627,7 +603,7 @@ public class MainUIController {
     }
 
     /**
-     * 选区边界线不跟随
+     *  选区边界线不跟随
      */
     @FXML
     protected void OnSelectLineCheckBoxChanged(){
@@ -641,6 +617,9 @@ public class MainUIController {
     }
 
     //============================图形==============================
+    /**
+     *  绘制形状
+     */
     @FXML
     protected void onShapeBrushButtonClick(){
         IconController.change(4, this);
@@ -672,6 +651,9 @@ public class MainUIController {
         }
     }
 
+    /**
+     *  图像处理按钮
+     */
     @FXML
     protected void onImageProcessButtonClick(){
         ImageEffect.originalCopy = ImageFormConverter.imageToMat(ImageFormConverter.canvasToImage(MainDrawingController.getMDC().getActiveLayer().getCanvas()));

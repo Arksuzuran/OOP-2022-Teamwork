@@ -6,6 +6,11 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+/**
+ *  大部分界面的loader和顶层容器
+ * @Author  FGL
+ * @Date    2022.12.22
+ **/
 public class LoaderController {
 
     static FXMLLoader loader1 = new FXMLLoader(HelloApplication.class.getResource("pen-view.fxml"));

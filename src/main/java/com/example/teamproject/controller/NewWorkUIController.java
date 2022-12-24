@@ -12,7 +12,6 @@ import java.io.IOException;
 /**
  * @Description 控制创建新作品的弹窗  补充：该窗口存在时应当不能关闭主窗口，后续需要修正该bug
  * @Author  FGL
- * @Date    2022.12.15
  **/
 public class NewWorkUIController {
     @FXML

@@ -9,15 +9,13 @@ import javafx.scene.paint.Paint;
 import java.awt.*;
 
 /**
- * @Description 图形绘制笔，可以绘制直线、矩形、圆形、椭圆形。该画笔不支持在选区中工作。
+ *  图形绘制笔，可以绘制直线、矩形、圆形、椭圆形。该画笔不支持在选区中工作。
  * @Author
  * @Date    2022.12.22
  **/
 public class ShapeBrush extends Brush{
 
-    /**
-     * 每种画笔都是单例模式
-     */
+    //每种画笔都是单例模式
     private static final ShapeBrush shapeBrush = new ShapeBrush();
     public static ShapeBrush getShapeBrush() {
         return shapeBrush;
@@ -41,41 +39,63 @@ public class ShapeBrush extends Brush{
     //不透明度
     private double opacity = 1.0;
 
-    //setter & getter
+
+    /**
+     *  setter & getter
+     */
     public void setActiveShape(int activeShape) {
         this.activeShape = activeShape;
     }
     public void setFillShape(boolean fillShape) {
         this.fillShape = fillShape;
     }
+    /**
+     *  设置颜色
+     */
     public void setColor(Color color) {
         this.color = color;
         gc.setFill(color);
         effectGc.setFill(color);
     }
-    //设置不透明度，范围0-1
+
+    /**
+     *  设置不透明度，范围0-1
+     */
     public void setOpacity(double opacity){
         this.opacity = opacity;
         this.color = new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), opacity);
         setColor(color);
     }
+    /**
+     *  设置线宽
+     */
     public void setLineWidth(double lineWidth) {
         this.lineWidth = lineWidth;
         gc.setLineWidth(lineWidth);
         effectGc.setLineWidth(lineWidth);
         System.out.println(lineWidth);
     }
+
     public boolean isFillShape() {
         return fillShape;
     }
+    /**
+     *  获取颜色
+     */
     public Color getColor() {
         return color;
     }
+    /**
+     *  获取Opacity
+     */
     public double getOpacity() {
         return opacity;
     }
 
     //更新当前选中的图层
+    /**
+     *  更新选中图层
+     */
     @Override
     public void updateActiveLayer(){
         if (mdc.isActive()){
@@ -101,6 +121,9 @@ public class ShapeBrush extends Brush{
 
 
     double startX = 0, startY = 0;
+    /**
+     *  开始绘画
+     */
     @Override
     public void drawBegin(double x, double y) {
         //当前存在选区时，禁止工作
@@ -111,6 +134,9 @@ public class ShapeBrush extends Brush{
         }
     }
 
+    /**
+     *  绘画
+     */
     @Override
     public void drawTo(double x, double y) {
         if(isDrawing){
@@ -118,6 +144,9 @@ public class ShapeBrush extends Brush{
         }
     }
 
+    /**
+     *  结束绘画
+     */
     @Override
     public void drawEnd(double x, double y) {
         if(isDrawing){
@@ -127,6 +156,9 @@ public class ShapeBrush extends Brush{
         }
     }
 
+    /**
+     *  绘制形状
+     */
     private void drawShape(double x, double y, Canvas canvas1, GraphicsContext gc1) {
         effectGc.clearRect(0, 0, canvas1.getWidth(), canvas1.getHeight());
         if(activeShape==SHAPE_LINE){

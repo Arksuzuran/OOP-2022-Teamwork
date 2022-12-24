@@ -12,17 +12,15 @@ import java.io.File;
 import java.util.LinkedList;
 
 /**
- * @Description 钢笔笔刷（即默认的直线）。
- * 对于钢笔来说，其所作的绘画均在canvas上直接显示。
+ *  钢笔笔刷（即默认的直线）。对于钢笔来说，其所作的绘画均在canvas上直接显示。
  * @Author  CZX
  * @Date    2022.12.10
  **/
 
 public class PenBrush extends Brush{
 
-    /**
-     * 每种画笔都是单例模式
-     */
+
+    //每种画笔都是单例模式
     private static final PenBrush Pen = new PenBrush();
     public static PenBrush getPenBrush() {
         return Pen;
@@ -43,6 +41,9 @@ public class PenBrush extends Brush{
     private boolean selected = false;
 
     //getter & setter
+    /**
+     *  设置颜色
+     */
     public void setColor(Color color) {
         this.color = color;
         if(isSoft){
@@ -53,6 +54,9 @@ public class PenBrush extends Brush{
         }
     }
     //设置新的滑动条，范围0-1
+    /**
+     *  设置Opacity
+     */
     public void setOpacity(double opacity){
         this.opacity = opacity;
         this.color = new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), opacity);
@@ -63,6 +67,9 @@ public class PenBrush extends Brush{
             nowGc.setStroke(color);
         }
     }
+    /**
+     *  设置线宽
+     */
     public void setLineWidth(double lineWidth) {
         this.lineWidth = lineWidth;
         if(isSoft){
@@ -72,14 +79,23 @@ public class PenBrush extends Brush{
             nowGc.setLineWidth(lineWidth);
         }
     }
+    /**
+     *  获取颜色
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     *  获取Opacity
+     */
     public double getOpacity() {
         return opacity;
     }
 
+    /**
+     *  获取光滑等级
+     */
     public int getSmoothLevel() {
         return smoothLevel;
     }
@@ -111,7 +127,7 @@ public class PenBrush extends Brush{
     //达不到预期的调节笔刷硬度的效果，只能大致的实现软笔刷，只分成启用或者不启用
     //启用时需要在setColor,setOpacity之后调用：ui上搞一个勾选框，勾上则把isSoft设置为true
     /**
-     * 设置画笔的笔刷效果
+     *  设置画笔的笔刷效果
      * @param url   笔刷常量
      */
     public void setBrushMaterial(String url){
@@ -156,12 +172,18 @@ public class PenBrush extends Brush{
         ImagePattern imagePattern = new ImagePattern(SwingFXUtils.toFXImage(img, null));
          */
     }
-    //只有圆形，正方形，三角形
+
+    /**
+     *  只有圆形，正方形，三角形
+     */
     public void setCap(StrokeLineCap strokeLineCap){
         nowGc.setLineCap(strokeLineCap);
     }
 
     //更新当前选中的图层
+    /**
+     *  更新选中图层
+     */
     @Override
     public void updateActiveLayer(){
         if (mdc.isActive()){
@@ -188,9 +210,8 @@ public class PenBrush extends Brush{
         }
     }
 
-    /**
-     * 实现抖动修正的数据结构
-     */
+
+    //实现抖动修正的数据结构
     //存储路径点列表
     LinkedList<PathPoint> pointQueue = new LinkedList<>();
     //用于二阶抖动修正
@@ -204,7 +225,7 @@ public class PenBrush extends Brush{
     private static final double GAP_TWO = 0.5;
     private static final double GAP_THREE = 1;
     /**
-     * 开始绘画
+     *  开始绘画
      * @param x 起始点的x
      * @param y 起始点的y
      */
@@ -244,7 +265,7 @@ public class PenBrush extends Brush{
     }
 
     /**
-     * 绘制路径点
+     *  绘制路径点
      * @param x 路径点x
      * @param y 路径点y
      */
@@ -300,6 +321,9 @@ public class PenBrush extends Brush{
         }
     }
 
+    /**
+     *  结束回话
+     */
     @Override
     public void drawEnd(double x, double y) {
         if(isDrawing){
@@ -314,7 +338,7 @@ public class PenBrush extends Brush{
     }
 
     /**
-     * 进行当前绘画的结算 但保留isDrawing
+     *  进行当前绘画的结算 但保留isDrawing
      */
     private void drawClose(){
         if(smoothLevel == 2){
@@ -337,7 +361,7 @@ public class PenBrush extends Brush{
     }
 
     /**
-     * 初始化抖动修正所需的数据结构
+     *  初始化抖动修正所需的数据结构
      */
     private void initSmoothing(){
         startPoint = null;
@@ -362,7 +386,7 @@ public class PenBrush extends Brush{
         eraseOutRegion(ep.x, ep.y);//删除超出选区的部分
     }
     /**
-     * 绘制二阶贝赛尔曲线
+     *  绘制二阶贝赛尔曲线
      * @param sp 起始点
      * @param cp 控制点
      * @param ep 结束点
@@ -378,7 +402,7 @@ public class PenBrush extends Brush{
         eraseOutRegion(ep.x, ep.y);//删除超出选区的部分
     }
     /**
-     * 绘制三阶贝塞尔曲线
+     *  绘制三阶贝塞尔曲线
      * @param sp    起始点
      * @param cp1   控制点1
      * @param cp2   控制点2
@@ -396,7 +420,7 @@ public class PenBrush extends Brush{
     }
 
     /**
-     * 根据当前是否有选区来调整所使用的gc
+     *  根据当前是否有选区来调整所使用的gc
      * @param selected  有选区
      */
     public void changeSelectedGc(boolean selected){
@@ -408,7 +432,7 @@ public class PenBrush extends Brush{
     }
 
     /**
-     * 删除当前画布中 超出选区的部分
+     *  删除当前画布中 超出选区的部分
      */
     public void eraseOutRegion(double x, double y){
         if(!selected)
@@ -429,6 +453,9 @@ public class PenBrush extends Brush{
         }
     }
 
+    /**
+     *  软笔刷
+     */
     private RadialGradient createSoftBrushGradient(Color primaryColor, double radius) {
         return new RadialGradient(
                 0, 0,

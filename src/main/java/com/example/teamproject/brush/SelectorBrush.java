@@ -18,15 +18,13 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * @Description 选区笔
+ * 选区笔
  * @Author  CZX
  * @Date    2022.12.12
  **/
 public class SelectorBrush extends Brush{
 
-    /**
-     * 每种画笔都是单例模式
-     */
+    //每种画笔都是单例模式
     private static final SelectorBrush selectorBrush = new SelectorBrush();
     public static SelectorBrush getSelectorBrush() {
         return selectorBrush;
@@ -34,7 +32,9 @@ public class SelectorBrush extends Brush{
 
 
 
-    //更新当前选中的图层
+    /**
+     * 更新当前选中图层
+     */
     @Override
     public void updateActiveLayer(){
         if (mdc.isActive()){
@@ -53,9 +53,7 @@ public class SelectorBrush extends Brush{
             }
         }
     }
-    /**
-     * 实现不规则选区的数据结构
-     */
+    //实现不规则选区的数据结构
     private ArrayList<Point2D.Double> pointList = new ArrayList<>();//点集
     private GeneralPath polygon = null;//边界点集组成的多边形
     private Rectangle bounds = null;//多边形的矩形边界
@@ -79,9 +77,7 @@ public class SelectorBrush extends Brush{
     private PathPoint lastPoint;
 
     /**
-     * 开始绘制选区
-     * 当isSelecting为false时，表示正在选择选区
-     * 当isSelecting为true时，表示正在拖拽选区
+     * 开始绘制选区,当isSelecting为false时，表示正在选择选区,当isSelecting为true时，表示正在拖拽选区
      * @param x 起始点的x
      * @param y 起始点的y
      */
@@ -106,9 +102,7 @@ public class SelectorBrush extends Brush{
     }
 
     /**
-     * 绘制或拖动选区
-     * 当isSelecting为false时，表示正在选择选区
-     * 当isSelecting为true时，表示正在拖拽选区
+     * 绘制或拖动选区,当isSelecting为false时，表示正在选择选区,当isSelecting为true时，表示正在拖拽选区
      * @param x 路径点x
      * @param y 路径点y
      */
@@ -156,9 +150,7 @@ public class SelectorBrush extends Brush{
     }
 
     /**
-     * 立即结束本次选区
-     * 停止正在进行的选区或选区移动操作
-     * 并把效果层的内容移动到本层去
+     * 立即结束本次选区,停止正在进行的选区或选区移动操作,并把效果层的内容移动到本层去
      */
     public void endSelecting(){
         //如果已经完成了选区的绘制 正在移动选区 那么把选区内容合并到canvas里面
@@ -181,9 +173,7 @@ public class SelectorBrush extends Brush{
     }
 
     /**
-     * 完成选区的绘制 通过选区边界生成选区：
-     * 清空原有图层中被选中的区域
-     * 将原有图层中被选中的区域转移到效果图层上面
+     * 完成选区的绘制 通过选区边界生成选区：清空原有图层中被选中的区域,将原有图层中被选中的区域转移到效果图层上面
      */
     private void createLineSelectedRegion(){
         //获得多边形和矩形框

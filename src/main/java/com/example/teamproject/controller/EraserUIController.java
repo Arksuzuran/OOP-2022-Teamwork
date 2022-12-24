@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 /**
- * @Description 控制橡皮的UI
+ * 控制橡皮的UI
  * @Author  CZX FGL
  * @Date    2022.12.15
  **/
@@ -29,19 +29,31 @@ public class EraserUIController {
     public ImageView b8;
     public ImageView b9;
 
-    //画笔粗细滑动条
+
+    /**
+     * 画笔粗细滑动条
+     */
     @FXML
     protected Slider PenWidthSlider;
-    //画笔粗细宽度显示标签
+
+    /**
+     * 画笔粗细宽度显示标签
+     */
     @FXML
     protected Label PenWidthLabel;
-    //是否圆形擦除
+
+    /**
+     * 是否圆形擦除
+     */
     @FXML
     protected CheckBox CircularCheckBox;
 
     //绘图主控的引用
     protected MainDrawingController mdc = MainDrawingController.getMDC();
 
+    /**
+     * 初始化图标
+     */
     public void init(int op){
         b1.setImage(IconController.b11);
         b2.setImage(IconController.b22);
@@ -75,8 +87,7 @@ public class EraserUIController {
 
 
     /**
-     * 如果当前有作品且选中了橡皮笔刷 那么调节其粗细
-     * 更新对应UI
+     * 如果当前有作品且选中了橡皮笔刷 那么调节其粗细，更新对应UI
      */
     public void updatePenWidth(){
         double penWidth = PenWidthSlider.getValue();
@@ -89,15 +100,27 @@ public class EraserUIController {
             }
         }
     }
+
+    /**
+     * 线宽Slider改变
+     */
     @FXML
     protected void OnPenWidthSliderSet(){
         updatePenWidth();
     }
+
+    /**
+     * 减小线宽
+     */
     @FXML
     protected void OnPenWidthDecreaseButtonClick(){
         PenWidthSlider.setValue(PenWidthSlider.getValue()-1);
         updatePenWidth();
     }
+
+    /**
+     * 增加线宽
+     */
     @FXML
     protected void OnPenWidthIncreaseButtonClick(){
         PenWidthSlider.setValue(PenWidthSlider.getValue()+1);
@@ -122,6 +145,9 @@ public class EraserUIController {
         }
     }
 
+    /**
+     * 更新UI
+     */
     public void updateUIbyEraserBrush(){
         EraserBrush eraserBrush = EraserBrush.getEraserBrush();
         if(mdc.isActive()){
@@ -134,6 +160,9 @@ public class EraserUIController {
         }
     }
 
+    /**
+     * 按钮按下
+     */
     @FXML
     void B1Clicked(ActionEvent event) {
         init(1);
@@ -141,6 +170,9 @@ public class EraserUIController {
         updatePenWidth();
     }
 
+    /**
+     * 按钮按下
+     */
     @FXML
     void B2Clicked(ActionEvent event) {
         init(2);
@@ -148,6 +180,9 @@ public class EraserUIController {
         updatePenWidth();
     }
 
+    /**
+     * 按钮按下
+     */
     @FXML
     void B3Clicked(ActionEvent event) {
         init(3);
@@ -155,6 +190,9 @@ public class EraserUIController {
         updatePenWidth();
     }
 
+    /**
+     * 按钮按下
+     */
     @FXML
     void B4Clicked(ActionEvent event) {
         init(4);
@@ -162,6 +200,9 @@ public class EraserUIController {
         updatePenWidth();
     }
 
+    /**
+     * 按钮按下
+     */
     @FXML
     void B5Clicked(ActionEvent event) {
         init(5);
@@ -169,6 +210,9 @@ public class EraserUIController {
         updatePenWidth();
     }
 
+    /**
+     * 按钮按下
+     */
     @FXML
     void B6Clicked(ActionEvent event) {
         init(6);
@@ -176,6 +220,9 @@ public class EraserUIController {
         updatePenWidth();
     }
 
+    /**
+     * 按钮按下
+     */
     @FXML
     void B7Clicked(ActionEvent event) {
         init(7);
@@ -183,6 +230,9 @@ public class EraserUIController {
         updatePenWidth();
     }
 
+    /**
+     * 按钮按下
+     */
     @FXML
     void B8Clicked(ActionEvent event) {
         init(8);
@@ -190,6 +240,9 @@ public class EraserUIController {
         updatePenWidth();
     }
 
+    /**
+     * 按钮按下
+     */
     @FXML
     void B9Clicked(ActionEvent event) {
         init(9);

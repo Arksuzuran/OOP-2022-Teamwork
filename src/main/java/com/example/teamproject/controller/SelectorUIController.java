@@ -14,13 +14,13 @@ import javafx.stage.Stage;
 import java.io.File;
 
 /**
- * @Description 控制选区笔UI
+ *  控制选区笔UI
  * @Author  CZX FGL
  * @Date    2022.12.15
  **/
 public class SelectorUIController {
     /**
-     * @Description 选区的选色器
+     *  选区的选色器
      */
     @FXML
     protected ColorPicker RegionColorPicker;
@@ -32,12 +32,12 @@ public class SelectorUIController {
     @FXML
     protected CheckBox SelectMovableCheckBox;
     /**
-     * @Description 绘图主控的引用
+     *  绘图主控的引用
      */
     protected MainDrawingController mdc = MainDrawingController.getMDC();
 
     /**
-     * @Description 选择选区笔的按钮
+     *  选择选区笔的按钮
      */
     @FXML
     protected void onSelectorButtonClick(){
@@ -46,7 +46,7 @@ public class SelectorUIController {
         }
     }
     /**
-     * @Description 选区的颜色填充
+     *  选区的颜色填充
      */
     public void fillRegion(){
         Color color = RegionColorPicker.getValue();
@@ -70,7 +70,7 @@ public class SelectorUIController {
     }
 
     /**
-     * @Description 为选区填充指定颜色
+     *  为选区填充指定颜色
      */
     @FXML
     protected void OnRegionFillButtonClick(){
@@ -82,7 +82,7 @@ public class SelectorUIController {
     }
 
     /**
-     * @Description 导入图片并生成选区
+     *  导入图片并生成选区
      */
     @FXML
     protected void onImportImageButtonClock(){
@@ -116,7 +116,7 @@ public class SelectorUIController {
     }
 
     /**
-     * @Description 确认选区
+     *  确认选区
      */
     @FXML
     protected void OnRegionSelectedButtonClick(){
@@ -130,7 +130,7 @@ public class SelectorUIController {
     }
 
     /**
-     * @Description 选区不保留（松手即确定选区）
+     *  选区不保留（松手即确定选区）
      */
     @FXML
     protected void OnSelectSaveCheckBoxChanged(){
@@ -145,7 +145,7 @@ public class SelectorUIController {
     }
 
     /**
-     * @Description 选区边界线不跟随
+     *  选区边界线不跟随
      */
     @FXML
     protected void OnSelectLineCheckBoxChanged(){
@@ -159,7 +159,7 @@ public class SelectorUIController {
         }
     }
     /**
-     * @Description 选区不移动
+     *  选区不移动
      */
     @FXML
     protected void OnSelectMovableCheckBoxChanged(){

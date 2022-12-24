@@ -24,25 +24,44 @@ public abstract class Brush {
 
     protected Layer activeLayer = null;
 
-    //当前笔刷是否正在运动
+    /**
+     * 当前笔刷是否正在运动
+     */
     protected Boolean isDrawing = false;
 
-    //画笔粗细 默认为3
+    /**
+     * 画笔粗细 默认为3
+     */
     double lineWidth = 3;
 
-    //画笔移动到新的图层
+
+    /**
+     * 画笔移动到新的图层
+     */
     public void updateActiveLayer(){
         if (mdc.isActive()){
             activeLayer = mdc.getActiveLayer();
         }
     }
-    //开始画线
+
+    /**
+     * 开始画线
+     */
     public abstract void drawBegin(double x, double y);
-    //正在画线 画线至
+
+    /**
+     * 正在画线 画线至
+     */
     public abstract void drawTo(double x, double y);
-    //结束画线
+
+    /**
+     * 结束画线
+     */
     public abstract void drawEnd(double x, double y);
 
+    /**
+     * 获取线宽
+     */
     public double getLineWidth(){
         return lineWidth;
     }

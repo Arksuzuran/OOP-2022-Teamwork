@@ -11,9 +11,9 @@ import javafx.scene.paint.Color;
  **/
 public class EraserBrush extends Brush{
 
-    /**
-     * 每种画笔都是单例模式
-     */
+
+     //每种画笔都是单例模式
+
     private static final EraserBrush eraser = new EraserBrush();
     public static EraserBrush getEraserBrush() {
         return eraser;
@@ -26,11 +26,17 @@ public class EraserBrush extends Brush{
 
     private boolean isCircular = true;//橡皮类型 为false的时候是方形擦除 为true的时候是圆形擦除
 
+    /**
+     *  设置线宽
+     */
     public void setLineWidth(double lineWidth) {
         this.lineWidth = lineWidth;
     }
 
-    //更新当前选中的图层
+
+    /**
+     *  更新当前选中的图层
+     */
     @Override
     public void updateActiveLayer(){
         if (mdc.isActive()){
@@ -52,7 +58,7 @@ public class EraserBrush extends Brush{
     }
 
     /**
-     * 开始绘画
+     *  开始绘画
      * @param x 起始点的x
      * @param y 起始点的y
      */
@@ -66,7 +72,7 @@ public class EraserBrush extends Brush{
     }
 
     /**
-     * 绘制路径点
+     *  绘制路径点
      * @param x 路径点x
      * @param y 路径点y
      */
@@ -80,6 +86,9 @@ public class EraserBrush extends Brush{
         }
     }
 
+    /**
+     *  绘画结束
+     */
     @Override
     public void drawEnd(double x, double y) {
         if(isDrawing){
@@ -93,18 +102,29 @@ public class EraserBrush extends Brush{
     }
 
 
+    /**
+     *  更改选择
+     */
     public void changeSelected(boolean selected){
         this.selected = selected;
     }
+
+    /**
+     *  设置类型
+     */
     public void setType(boolean isCircular) {
         this.isCircular = isCircular;
     }
+
+    /**
+     *  getCircular
+     */
     public boolean getCircular() {
         return isCircular;
     }
 
     /**
-     * 擦除以(x,y)为圆心的圆形区域 如果存在选区 那么只擦除选区
+     *  擦除以(x,y)为圆心的圆形区域 如果存在选区 那么只擦除选区
      * @param x x
      * @param y y
      */
@@ -173,6 +193,9 @@ public class EraserBrush extends Brush{
         }
     }
 
+    /**
+     *  判断是否在圆内
+     */
     private boolean inCircle(double x0, double y0, double x, double y, double r){
         return (x0-x)*(x0-x) + (y0-y)*(y0-y) <= r*r;
     }

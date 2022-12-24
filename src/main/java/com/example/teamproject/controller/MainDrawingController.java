@@ -24,14 +24,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @Description 画图的总控类 负责接受组件controller的信息 并传递给相应的处理类 且存储当前工具选择、图层创建情况
+ *  画图的总控类 负责接受组件controller的信息 并传递给相应的处理类 且存储当前工具选择、图层创建情况
  * @Author CZX
  * @Date 2022.11.30
  **/
 public class MainDrawingController extends TimerTask {
 
     /**
-     * 总效果图层 用于接受鼠标输入
+     *  总效果图层 用于接受鼠标输入
      */
     private Canvas mainEffectCanvas;
     public Canvas getMainEffectCanvas() {
@@ -39,7 +39,7 @@ public class MainDrawingController extends TimerTask {
     }
 
     /**
-     * MainUIController
+     *  MainUIController
      */
     public MainUIController mainUIController;
     public MainUIController getMainUIController() {
@@ -47,13 +47,13 @@ public class MainDrawingController extends TimerTask {
     }
 
     /**
-     * 尺寸信息
+     *  尺寸信息
      */
     public double sizeX;
     public double sizeY;
 
     /**
-     * 图层
+     *  图层
      */
     //图层列表
     private final ArrayList<Layer> layerList = new ArrayList<>();
@@ -91,7 +91,7 @@ public class MainDrawingController extends TimerTask {
 
 
     /**
-     * 初始化当前作品 调用该方法相当于重新建立一个作品
+     *  初始化当前作品 调用该方法相当于重新建立一个作品
      * @param mainEffectCanvas    新作品的顶层效果canvas
      * @param layer1    新作品的默认图层
      * @param mainUIController  UIController
@@ -114,7 +114,7 @@ public class MainDrawingController extends TimerTask {
     }
 
     /**
-     * 获取作品名
+     *  获取作品名
      * @return  作品名
      */
     public String getName() {
@@ -133,7 +133,7 @@ public class MainDrawingController extends TimerTask {
 //    }
 
     /**
-     * 添加新图层
+     *  添加新图层
      * @param layer 要添加的图层
      */
     public void addNewLayer(Layer layer){
@@ -143,7 +143,7 @@ public class MainDrawingController extends TimerTask {
     }
 
     /**
-     * 设置当前图层
+     *  设置当前图层
      * @param layer 将当前选中的图层设置为layer
      */
     public void setActiveLayer(Layer layer){
@@ -155,6 +155,7 @@ public class MainDrawingController extends TimerTask {
     }
 
     /**
+     *  获得选中图层
      * @return 返回当前选中的图层
      */
     public Layer getActiveLayer() {
@@ -162,7 +163,7 @@ public class MainDrawingController extends TimerTask {
     }
 
     /**
-     * 删除图层
+     *  删除图层
      * @param layer 要删除的图层
      */
     public void delLayer(Layer layer){
@@ -177,7 +178,7 @@ public class MainDrawingController extends TimerTask {
         System.out.println("mdc delete layer: "+layer);
     }
     /**
-     * 获取新图层的默认名
+     *  获取新图层的默认名
      * @return  图层默认名
      */
     public String getNewLayerName() {
@@ -185,7 +186,7 @@ public class MainDrawingController extends TimerTask {
 
     }
     /**
-     * 获取图层列表
+     *  获取图层列表
      * @return  图层列表
      */
     public ArrayList<Layer> getLayerList() {
@@ -193,7 +194,7 @@ public class MainDrawingController extends TimerTask {
     }
 
     /**
-     * 选中新的笔刷
+     *  选中新的笔刷
      * @param brushType 要选中的笔刷的类型
      */
     public void setActiveBrush(BrushType brushType){
@@ -216,7 +217,7 @@ public class MainDrawingController extends TimerTask {
 
 
     /**
-     * 控制笔刷从(x,y)处 开始画线
+     *  控制笔刷从(x,y)处 开始画线
      * @param x x坐标
      * @param y y坐标
      */
@@ -230,7 +231,7 @@ public class MainDrawingController extends TimerTask {
     }
 
     /**
-     * 在开始画线的前提下 使笔刷继续移动到指定位置(x,y)
+     *  在开始画线的前提下 使笔刷继续移动到指定位置(x,y)
      * @param x x坐标
      * @param y y坐标
      */
@@ -242,7 +243,7 @@ public class MainDrawingController extends TimerTask {
     }
 
     /**
-     * 使笔刷停止划线
+     *  使笔刷停止划线
      */
     public void stopDrawing(double x, double y){
         if(isActive && activeBrush!=null){
@@ -252,7 +253,7 @@ public class MainDrawingController extends TimerTask {
     }
 
     /**
-     * 以指定的effect处理当前图层
+     *  以指定的effect处理当前图层
      * @param effect    指定的effect
      * @param t1    参数1
      * @param t2    可能的参数2
@@ -266,7 +267,7 @@ public class MainDrawingController extends TimerTask {
     }
 
     /**
-     * 合并所有layers 输出合成后的图像
+     *  合并所有layers 输出合成后的图像
      * @return  合并后的图像
      */
     public Image mergeAllLayers(){
@@ -285,7 +286,7 @@ public class MainDrawingController extends TimerTask {
 
 
     /**
-     * 保存作品到指定文件 auto代表保存到默认位置
+     *  保存作品到指定文件 auto代表保存到默认位置
      * @param file  指定的文件
      * @param auto  是否保存到默认路径
      */
@@ -309,7 +310,7 @@ public class MainDrawingController extends TimerTask {
         autoSaveFile = file;
     }
     /**
-     * 自动保存
+     *  自动保存
      */
     @Override
     public void run() {

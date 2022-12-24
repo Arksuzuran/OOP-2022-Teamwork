@@ -1,9 +1,9 @@
 package com.example.teamproject.brush;
 
 /**
- * @Description TODO
- * @Author
- * @Date
+ * @Description Point类
+ * @Author  CZX
+ * @Date    2022.12.1
  **/
 public class PathPoint {
     double x, y;

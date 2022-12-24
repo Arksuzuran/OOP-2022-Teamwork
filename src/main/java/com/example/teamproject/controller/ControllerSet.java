@@ -2,7 +2,7 @@ package com.example.teamproject.controller;
 
 /**
  * @Description 存放主要且唯一的Controller 便于全局调用
- * @Author  FGL
+ * @Author   FGL
  * @Date    2022.12.15
  **/
 public class ControllerSet {
