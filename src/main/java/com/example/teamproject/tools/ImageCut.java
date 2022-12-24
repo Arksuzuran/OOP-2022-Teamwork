@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class ImageCut {
 
     /**
-     * 将指定image中，被边界围起来的部分切下来
+     * @Description 将指定image中，被边界围起来的部分切下来
      * @param inputImage 输入image
      * @return  被围起来的部分
      */

@@ -19,7 +19,11 @@ import java.util.ArrayList;
 
 import static org.opencv.imgcodecs.Imgcodecs.imencode;
 import static org.opencv.imgcodecs.Imgcodecs.imwrite;
-
+/**
+ * @Description Save
+ * @Author CZX
+ * @Date 2022.12.14
+ **/
 public class Save {
 
     public static File getOutputFile(){

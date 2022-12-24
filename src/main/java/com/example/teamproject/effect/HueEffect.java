@@ -4,8 +4,8 @@ import org.opencv.core.Mat;
 
 /**
  * @Description TODO
- * @Author
- * @Date
+ * @Author CZX
+ * @Date 2022.12.14
  **/
 public class HueEffect implements Effect{
 

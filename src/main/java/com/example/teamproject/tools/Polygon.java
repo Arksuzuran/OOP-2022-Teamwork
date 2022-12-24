@@ -11,7 +11,7 @@ import java.util.ArrayList;
  **/
 public class Polygon {
     /**
-     * 根据给出的点集创建一个多边形
+     * @Description 根据给出的点集创建一个多边形
      * @param pointList 点集
      * @return  多边形
      */
@@ -34,7 +34,7 @@ public class Polygon {
     }
 
     /**
-     * 判断给定的点在不在指定多边形里
+     * @Description 判断给定的点在不在指定多边形里
      * @param point 点
      * @param p 多边形
      * @return  在则返回true

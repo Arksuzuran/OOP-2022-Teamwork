@@ -14,11 +14,16 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.io.File;
 import java.util.ArrayList;
+/**
+ * @Description Open
+ * @Author CZX
+ * @Date 2022.12.15
+ **/
 
 public class Open {
 
     /**
-     * 从指定文件获取Image对象
+     * @Description 从指定文件获取Image对象
      * @param file  file
      * @return  读取到的图片
      */
@@ -68,7 +73,7 @@ public class Open {
     }
 
     /**
-     * 打开任意格式的文件
+     * @Description 打开任意格式的文件
      * @return  文件的file
      */
     public static File getInputBMPFile(){
@@ -84,7 +89,7 @@ public class Open {
         return file;
     }
     /**
-     * 从指定文件获取Image对象并放入选区
+     * @Description 从指定文件获取Image对象并放入选区
      * @param file file
      * @return  生成的选区
      */

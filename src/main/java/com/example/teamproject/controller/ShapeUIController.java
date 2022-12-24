@@ -8,7 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
-
+/**
+ * @Description ShapeUIController
+ * @Author  CZX CR
+ * @Date    2022.12.15
+ **/
 public class ShapeUIController {
 
     @FXML
@@ -16,21 +20,29 @@ public class ShapeUIController {
 
     @FXML
     private CheckBox FillShapeCheckBox;
-
-    //画笔粗细滑动条
+    /**
+     * @Description 画笔粗细滑动条
+     */
     @FXML
     protected Slider PenWidthSlider;
-    //画笔粗细宽度显示标签
+    /**
+     * @Description 画笔粗细宽度显示标签
+     */
     @FXML
     protected Label PenWidthLabel;
-    //画笔浓度滑动条
+    /**
+     * @Description 画笔浓度滑动条
+     */
     @FXML
     protected Slider PenOpacitySlider;
-    //画笔浓度显示标签
+    /**
+     * @Description 画笔浓度显示标签
+     */
     @FXML
     protected Label PenOpacityLabel;
-
-    //绘图主控的引用
+    /**
+     * @Description 绘图主控的引用
+     */
     protected MainDrawingController mdc = MainDrawingController.getMDC();
 
     @FXML
@@ -78,8 +90,7 @@ public class ShapeUIController {
     }
 
     /**
-     * 颜色选择器被操作
-     * 画笔的颜色选择器
+     * @Description 颜色选择器被操作,画笔的颜色选择器
      */
     @FXML
     protected void OnShapeColorPickerSet(){
@@ -93,7 +104,7 @@ public class ShapeUIController {
     }
 
     /**
-     * 切换是否为填充态
+     * @Description 切换是否为填充态
      */
     @FXML
     protected void OnFillShapeCheckBoxSet(){

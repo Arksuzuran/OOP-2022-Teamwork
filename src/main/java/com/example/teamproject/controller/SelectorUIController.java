@@ -19,9 +19,11 @@ import java.io.File;
  * @Date    2022.12.15
  **/
 public class SelectorUIController {
-
+    /**
+     * @Description 选区的选色器
+     */
     @FXML
-    protected ColorPicker RegionColorPicker;//选区的选色器
+    protected ColorPicker RegionColorPicker;
 
     @FXML
     protected CheckBox SelectSaveCheckBox;
@@ -29,11 +31,13 @@ public class SelectorUIController {
     protected CheckBox SelectLineCheckBox;
     @FXML
     protected CheckBox SelectMovableCheckBox;
-    //绘图主控的引用
+    /**
+     * @Description 绘图主控的引用
+     */
     protected MainDrawingController mdc = MainDrawingController.getMDC();
 
     /**
-     * 选择选区笔的按钮
+     * @Description 选择选区笔的按钮
      */
     @FXML
     protected void onSelectorButtonClick(){
@@ -42,7 +46,7 @@ public class SelectorUIController {
         }
     }
     /**
-     * 选区的颜色填充
+     * @Description 选区的颜色填充
      */
     public void fillRegion(){
         Color color = RegionColorPicker.getValue();
@@ -66,7 +70,7 @@ public class SelectorUIController {
     }
 
     /**
-     * 为选区填充指定颜色
+     * @Description 为选区填充指定颜色
      */
     @FXML
     protected void OnRegionFillButtonClick(){
@@ -78,7 +82,7 @@ public class SelectorUIController {
     }
 
     /**
-     * 导入图片并生成选区
+     * @Description 导入图片并生成选区
      */
     @FXML
     protected void onImportImageButtonClock(){
@@ -112,7 +116,7 @@ public class SelectorUIController {
     }
 
     /**
-     * 确认选区
+     * @Description 确认选区
      */
     @FXML
     protected void OnRegionSelectedButtonClick(){
@@ -126,7 +130,7 @@ public class SelectorUIController {
     }
 
     /**
-     * 选区不保留（松手即确定选区）
+     * @Description 选区不保留（松手即确定选区）
      */
     @FXML
     protected void OnSelectSaveCheckBoxChanged(){
@@ -141,7 +145,7 @@ public class SelectorUIController {
     }
 
     /**
-     * 选区边界线不跟随
+     * @Description 选区边界线不跟随
      */
     @FXML
     protected void OnSelectLineCheckBoxChanged(){
@@ -155,7 +159,7 @@ public class SelectorUIController {
         }
     }
     /**
-     * 选区不移动
+     * @Description 选区不移动
      */
     @FXML
     protected void OnSelectMovableCheckBoxChanged(){

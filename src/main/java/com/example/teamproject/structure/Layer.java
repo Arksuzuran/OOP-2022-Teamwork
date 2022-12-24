@@ -21,27 +21,40 @@ import java.util.ArrayList;
 public class Layer{
 
     private MainDrawingController mdc = MainDrawingController.getMDC();
-
-    //该layer在UI中的控制类
+    /**
+     * @Description 该layer在UI中的控制类
+     **/
     public LayerUIController layerUIController;
-    //最顶层的效果画布
+    /**
+     * @Description 最顶层的效果画布
+     **/
     final protected Canvas mainEffectCanvas;
     final protected GraphicsContext mainEffectGc;
-    //效果画布 用以显示绘图时的提示效果
+    /**
+     * @Description 效果画布 用以显示绘图时的提示效果
+     **/
     final protected Canvas effectCanvas;
     final protected GraphicsContext effectGc;
-    //画布
+    /**
+     * @Description 画布
+     **/
     final protected Canvas canvas;
     final protected GraphicsContext gc;
-    //图层命名
+    /**
+     * @Description 图层命名
+     **/
     protected String layerName;
-
-    //存储对图层的操作
+    /**
+     * @Description 存储对图层的操作
+     **/
     final private ArrayList<Image> opList = new ArrayList<>();
-    //分别存储当前操作的位置 和操作数组的上限
+    /**
+     * @Description 分别存储当前操作的位置 和操作数组的上限
+     **/
     private int pos;
-
-    //当前图层是否可见
+    /**
+     * @Description 当前图层是否可见
+     **/
     private boolean isVisible = true;
 
     public Layer(Canvas canvas, Canvas effectCanvas, Canvas mainEffectCanvas, LayerUIController layerUIController){
@@ -87,7 +100,7 @@ public class Layer{
 
 
     /**
-     * 将sourceCanvas的内容draw到本图层的canvas上面，保证canvas尺寸一致
+     * @Description 将sourceCanvas的内容draw到本图层的canvas上面，保证canvas尺寸一致
      * @param sourceCanvas  内容来源的图层
      */
     public void updateCanvasFromSourceCanvas(Canvas sourceCanvas){
@@ -103,7 +116,7 @@ public class Layer{
     }
 
     /**
-     * 利用image重新绘制effectCanvas
+     * @Description 利用image重新绘制effectCanvas
      * @param x 新图案左上角的坐标x
      * @param y 新图案左上角的坐标y
      * @param image 要绘制的新图案
@@ -117,7 +130,7 @@ public class Layer{
     }
 
     /**
-     * 利用selectedRegion重新绘制effectCanvas
+     * @Description 利用selectedRegion重新绘制effectCanvas
      * @param selectedRegion    选区
      * @param mergeToCanvas     是否复制给主画布
      */
@@ -146,8 +159,7 @@ public class Layer{
     }
 
     /**
-     * 画笔在对选区操作完成后调用
-     * 利用当前effectCanvas里的内容 反向写回selectedRegion的colorRegion数组
+     * @Description 画笔在对选区操作完成后调用,利用当前effectCanvas里的内容 反向写回selectedRegion的colorRegion数组
      */
     public void updateColorRegionByEffectCanvas(){
         SelectedRegion selectedRegion = SelectorBrush.getSelectorBrush().getSelectedRegion();
@@ -198,15 +210,15 @@ public class Layer{
 //        this.image = image;
 //        mdc.updateImageView();
 //    }
-
-    //设置图层名称
+    /**
+     * @Description 设置图层名称
+     **/
     public void setLayerName(String s){
         layerName = s;
     }
 
     /**
-     * 在图层被更改后调用
-     * 以image形式保存当前状态，以便于回退
+     * @Description 在图层被更改后调用,以image形式保存当前状态，以便于回退
      */
     public void saveOp(){
         Image image = ImageFormConverter.canvasToImage(canvas);
@@ -219,7 +231,7 @@ public class Layer{
     }
 
     /**
-     * 撤回该图层的修改
+     * @Description 撤回该图层的修改
      */
     public boolean undoOp(){
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -238,8 +250,7 @@ public class Layer{
     }
 
     /**
-     * 撤回 撤回对图层的修改
-     * 前提是
+     * @Description 撤回 撤回对图层的修改
      */
     public boolean RedoOp(){
 

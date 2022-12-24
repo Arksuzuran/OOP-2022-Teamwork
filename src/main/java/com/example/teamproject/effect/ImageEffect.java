@@ -11,17 +11,17 @@ import java.awt.image.BufferedImage;
 
 /**
  * @Description 用于直接处理Mat的工具类
-     * @Author  ZDW
+ * @Author  ZDW
  * @Date    2022.12.14
  **/
 public class ImageEffect {
+    static SelectedRegion selectedRegion = SelectorBrush.getSelectorBrush().getSelectedRegion();
+    public static Mat originalCopy = null;
     /**
-     * 获取mat的反色图像（255-x）
+     * @Description 获取mat的反色图像（255-x）
      * @param mat 要反色处理的图像
      * @return 反色处理完成的图像
      */
-    static SelectedRegion selectedRegion = SelectorBrush.getSelectorBrush().getSelectedRegion();
-    public static Mat originalCopy = null;
     public static Mat reverseColorMat(Mat mat){
         Mat dst = new Mat(mat.size(), mat.type());
 
@@ -39,10 +39,9 @@ public class ImageEffect {
         }
         return dst;
     }
-    /*
-        contrast: 1.0 - 3.0
-        brightness: 0 - 100
-    */
+    /**
+     * @Description contrast: 1.0 - 3.0  brightness: 0 - 100
+     */
     private static byte saturate(double val) {
         int iVal = (int) Math.round(val);
         iVal = Math.min(Math.max(iVal, 0), 255);
@@ -79,10 +78,8 @@ public class ImageEffect {
         dst.put(0, 0, dstData);
         return dst;
     }
-
-    /*
-    非线性地处理亮度，让图片不会过暗或者过曝
-    gamma > 0
+    /**
+     * @Description 非线性地处理亮度，让图片不会过暗或者过曝,gamma > 0
      */
     public static Mat gammaCorrection(Mat mat, double gamma){
         Mat lookUpTable = new Mat(1, 256, CvType.CV_8U);

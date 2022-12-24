@@ -6,8 +6,8 @@ import org.opencv.core.Mat;
 
 /**
  * @Description TODO
- * @Author
- * @Date
+ * @Author CZX
+ * @Date 2022.12.13
  **/
 public class GammaCorrectionEffect implements Effect{
     @Override

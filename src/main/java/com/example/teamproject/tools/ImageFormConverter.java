@@ -25,7 +25,7 @@ import java.nio.ByteBuffer;
 
 /**
  * @Description 工具类，实现Image、Mat、Canvas的互相转化，Canvas是前端对象，Mat是后端对象用于具体的图像处理
- * @Author  Melchoirr
+ * @Author  ZDW
  * @Date    2022.12.4
  **/
 
@@ -53,7 +53,7 @@ public class ImageFormConverter {
 //    }
 
     /**
-     * 将image转换为bufferedImage
+     * @Description 将image转换为bufferedImage
      * @param image 要转换的image
      * @return  转换完的bufferedImage
      */
@@ -67,7 +67,7 @@ public class ImageFormConverter {
     }
 
     /**
-     * 将mat转换为bufferedImage
+     * @Description 将mat转换为bufferedImage
      * @param matrix mat
      * @param fileExtension 文件扩展格式，例如.jpg
      * @return bufferedImage
@@ -88,7 +88,7 @@ public class ImageFormConverter {
     }
 
     /**
-     * BufferedImage转image
+     * @Description BufferedImage转image
      * @param bufferedImage bf
      * @return image
      */
@@ -101,7 +101,7 @@ public class ImageFormConverter {
         return image;
     }
     /**
-     * 将bufferedImage转换为mat
+     * @Description 将bufferedImage转换为mat
      * @param original bf
      * @param imgType   bf的格式 4通道32位
      * @param matType   mat的格式 4通道32位
@@ -138,10 +138,10 @@ public class ImageFormConverter {
 
 
     /**
-     * 创建指定高和宽的黑底空图片
+     * @Description 创建指定高和宽的黑底空图片
      * @param width 宽
      * @param height    高
-     * @return
+     * @return Image
      */
     public static Image newBlankImage(int width, int height){
         Mat mat = new Mat(height, width, CvType.CV_8UC4);
@@ -149,10 +149,10 @@ public class ImageFormConverter {
     }
 
     /**
-     * 将两个image对象合并 返回新的image
+     * @Description 将两个image对象合并 返回新的image
      * @param image1 要合并的image
      * @param image2 要合并的image（二者不分先后）
-     * @return
+     * @return Image
      */
     public static Image mergeImages(Image image1, Image image2){
         if(image1!=null && image2!=null){
@@ -169,10 +169,10 @@ public class ImageFormConverter {
         return null;
     }
     /**
-     * 将两个image对象合并 返回新的mat
+     * @Description 将两个image对象合并 返回新的mat
      * @param mat1 要合并的mat
      * @param mat2 要合并的mat（二者不分先后）
-     * @return
+     * @return mat
      */
     public static Mat mergeMat(Mat mat1, Mat mat2){
         if(mat1!=null && mat2!=null){
@@ -186,7 +186,7 @@ public class ImageFormConverter {
 
 
     /**
-     * 将Canvas对象转换为Image对象 该image对象保持a通道
+     * @Description 将Canvas对象转换为Image对象 该image对象保持a通道
      * @param canvas    要转的canvas
      * @return  转换好的Image
      */
@@ -196,9 +196,9 @@ public class ImageFormConverter {
         WritableImage writableImage = new WritableImage((int)(pixelScale*canvas.getWidth()), (int)Math.rint(pixelScale*canvas.getHeight()));
 
         SnapshotParameters spa = new SnapshotParameters();
-        /**
-         * 注意！
-         * 这一步 设置透明保持a通道 不可省略
+        /*
+          注意！
+          这一步 设置透明保持a通道 不可省略
          */
         spa.setFill(Color.TRANSPARENT);
 

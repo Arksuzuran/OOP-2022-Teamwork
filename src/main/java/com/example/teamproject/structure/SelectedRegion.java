@@ -13,15 +13,25 @@ import java.awt.geom.GeneralPath;
 public class SelectedRegion {
 
     public WritableImage selectedImage;
-    private final boolean[][] inRegion;//标记当前坐标的像素是否在选区内
-
-    private final Color[][] colorRegion;//选区内的颜色数组
-
-    public GeneralPath polygon;//选区的边界
-
-    //该选区应当处于的位置
+    /**
+     * @Description 标记当前坐标的像素是否在选区内
+     **/
+    private final boolean[][] inRegion;
+    /**
+     * @Description 选区内的颜色数组
+     **/
+    private final Color[][] colorRegion;
+    /**
+     * @Description 选区的边界
+     **/
+    public GeneralPath polygon;
+    /**
+     * @Description 该选区应当处于的位置
+     **/
     public double x, y;
-    //该选区矩形域的尺寸
+    /**
+     * @Description 该选区矩形域的尺寸
+     **/
     public double sizeX, sizeY;
     public SelectedRegion(boolean[][] inRegion, Color[][] colorRegion,
                           double x, double y, double sizeX, double sizeY, GeneralPath polygon){
@@ -35,7 +45,7 @@ public class SelectedRegion {
     }
 
     /**
-     * 查询点是否在区域内 要求使用相对坐标
+     * @Description 查询点是否在区域内 要求使用相对坐标
      * @param x x
      * @param y y
      * @return  在区域内
@@ -47,7 +57,7 @@ public class SelectedRegion {
     }
 
     /**
-     * 查询点是否在区域内 要求使用绝对坐标
+     * @Description 查询点是否在区域内 要求使用绝对坐标
      * @param x x
      * @param y y
      * @return  在区域内
@@ -61,7 +71,7 @@ public class SelectedRegion {
     }
 
     /**
-     *  设置当前选区所处的位置
+     *  @Description 设置当前选区所处的位置
      */
     public void setPosition(double x, double y){
         this.x = x;
