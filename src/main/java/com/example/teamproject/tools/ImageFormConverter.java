@@ -53,7 +53,7 @@ public class ImageFormConverter {
 //    }
 
     /**
-     * @Description 将image转换为bufferedImage
+     * 将image转换为bufferedImage
      * @param image 要转换的image
      * @return  转换完的bufferedImage
      */
@@ -67,7 +67,7 @@ public class ImageFormConverter {
     }
 
     /**
-     * @Description 将mat转换为bufferedImage
+     * 将mat转换为bufferedImage
      * @param matrix mat
      * @param fileExtension 文件扩展格式，例如.jpg
      * @return bufferedImage
@@ -88,7 +88,7 @@ public class ImageFormConverter {
     }
 
     /**
-     * @Description BufferedImage转image
+     * BufferedImage转image
      * @param bufferedImage bf
      * @return image
      */
@@ -101,7 +101,7 @@ public class ImageFormConverter {
         return image;
     }
     /**
-     * @Description 将bufferedImage转换为mat
+     * 将bufferedImage转换为mat
      * @param original bf
      * @param imgType   bf的格式 4通道32位
      * @param matType   mat的格式 4通道32位
@@ -138,7 +138,7 @@ public class ImageFormConverter {
 
 
     /**
-     * @Description 创建指定高和宽的黑底空图片
+     * 创建指定高和宽的黑底空图片
      * @param width 宽
      * @param height    高
      * @return Image
@@ -149,7 +149,7 @@ public class ImageFormConverter {
     }
 
     /**
-     * @Description 将两个image对象合并 返回新的image
+     * 将两个image对象合并 返回新的image
      * @param image1 要合并的image
      * @param image2 要合并的image（二者不分先后）
      * @return Image
@@ -169,7 +169,7 @@ public class ImageFormConverter {
         return null;
     }
     /**
-     * @Description 将两个image对象合并 返回新的mat
+     * 将两个image对象合并 返回新的mat
      * @param mat1 要合并的mat
      * @param mat2 要合并的mat（二者不分先后）
      * @return mat
@@ -186,7 +186,7 @@ public class ImageFormConverter {
 
 
     /**
-     * @Description 将Canvas对象转换为Image对象 该image对象保持a通道
+     * 将Canvas对象转换为Image对象 该image对象保持a通道
      * @param canvas    要转的canvas
      * @return  转换好的Image
      */

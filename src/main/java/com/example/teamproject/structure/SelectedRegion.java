@@ -14,23 +14,23 @@ public class SelectedRegion {
 
     public WritableImage selectedImage;
     /**
-     * @Description 标记当前坐标的像素是否在选区内
+     * 标记当前坐标的像素是否在选区内
      **/
     private final boolean[][] inRegion;
     /**
-     * @Description 选区内的颜色数组
+     * 选区内的颜色数组
      **/
     private final Color[][] colorRegion;
     /**
-     * @Description 选区的边界
+     * 选区的边界
      **/
     public GeneralPath polygon;
     /**
-     * @Description 该选区应当处于的位置
+     * 该选区应当处于的位置
      **/
     public double x, y;
     /**
-     * @Description 该选区矩形域的尺寸
+     * 该选区矩形域的尺寸
      **/
     public double sizeX, sizeY;
     public SelectedRegion(boolean[][] inRegion, Color[][] colorRegion,
@@ -45,7 +45,7 @@ public class SelectedRegion {
     }
 
     /**
-     * @Description 查询点是否在区域内 要求使用相对坐标
+     * 查询点是否在区域内 要求使用相对坐标
      * @param x x
      * @param y y
      * @return  在区域内
@@ -57,7 +57,7 @@ public class SelectedRegion {
     }
 
     /**
-     * @Description 查询点是否在区域内 要求使用绝对坐标
+     * 查询点是否在区域内 要求使用绝对坐标
      * @param x x
      * @param y y
      * @return  在区域内
@@ -71,7 +71,7 @@ public class SelectedRegion {
     }
 
     /**
-     *  @Description 设置当前选区所处的位置
+     *  设置当前选区所处的位置
      */
     public void setPosition(double x, double y){
         this.x = x;

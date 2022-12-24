@@ -18,7 +18,7 @@ public class ImageEffect {
     static SelectedRegion selectedRegion = SelectorBrush.getSelectorBrush().getSelectedRegion();
     public static Mat originalCopy = null;
     /**
-     * @Description 获取mat的反色图像（255-x）
+     * 获取mat的反色图像（255-x）
      * @param mat 要反色处理的图像
      * @return 反色处理完成的图像
      */
@@ -40,7 +40,7 @@ public class ImageEffect {
         return dst;
     }
     /**
-     * @Description contrast: 1.0 - 3.0  brightness: 0 - 100
+     *  contrast: 1.0 - 3.0  brightness: 0 - 100
      */
     private static byte saturate(double val) {
         int iVal = (int) Math.round(val);
@@ -79,7 +79,7 @@ public class ImageEffect {
         return dst;
     }
     /**
-     * @Description 非线性地处理亮度，让图片不会过暗或者过曝,gamma > 0
+     * 非线性地处理亮度，让图片不会过暗或者过曝,gamma > 0
      */
     public static Mat gammaCorrection(Mat mat, double gamma){
         Mat lookUpTable = new Mat(1, 256, CvType.CV_8U);

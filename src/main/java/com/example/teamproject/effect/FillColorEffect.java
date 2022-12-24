@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 public class FillColorEffect {
 
     /**
-     * @Description 给选区染色
+     *  给选区染色
      * @param selectedRegion    选区
      * @param color 要染的颜色
      */
@@ -33,7 +33,7 @@ public class FillColorEffect {
         }
     }
     /**
-     * @Description 给选区外的区域染色
+     * 给选区外的区域染色
      * @param selectedRegion    选区
      * @param color 要染的颜色
      * @param canvas    画布

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class Open {
 
     /**
-     * @Description 从指定文件获取Image对象
+     * 从指定文件获取Image对象
      * @param file  file
      * @return  读取到的图片
      */
@@ -73,7 +73,7 @@ public class Open {
     }
 
     /**
-     * @Description 打开任意格式的文件
+     * 打开任意格式的文件
      * @return  文件的file
      */
     public static File getInputBMPFile(){
@@ -89,7 +89,7 @@ public class Open {
         return file;
     }
     /**
-     * @Description 从指定文件获取Image对象并放入选区
+     * 从指定文件获取Image对象并放入选区
      * @param file file
      * @return  生成的选区
      */
